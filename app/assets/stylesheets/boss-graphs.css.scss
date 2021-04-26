@@ -1,0 +1,37 @@
+/* THIS CONTROLS THE WAY THE GRAPHS IN THE PRO ADMIN DASHBOARD LOOK. */
+
+
+.dr-graph {
+  .axis path {
+    display: none;
+  }
+  .axis line {
+    shape-rendering: auto;
+    stroke: #000;
+  }
+  .axis .minor line {
+    stroke: #777;
+    stroke-dasharray: 2,2;
+  }
+  .bar {
+    stroke: $primaryColor;
+    fill: $primaryColor;
+  }
+  .bar:hover {
+    fill: #2ecc71;
+    transition: all 0.4s ease-in-out;
+  }
+}
+div.graph-tooltip {
+    position: absolute;
+    text-align: center;
+    width: 86px;
+
+    height: 28px;
+    padding: 8px 2px 2px 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}

@@ -1,0 +1,57 @@
+
+.pledge(set-fields)
+  %h2.blue 
+    {{sponsorType == 'lunch' ? 'Yum!' : 'How Generous!'}}
+  .vendor-info
+    %img.vendor(ng-src="{{vendor.logo}}")
+    %label {{vendor.name}}
+
+
+  %form.form-horizontal#pledgeForm(role="form" name="pledgeForm" ng-submit="doPledge(pledgeForm)")
+   
+    .row
+      .col-lg-5.col-md-5.col-sm-5.col-xs-12
+        .form-group.p-budget
+          .dolla
+            $
+          %label.block(for="pAmount") Set Your Budget!
+          %input#pAmount.form-control.budget(type="number" min="10" name="pAmount" ng-model="pAmount" required data-numeric)
+      .col-lg-offset-1.col-lg-6.col-md-offset-1.col-md-6.col-sm-offset-1.col-sm-6.col-xs-12(ng-if="vendor && sponsorType == 'lunch'")
+        %p.tgt-info We recommend about ${{vendor.recommended}} per member for {{vendor.name}}.  Given your current group size, that's {{getRecommendedBudget()|currency}} per month.
+      .col-lg-offset-1.col-lg-6(ng-if="vendor && sponsorType == 'charity'")
+        %p.tgt-info This is the amount of money you wish to donate to {{vendor.name}}.
+    .row
+      .col-lg-5.col-md-5.col-sm-5.col-xs-12
+        .form-group
+          %label.block(for="target") Set Your Goal
+          .clearfix
+            %label.blue.big.pull-left
+              Count It Score: 
+            %input#target.form-control.target.pull-right(type="text" name="target" ng-model="target" placeholder="{{ciAverage}}" data-numeric)
+      .col-lg-offset-1.col-lg-6.col-md-offset-1.col-md-6.col-sm-offset-1.col-sm-6.col-xs-12
+        %p.tgt-info The group must achieve this score over the month to win the prize. The default is our system average.
+    .row
+      .col-lg-5.col-md-5.col-sm-5.col-xs-12
+        .form-group.select-height
+          %label.block(for="recurrence") Rinse, Repeat!
+          .select.recurrence
+            %select#recurrence.form-control(name="recurrence" ng-model="recurrence" required )
+              %option(value="monthly") Monthly
+              %option(value="once") One Time
+      
+      .col-lg-offset-1.col-lg-6.col-md-offset-1.col-md-6.col-sm-offset-1.col-sm-6.col-xs-12
+        %p.tgt-info Consistency pays off.  It takes a while to establish a great culture.
+
+    .row.buttons
+      .col-lg-5.col-md-5.col-sm-5.col-xs-12
+        .form-group
+          .btn.btn-lg.btn-default.btn-ci(ng-click="setStep(1)")
+            %i.fa.fa-arrow-circle-left.pad-right
+            Back
+          %button.btn.btn-lg.btn-primary.btn-ci.create(type="submit" ng-class="{disabled: pledgeForm.$invalid  || !vendor}")
+            Next
+            %i.fa.fa-arrow-circle-right
+        %p.bg-danger.error.animated.fadeIn(ng-if="pledgeForm.pAmount.$error.min")
+          Your pledge amount must be at least $10
+      .col-lg-offset-1.col-lg-6.col-md-offset-1.col-md-6.col-sm-offset-1.col-sm-6.col-xs-12
+        %p.tgt-info Don't panic.  Nobody is charging you yet!

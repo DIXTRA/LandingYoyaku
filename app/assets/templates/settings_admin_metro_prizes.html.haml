@@ -1,0 +1,122 @@
+%h1 Metro Prizes
+
+.row
+  .col-md-12
+
+    %h4
+      Metro Prizes
+      %button.pull-right.btn.btn-xs.btn-default.btn-ci(ng-click="refresh()")
+        %i.fa.fa-refresh
+
+    %p(ng-show="prizes.length <= 0")
+      None found!
+
+    %div.clearfix
+    .row(style="border-bottom: 1px solid #000;" ng-repeat="prize in prizes")
+      .col-md-12
+        .row
+          .col-md-6
+            %span.sys-label SLUG
+            %span.komputer {{ prize.sl }}
+          .col-md-6
+            %span.sys-label CH
+            %span.komputer {{ prize.c }}
+        .row
+          .col-md-2
+            %span.sys-label description
+          .col-md-10
+            %span.komputer {{ prize.d }}
+        .row
+          .col-md-2
+            %span.sys-label group goal
+          .col-md-10
+            %span.komputer {{ prize.t }}
+        .row
+          .col-md-2
+            %span.sys-label cause
+          .col-md-1
+            %img(width="32" ng-src="{{prize.ci}}")
+          .col-md-9
+            %span.komputer {{ prize.rd }}
+        .row
+          .col-md-10.col-md-offset-2
+            %span.komputer {{prize.ci}}
+        .row
+          .col-md-2
+            %span.sys-label top group
+          .col-md-1
+            %img(width="32" ng-src="{{prize.i}}")
+          .col-md-9
+            %span.komputer {{prize.md}}
+        .row
+          .col-md-10.col-md-offset-2
+            %span.komputer {{prize.i}}
+        .row
+          .col-md-4
+            %span.sys-label additional sponsors
+        .row(ng-repeat="sponsor in prize.s")
+          .col-md-1.col-md-offset-1
+            %span.sys-label ({{$index + 1}})
+          .col-md-1
+            %img(width="48" ng-src="{{sponsor}}")
+          .col-md-9
+            %span.komputer {{sponsor}}
+        .row(style="padding-bottom: 12px;")
+          .col-md-1.col-md-offset-11
+            %button.btn.btn-default.btn-ci.btn-sm(ng-click="editPrize($index)")Edit
+
+
+
+.row
+  .col-md-12
+    %h4 create
+
+    %form.form-horizontal(role="form")
+      %form-group
+        %label.col-sm-4.control-label(for="slug") SLUG
+        .col-sm-8
+          %input.form-control#slug(type="text" ng-model="newp.sl")
+
+      %form-group
+        %label.col-sm-4.control-label(for="deet") DEET
+        .col-sm-8
+          %input.form-control#deet(type="text" ng-model="newp.c")
+
+      %form-group
+        %label.col-sm-4.control-label(for="desc") DESC
+        .col-sm-8
+          %textarea.form-control#desc(ng-model="newp.d")
+
+      %form-group
+        %label.col-sm-4.control-label(for="target") TEAM GOAL
+        .col-sm-8
+          %input.form-control#target(type="text" ng-model="newp.t" placeholder="70")
+
+      %form-group
+        %label.col-sm-4.control-label(for="cause") CAUSE IMG
+        .col-sm-8
+          %input.form-control#cause(type="text" ng-model="newp.ci" placeholder="http://...")
+
+      %form-group
+        %label.col-sm-4.control-label(for="rdesc") CAUSE DESC
+        .col-sm-8
+          %textarea.form-control#rdesc(ng-model="newp.rd")
+
+      %form-group
+        %label.col-sm-4.control-label(for="topimg") TOP TEAM IMG
+        .col-sm-8
+          %textarea.form-control#topimg(ng-model="newp.i" placeholder="http://...")
+
+      %form-group
+        %label.col-sm-4.control-label(for="mdesc") TOP TEAM DESC
+        .col-sm-8
+          %textarea.form-control#mdesc(ng-model="newp.md")
+
+      %form-group
+        %label.col-sm-4.control-label(for="spon") SPONSOR IMG URLS
+        .col-sm-8
+          %textarea.form-control#spon(ng-model="newp.s" rows="5")
+
+      %form-group
+        .col-sm-offset-4.col-sm-8
+          %button.btn.btn-primary.btn-ci(ng-click="createPrize()") Create/Update

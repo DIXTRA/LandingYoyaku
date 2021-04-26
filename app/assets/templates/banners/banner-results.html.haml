@@ -1,0 +1,35 @@
+%div(ng-if="team")
+  %h3.banner-callout-title The Challenge is Over.  Long live the challenge!
+  %p(ng-show="lastMetroChallenge && (lastMetroChallenge.score != null)")
+    Congratulations, last month your group really rallied and placed
+    %strong {{lastMetroChallenge.rank|ordinal}}
+    in your metro area with a score of
+    %strong {{lastMetroChallenge.score}}.
+
+  .row
+    .col-md-6
+      .btn.btn-ci.btn-primary.btn-block(banner-result)
+        %span(ng-show="user.of.nitro")
+          See
+        %span(ng-show="!user.of.nitro")
+          Set
+        {{getNextMonthName()}} Prizes
+       
+
+  .row.winner(ng-if="false")
+    .col-xs-12
+      %p
+        The next challenge starts in
+        %timer(end-time="getNextChallengeTime(challenge.startTime)")
+          {{ddays}} D : {{hhours}} H : {{mminutes}} M : {{sseconds}} S
+
+
+    -# Challenge is over AND the team has competed in a challenge previously AND not the users team
+    -#
+%div(ng-if="!team")
+  %h3.banner-callout-title The Challenge is over.  Long live the challenge!
+  %p
+    The next challenge starts in:
+    .big-timer
+      %timer(end-time="getNextChallengeTime(challenge.startTime)")
+        {{ddays}} D : {{hhours}} H : {{mminutes}} M : {{sseconds}} S

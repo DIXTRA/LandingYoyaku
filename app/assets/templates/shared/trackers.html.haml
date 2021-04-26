@@ -1,0 +1,26 @@
+#tracking-devices
+  .row
+    .col-md-12
+      .section-label.center
+        Supported Devices and Apps
+      .row
+        .col-md-4.col-xs-4.center.device.pull-left(ng-repeat="device in devices" id="tracker-{{device.name}}")
+          .name
+            {{device.display_name}} 
+          .logo.block(ng-if="device.connected == false || device.connected == undefined" )
+            %img(ng-src="{{device.logo}}" style="height:100px;")
+            %div
+              %a.btn.btn-default.btn-ci.btn-block.connect(ng-href="{{device.auth_link}}?user_uid={{user.nt}}&callback_destination=onboard" analytics-on analytics-category="tracker" analytics-event="connect" analytics-label="{{device.display_name}}" ng-if="device.name != 'ios'")
+                Connect
+              %a.btn.btn-default.btn-ci.btn-block.connect(ng-href="{{device.purchase_link}}" target="_blank" analytics-on analytics-category="tracker" analytics-event="connect" analytics-label="{{device.display_name}}" ng-if="device.name == 'ios'")
+                Connect 
+          .logo.block(ng-if="device.connected == true" )
+            %img(ng-src="{{device.logo}}" style="height:100px;")
+            %div(ng-hide="confirmDisconnect == 1")
+              .btn.btn-primary.btn-ci.btn-block.connect.point(ng-click="confirmDisconnect = 1")
+                Disconnect
+            .confirm(ng-show="confirmDisconnect == 1")
+              %p
+                Are you sure?
+              %button.btn-ci.btn.btn-primary(ng-click="disconnectTracker(device.name, device.id)" analytics-on analytics-category="tracker" analytics-event="disconnect" analytics-label="{{device.display_name}}")  Proceed
+              %button.btn-ci.btn.btn-default(ng-click="confirmDisconnect = 0" ) Cancel

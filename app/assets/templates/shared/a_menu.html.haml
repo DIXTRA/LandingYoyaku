@@ -1,0 +1,52 @@
+%ul.list-group.nav-group#orgs
+  /%li.list-group-item.nav-group-header Pages
+  %a.list-group-item(href="#/team" ng-class="{'active' : path == '/team'}")
+    Home
+    %span.marker.pull-right
+      %i.fa.fa-chevron-right
+  %a.list-group-item(href="#/metro/{{user.of.msl}}" ng-class="{'active' : path == '/metro/{{user.of.msl}}'}")
+    Metro Area
+    %span.marker.pull-right
+      %i.fa.fa-chevron-right
+  %a.list-group-item(href="#/world" ng-class="{'active' : path == '/world'}")
+    World
+    %span.marker.pull-right
+      %i.fa.fa-chevron-right
+
+%ul.list-group.nav-group(ng-show="path == '/team' || path.includes('/office') || path == '/world' || path.includes('/metro')")
+  /%li.list-group-item.nav-group-header View
+  %a.list-group-item(href="" ng-class="{'active' : leaderboardView.select == 'indies'}" ng-click="leaderboardView.select = 'indies'" ng-if="leaderboardView.indieBoardName != null")
+    {{leaderboardView.indieBoardName}}
+    %span.pull-right(ng-show="leaderboardView.select == 'indies'")
+      %i.fa.fa-dot-circle-o
+    %span.pull-right(ng-hide="leaderboardView.select == 'indies'")
+      %i.fa.fa-circle-o
+  %a.list-group-item(href="" ng-class="{'active' : leaderboardView.select == 'groups'}" ng-click="leaderboardView.select = 'groups'" ng-if="leaderboardView.groupBoardName != null")
+    {{leaderboardView.groupBoardName}}
+    %span.pull-right(ng-show="leaderboardView.select == 'groups'")
+      %i.fa.fa-dot-circle-o
+    %span.pull-right(ng-hide="leaderboardView.select == 'groups'")
+      %i.fa.fa-circle-o
+
+%ul.list-group.nav-group()
+  /%li.list-group-item.nav-group-header View
+  %a.list-group-item(href="" ng-click="leaderboardView.criteria = 'avg'"  ng-class="{'active' : leaderboardView.criteria == 'avg'}"  )
+    Avg
+    %span.pull-right(ng-show="leaderboardView.criteria == 'avg'")
+      %i.fa.fa-dot-circle-o
+    %span.pull-right(ng-hide="leaderboardView.criteria == 'avg'")
+      %i.fa.fa-circle-o
+      
+  %a.list-group-item(href="" ng-click="leaderboardView.criteria = 'hi'"  ng-class="{'active' : leaderboardView.criteria == 'hi'}"  )
+    Best
+    %span.pull-right(ng-show="leaderboardView.criteria == 'hi'")
+      %i.fa.fa-dot-circle-o
+    %span.pull-right(ng-hide="leaderboardView.criteria == 'hi'")
+      %i.fa.fa-circle-o
+
+  %a.list-group-item(href="" ng-click="leaderboardView.criteria = 'imp'" ng-class="{'active' : leaderboardView.criteria == 'imp'}"  )
+    Improvement
+    %span.pull-right(ng-show="leaderboardView.criteria == 'imp'")
+      %i.fa.fa-dot-circle-o
+    %span.pull-right(ng-hide="leaderboardView.criteria == 'imp'")
+      %i.fa.fa-circle-o

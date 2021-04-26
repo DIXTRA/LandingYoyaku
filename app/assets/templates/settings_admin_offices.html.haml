@@ -1,0 +1,49 @@
+%h1 Groups
+
+.row(style="padding-top: 2em;")
+  .col-md-12
+    %table.table.table-condensed
+      %thead
+        %th name
+        %th users
+        %th active
+        %th invite link
+        %th plan
+        %th 1d
+        %th 7d
+        %th month
+        %th /user
+        /%th chats 1d/7d/m
+        %th slack
+        %th hipchat
+        %th del
+        
+      %tbody
+        %tr(ng-repeat="office in offices"
+            ng-mouseenter="hoverRow=$index;"
+            ng-mouseleave="hoverRow=-1;")
+          %td {{ office.n }}
+          %td {{ office.active_users }} 
+          %td {{ office.usercount }}
+          %td
+            %a(ngclipboard data-clipboard-text="{{ office.invite_link }}" ng-click="link_copied_msg(office.n)" )
+              %i.fa.fa-clipboard
+          %td {{ office.planName }} {{ (office.maxUsers > 0) ? '(' + office.maxUsers + ')' : '' }}
+          %td {{ office.loadsDay }}
+          %td {{ office.loadsLast7Days }}
+          %td {{ office.loadsThisMonth }}
+          %td {{ (office.loadsThisMonth / office.active_users) | number:0 }} 
+          
+          %td {{ office.slackOffice }}
+          %td {{ office.hipchatOffice }}
+          
+          /%td {{ office.chatsDay }}/{{ office.chatsLast7Days }}/{{ office.chatsThisMonth }}
+          %td
+            %div
+              %a(ng-click="deleteGroup(office.officeD)" ng-class="")
+                %li.fa.fa-trash
+          /
+            %td
+              %div
+                %a(href ng-click="adminSetsOid(office.nt)" ng-class="{ toolhidden: !(hoverRow == $index) }")
+                  %li.fa.fa-group

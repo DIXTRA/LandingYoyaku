@@ -1,0 +1,161 @@
+/ %div(ng-if="isPro == false && is_basic == true")
+/   %h4 Group does not have a Pro Plan
+
+%div
+  .row.semi-spacious(ng-show="(user.boss && isme && !is_basic)")      
+    .col-md-12
+      .panel.panel-default(style="background-color:white; padding:30px; min-height:225px; height:100%;")
+        %h4 Credit Card
+        %hr
+        %button.btn-ci.btn.btn-default.btn-xs(ng-show="!(changeCard || removeCard)" ng-click="changeCard=true") Change...
+        %button.btn-ci.btn.btn-default.btn-xs(ng-show="cc && !(changeCard || removeCard) && (!origPlan.isValid || origPlan.pe)" ng-click="removeCard=true") Remove
+        .row(ng-show="cc && !changeCard")
+          .col-md-12
+            %span.komputer {{cc.type|uppercase}} / xxxx xxxx xxxx {{ cc.number }}
+            <br />
+            %span.komputer {{ cc.name }}
+            <br />
+            %span.komputer EXP {{ cc.exp }}
+
+        .row(ng-show="removeCard")
+          .alert.alert-danger(role="alert")
+            %p
+              Really remove credit card? Any individual prize you have set will not be fulfilled.
+            %p
+              %button.btn-ci.btn.btn-primary.btn-xs(ng-click="removeCard=false") Cancel
+              %button.btn-ci.btn.btn-default.btn-xs(ng-click="doRemoveCard()") Remove
+
+        .row(ng-show="changeCard")
+          .col-md-12
+            %form#ccForm.form-horizontal.cc(set-fields stripe:form="updateCard"
+              prevalidate="validateCC(ccForm)" name="ccForm" role="form")
+              .form-group
+                .row
+                  .col-md-8
+                    %input.form-control(type="text" size="20" name="ccUser" ng-model="newcard.ccUser"
+                      placeholder="name on card" required)
+              .form-group
+                .row
+                  .col-md-8
+                    %input.form-control(type="text" size="20" data-stripe="number"
+                      placeholder="card number" name="ccNumber" ng-model="newcard.ccNumber" required data-cc)
+                
+              .form-group
+                .row
+                  .col-md-4
+                    %input.form-control.inline-control(type="text" id="ccMonth" size="2" maxlength="2"
+                      data-stripe="exp-month" placeholder="MM" name="ccMonth" ng-model="newcard.ccMonth"
+                      required data-numeric)
+                  .col-md-4
+                    %input.form-control.inline-control(type="text" size="4" maxlength="4"
+                      data-stripe="exp-year" placeholder="YYYY" name="ccYear" ng-model="newcard.ccYear"
+                      required data-numeric)
+              .form-group
+                .row
+                  .col-md-4
+                    %input.form-control.inline-control(type="text" size="20" name="ccUserPhone"
+                      ng-model="newcard.ccPhone"  placeholder="phone number" required)
+                  .col-md-4
+                    %input.form-control.inline-control(type="text" size="4" data-stripe="cvc"
+                      placeholder="CVC" name="ccCvc" ng-model="newcard.ccCvc" required data-cvc)
+              .form-group.buttons
+                %button.btn.btn-sm.btn-default.btn-ci(ng-click="changeCard=false")
+                  Cancel
+                %button#stripe-submit.btn.btn-sm.btn-primary.btn-ci(type="submit" ng-disabled="ccForm.$invalid")
+                  Save
+
+        .row(ng-show="changeCard && newcard.error")
+          .col-md-8
+            .alert.alert-danger(role="alert")
+              %p {{ newcard.error }}
+
+        .row(ng-hide="cc || changeCard")
+          .col-md-12  
+            %br
+            %p
+              None on file.
+
+    /
+      .col-md-4
+        .panel.panel-default(style="background-color:white; padding:30px; height:225px;")
+          %h4 Next Bill
+          %hr
+          .row(ng-show="plan.plan.r == true")
+            .col-md-12
+              %span.sys-label due 
+              <br />
+              %span.komputer {{plan.plan.nextBilling|date}}
+              <br />
+              %span.sys-label amount
+              %span.komputer {{plan.plan.nextCharge|currency}}
+              %span.komputer {{newProCalculatedCost}}
+              %span(ng-show="plan.plan.isPromo") (free trial)
+          .row(ng-show="plan.plan.r == false")
+            .col-md-12
+              %span.sys-label subscription cancelled
+              %br
+              %br
+          %br
+          %br
+  .panel.panel-default(style="background-color:white; padding:30px;")
+    .row
+
+      .col-md-12
+        %h4 Payment History
+        %hr
+      .col-md-10
+        .row(ng-show="invoiceDetail == null")
+          .col-md-12
+            %table.table.table-condensed
+              %thead
+                %th created
+                %th description
+                %th amount
+                %th status
+                %th
+              %tbody
+                %tr(ng-repeat="invoice in invoices")
+                  %td {{ invoice.ts|date:'M/d/yy' }}
+                  %td {{ invoice.d }}
+                  %td {{ invoice.a/100|currency }}
+                  %td {{ invoice.s }} 
+                  %td
+                    %button.btn.btn-default.btn-xs(ng-click="viewInvoice($index)" ng-show="user.boss || user.admin") details
+
+
+        .row(ng-show="invoiceDetail != null")
+          .col-md-12(style="background: #ebffeb;")
+            .row
+              .col-md-12
+                %h4
+                  %button.pull-right.btn.btn-default.btn-xs(ng-click="closeInvoiceDetail()")
+                    %i.fa.fa-times
+                  {{invoiceDetail.d}}
+            .row
+              .col-md-6
+                %span.komputer {{invoiceDetail.ts|date}}
+              .col-md-5.col-md-offset-1
+                %span.sys-label total
+                %span.komputer {{invoiceDetail.a/100|currency}}
+            .row
+              .col-md-6
+                %span.sys-label items
+            .row(ng-repeat="item in invoiceDetail.li")
+              .col-md-6.col-md-offset-1
+                %span.komputer 1 x {{item.d}}
+              .col-md-3
+                %span.komputer {{item.a/100|currency}}
+            .row
+              .col-md-6
+                %span.sys-label card transactions
+            .row(ng-repeat="txn in invoiceDetail.txns")
+              .col-md-4.col-md-offset-1
+                %span.komputer {{txn.date|date:'short'}}
+              .col-md-2
+                %span.komputer {{txn.amount/100|currency}}
+              .col-md-5
+                %span.komputer {{txn.state}}
+            .row
+              .col-md-12
+                %span.sys-label invoice status
+                %span.komputer {{invoiceDetail.s}}

@@ -1,0 +1,25 @@
+%h1 Transactions Admin
+
+%div
+  %h4 Transactions
+  %table.table.table-condensed.table-striped
+    %thead
+      %th timestamp
+      %th payor email
+      %th stripe charge ID
+      %th amount
+      %th status
+    %tbody
+      %tr(ng-repeat="tx in txdata.txns")
+        %td {{tx.t|date:'short'}}
+        %td {{tx.e}}
+        %td {{tx.x}}
+        %td {{tx.a/100|currency}}
+        %td(ng-if="tx.s != 'success'") {{tx.s}} ({{tx.r}})
+        %td(ng-if="tx.s == 'success'") {{tx.s}}
+      %tr
+        %td(colspan="3")
+          %strong Total
+        %td
+          %strong {{txdata.sums.grandTotal/100|currency}}
+        %td

@@ -1,0 +1,85 @@
+%h1 Fulfillment
+
+%div
+  %h4 Open Requests
+  %p(ng-show="openReqs <= 0") None!
+
+
+
+  %div(ng-show="openReqs.length > 0")
+    %ul.list-group(ng-repeat="req in openReqs")
+      %li.list-group-item.list-group-item-success
+        .row
+          .col-md-12.komputer <strong>{{req.id}}</strong>
+        .row
+          .col-md-6
+            %span.small benefactor {{req.benefactor}}
+          .col-md-6
+            %span.small pledge_id {{req.p}}
+      %li.list-group-item
+        .row
+          .col-md-4 opened {{ req.ts|date:'MM/d/yy hh:mm:ss a' }}
+          .col-md-4(ng-show="req.o") owner:{{req.owner}}
+          .col-md-4(ng-hide="req.o") owner: NOBODY
+          .col-md-4 state:{{req.s}}
+      %li.list-group-item
+        .row
+          .col-md-2 vendor {{req.v}}
+          .col-md-10 {{req.d}}
+      %li.list-group-item
+        .row(ng-repeat="rw in req.r")
+          .col-md-12(ng-if="rw.team == undefined")
+            {{$index+1}}. {{rw.name}} &lt;{{rw.email}}&gt; : {{rw.amount==0 ? 'Other' : (rw.amount/100|currency)}}
+          .col-md-12(ng-if="rw.team != undefined")
+            {{$index+1}}. {{rw.name}} &lt;{{rw.email}}&gt ({{rw.team}})
+        .row
+          .col-md-2.col-md-offset-10
+            %a.btn.btn-default.btn-xs(ng-href="/api/freqs/{{req.nt}}.csv") Download CSV
+
+      %li.list-group-item
+        .row(ng-hide="req.a")
+          .col-md-3.minitext
+            <em>no activity</em>
+        .row(ng-repeat="ent in req.a")
+          .col-md-3.komputer {{ent.ts|date:'MM/d/yy hh:mm:ss a'}}
+          .col-md-9.minitext {{ent.what}}
+      %li.list-group-item(ng-show="noteEditor==1")
+        %form.alert.alert-info(role="form")
+          .form-group
+            %label(for="note")add note
+            %input.form-control(type="text" id="note" ng-model="note")
+          %button.btn.btn-primary.btn-xs(type="submit" ng-click="(noteEditor=0); addNote(note, $index, $event)") submit
+          %button.btn.btn-default.btn-xs(type="submit" ng-click="noteEditor=0") cancel
+      %li.list-group-item(ng-show="confirmClose==1")
+        .alert.alert-danger
+          Really close and complete this request ticket? <br />
+          %button.btn.btn-primary.btn-xs(ng-click="(confirmClose=0); closeRequest($index)") Yes, Close
+          %button.btn.btn-default.btn-xs(ng-click="confirmClose=0") No, Cancel
+
+      %li.list-group-item
+        .row
+          .col-md-2.col-md-offset-6
+            %button.btn.btn-default.btn-xs(ng-click="ownIt($index)") Take Ownership
+          .col-md-2
+            %button.btn.btn-default.btn-xs(ng-click="noteEditor=1") Add Note
+          .col-md-2
+            %button.btn.btn-default.btn-xs(ng-click="confirmClose=1") Complete
+
+%div
+  %h4 Closed Requests
+  %p(ng-show="closedReqs <= 0") None!
+
+  %table.table.table-condensed.table-striped(ng-show="closedReqs.length > 0")
+    %thead
+      %th id
+      %th reward
+      %th count
+      %th created
+      %th completed
+    %tbody
+      %tr(ng-repeat="req in closedReqs")
+        %td {{ req.id }}
+        %td {{ req.d }}
+        %td {{ req.r.length }}
+        %td {{ req.ts|date:'short' }}
+        %td {{ req.cts|date:'short' }} ({{req.owner}})

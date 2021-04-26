@@ -1,0 +1,46 @@
+
+.hidden-md.hidden-lg
+
+  .row(style="margin-top: 15px;")
+
+    .col-md-12.col-sm-4.col-xs-4
+      .dropdown.dropdown-group
+        %a.btn.btn-default.btn-dropdown(ng-class="{'active': path == '/me/activity' || path == '/me'}"  href="#/me/activity")
+          Activities
+
+    .col-md-12.col-sm-4.col-xs-4
+      .dropdown.dropdown-group
+        %a.btn.btn-default.btn-dropdown(ng-class="{'active': path == '/me/stats'}"  href="#/me/stats")
+          Stats
+
+
+.hidden-xs.hidden-sm.hidden
+
+  %div(style="margin-top: 15px;")
+
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown(ng-class="{'active': path == '/me/activity' || path == '/me'}"  href="#/me/activity")
+        Activities
+
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown(ng-class="{'active': path == '/me/stats'}"  href="#/me/stats")
+        Stats
+
+
+
+.hidden-xs.hidden-sm()
+
+  %div(style="margin-top: 15px;")
+
+    %ul.list-group.nav-group
+      %a.list-group-item(ng-class="{'active': path == '/me/activity' || path == '/me'}"  href="#/me/activity")
+        %i.fa.fa-dot-circle-o
+        Activities
+
+      %a.list-group-item(ng-class="{'active': path == '/me/stats'}"  href="#/me/stats")
+        %i.fa.fa-dot-circle-o
+        Stats
+
+
+
+

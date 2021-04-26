@@ -1,0 +1,175 @@
+
+.hidden-xs.hidden-sm
+  .jumbotron-fluid.cover-img.league_cover(ng-style="{ 'background-image': 'url(' + myBackgroundUrl + ')'} ")
+    .black-overlay
+    .container
+      .row.firstrow     
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs(ng-if="true")
+          .logo-holder
+            //.logo(background-img bg-url="{{league.layout.logo}}" default-img="#{asset_path('/images/guidebot.png')}")
+            //.logo(background-img bg-url="http://www.lvh.me:3000/images/leagues/second_steps_logo.png") 
+            //%img.logo(ng-src="http://www.lvh.me:3000/images/leagues/second_steps_logo.png") 
+            %img.logo(ng-src="{{league.layout.logo}}") 
+
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs(ng-if="false")
+          .logo-holder
+            .logo
+              .numberCircle
+                .height_fix
+                .score(ng-class="{something: steps_equivalent == true}")
+                  {{ convert_score(league.league_score) }}
+                .title(ng-if="league.league_score != ''") avg
+                
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+          .name-holder                    
+            .name
+              {{league.layout.league_name}}  
+    .secondrow
+      .container
+        .row
+          .col-lg-3.col-md-3.col-sm-3.hidden-xs()
+
+          .col-lg-9.col-md-9.col-sm-9.col-xs-12(ng-include src="'#{asset_path('shared/button-bar-league.html')}'" )
+
+
+.hidden-lg.hidden-md
+  .jumbotron-fluid.cover-img.league_cover(ng-style="{ 'background-image': 'url(' + myBackgroundUrl + ')'} ")
+    .container
+      .name-holder             
+        .name
+          {{league.layout.league_name}}
+          /
+            .settings_btn.pull-right(data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample")
+              %i.fa.fa-caret-down.fa-2x()
+            %ul.dropdown-menu.collapse#collapseExample(ng-include src="'#{asset_path('shared/drop_nav_menu.html')}'" ))
+
+
+  .secondrow
+    .container(ng-include src="'#{asset_path('shared/button-bar-league.html')}'" )
+          
+          
+.container.main-page-container
+ 
+  .row(style="")
+    .col-xs-12.col-sm-12.col-md-9.col-lg-9(style="float: right;")
+      .top_card.carousel.slide#rewards_carousel_container(data-interval="false")
+        .carousel-inner.rewards_carousel(role="listbox")
+          .item.active
+            .rewards_bar.total_challenge
+              .row(style="margin-left:0px;margin-right:0px;" )
+                .col-xs-12
+                  .total-challenge-bar
+                    .total-challenge-bar-left(style="flex: .5;")
+                      %p.total-challenge-bar-left-title
+                        {{league.layout.league_name}}
+                        %span.total-challenge-bar-left-title-success(ng-if="totalScore >= league.layout.battle_goal * 100")
+                          SUCCESS! 🎉🎉🎉
+                      %p.total-challenge-bar-left-dates(ng-show="true")
+                        {{formatDate(league.layout.battle_start)}} - {{formatDate(league.layout.battle_end)}}
+                      %p.total-challenge-bar-left-dates(ng-hide="true")
+                        current month
+
+                    .total-challenge-bar-right
+                      %p.total-challenge-bar-right-steps-text(ng-if="league.layout.tagline" style="margin-bottom: 10px;")
+                        {{league.layout.tagline}}
+
+                      %div.total-challenge-bar-right-custom-reward(ng-if="!league.layout.battle_goal && league.layout.battle_reward" ng-class="{small: collapsed == true, big: collapsed == false}")
+                        %p.total-challenge-bar-right-custom-reward-text
+                          {{ league.layout.battle_reward }}
+                        .total-challenge-bar-right-rewards-fadeout(ng-show="collapsed")
+
+                      .total-challenge-bar-right-steps(ng-if="league.layout.battle_goal" )
+                        %img.total-challenge-bar-right-steps-icon(src="/images/pin.png")
+                        %p.total-challenge-bar-right-steps-text
+                          Total Steps:
+                          %span.total-challenge-bar-right-steps-text-made(ng-class="{'total-challenge-bar-right-steps-text-made--success': totalScore >= league.layout.battle_goal * 100 }")
+                            {{ totalScore | number }}
+                          of {{ league.layout.battle_goal * 100 | number }}
+
+                      %div.total-challenge-bar-right-rewards(ng-class="{small: collapsed == true, big: collapsed == false}" ng-if="league.layout.battle_reward && league.layout.battle_goal ")
+                        %img.total-challenge-bar-right-rewards-icon(src="images/ribbon.png")
+                        %span.total-challenge-bar-right-rewards-title
+                          Reward:
+                        %span.total-challenge-bar-right-rewards-text
+                          {{ league.layout.battle_reward }}
+                        .total-challenge-bar-right-rewards-fadeout(ng-show="collapsed")
+
+                    %a.total-challenge-bar-more(ng-click="collapse()")
+                      %i.fa.fa-plus-circle(ng-if="collapsed")
+                      {{collapsed ? "More" : "Less"}}
+              
+              .challenge_total_conffeti_exp
+
+        .board.ranking(ng-if="board == 'people' ")
+          %a.item.animated.fadeIn(ng-repeat="person in People" score="{{person.score}}" check-bar-width ng-class="{ me: user.nt == person.id, notme: user.nt != person.id }" ng-if="person.score > 0"  ng-click="handleBarClick($index, 'board')")
+            .av(ng-if="person.pic != null")
+              %img(ng-src="{{person.pic}}" ng-if="person.pic")
+            .av(ng-if="person.pic == null")
+              .teamCircle
+                .rank {{$index + 1}}
+
+            .bar-line(ng-style="getBarWidth(person.score,maxScore)")
+              .ranking-name
+                .nameonboard
+                  %span(ng-if="person.pic != null") 
+                    {{$index + 1}}.
+                  {{person.name}}
+            
+              .score(style="margin-right:-65px;")
+                {{ convert_score(person.score) }}
+
+
+        .board.ranking(ng-if="board == 'teams'  ")
+          %a.item.animated.fadeIn(ng-repeat="team in Teams" score="{{team.score}}" check-bar-width ng-class="{me: user.fid == team.id}" ng-if="team.score > 0" ng-click="handleBarClick($index, 'board')" )
+
+            .av()
+              .teamCircle
+                .rank {{$index + 1}}
+
+            .bar-line(ng-style="getBarWidth(team.score,maxScore)")
+              .ranking-name
+                .nameonboard
+                  {{team.name}}
+            
+              .score(style="margin-right:-65px;")
+                {{ convert_score(team.score) }}
+
+
+        .board.ranking(ng-if="board == 'groups'  ")
+          %div(ng-repeat="group in Groups")
+            %a.item.animated.fadeIn( score="{{group.score}}" check-bar-width ng-class="{me: user.oid == group.id}" ng-click="handleBarClick($index, 'board')" )
+
+              .av()
+                .teamCircle
+                  .rank {{$index + 1}}
+
+              .bar-line(ng-style="getBarWidth(group.score,maxScore)")
+                .ranking-name
+                  .nameonboard
+                    {{group.name}}
+              
+                .score(style="margin-right:-65px;")
+                  {{ convert_score(group.score) }}{{boardScoreSuffix}}
+
+            /
+              %div(ng-show="revealRow == $index" )
+                .row
+                  .col-md-11.col-md-offset-1.col-sm-11.col-sm-offset-1.col-xs-11.col-xs-offset-1.center(ng-repeat="facMember in revealMembers")     
+                    %a.item.faction-member.animated.fadeIn(check-bar-width score="{{facMember.score}}")
+                      .av(ng-if="facMember.img != null")
+                        %img(ng-src="{{facMember.img}}" ng-if="facMember.img")
+                      .av(ng-if="facMember.img == null")
+                        .teamCircle
+                          .rank {{$index + 1}}
+                      .ranking-name
+                        %span(ng-if="facMember.img != null") 
+                          {{$index + 1}}.
+                        {{facMember.shortName}}
+                        %span(style="font-size:12px;" ng-if="captains.includes(facMember.id)")
+                          admin
+                      .bar-line(ng-style="getBarWidth(facMember.score)")
+                        .score(style="margin-right:-30px;")
+                          {{facMember.score}}{{boardScoreSuffix}}
+
+
+                

@@ -1,0 +1,139 @@
+
+/
+  .noselect
+    {{ getChallengeMonth() }}
+    %span( style="color:#27c302;")
+      {{getChallengeDuration(Date.now(),challenge.endTime)}} left
+/
+  %div
+    %input(type="text" metro-typeahead on-selected="setOtherMetro()" name="metroName" ng-model="selectedMetro.name" placeholder="by Metro Area")
+
+/
+  .cover-update-holder(ng-click="sync()" ng-show="connected.length > 0" )
+    %span.update.short
+      %i.fa.fa-refresh.fa-2x(ng-class="{'fa-spin': !pollAllowed}")
+
+.row.hidden-xs.hidden-sm
+
+  .col-xs-3.button-bar-column()
+    .button-bar-section
+     
+      %a.btn.button-bar-button(href="#/me/activity")
+        Logs
+
+  .col-xs-3.button-bar-column()
+    .button-bar-section
+     
+      %a.btn.button-bar-button(href="#/me/stats")
+        Stats
+
+  .col-xs-3.button-bar-column()
+    .button-bar-section(style="margin-left: -10px;")
+      .btn.button-bar-button(type="button" data-toggle="dropdown")
+        %span(ng-if="path == '/me/stats' || path == '/me/activity' || path == '/me'")
+          Settings
+        %span(ng-if="path == '/me/trackers' ")
+          Trackers
+        %span(ng-if="path == '/me/settings' ")
+          Profile
+        %span(ng-if="path == '/me/teams' ")
+          Teams
+        %span(ng-if="path == '/me/notifications' ")
+          Notifications
+        %span(ng-if="path == '/me/invite' ")
+          Invitations
+
+      %ul.dropdown-menu.dropdown-options
+        %li
+          %a.primary(href="#/me/settings" style="")
+            Profile
+        %li
+          %a.primary(href="#/me/trackers" style="")
+            Trackers
+
+        %li
+          %a.primary(href="#/me/teams" style="")
+            Teams
+
+        %li
+          %a.primary(href="#/me/notifications" style="")
+            Notifications
+
+        %li(ng-if="partner_is_us")
+          %a.primary(href="#/me/invite" style="")
+            Invitations
+
+  .col-xs-3.button-bar-column()
+    .button-bar-section
+    
+      .btn.button-bar-button(ng-click="sync()" ng-show="connected.length > 0" )
+        {{pollAllowed ? 'Sync' : 'Sync'}}
+        %i.fa.fa-refresh(ng-if="!pollAllowed" ng-class="{'fa-spin': !pollAllowed}")
+      
+      .btn.button-bar-button(ng-show="connected.length == 0 && user.of.ma == true  && !pollAllowed" )
+        %i.fa.fa-refresh.fa-spin()
+
+
+
+  // THIS IS THE MOBILE VIEWS 
+
+.row.hidden-md.hidden-lg(style="margin:0px;")
+
+  .col-xs-3.button-bar-column()
+    .button-bar-section
+     
+      %a.btn.button-bar-button(href="#/me/activity")
+        Logs
+
+  .col-xs-3.button-bar-column()
+    .button-bar-section
+     
+      %a.btn.button-bar-button(href="#/me/stats")
+        Stats
+
+  .col-xs-4.button-bar-column()
+    .button-bar-section()
+      .btn.button-bar-button(type="button" data-toggle="dropdown")
+        %span(ng-if="path == '/me/stats' || path == '/me/activity' || path == '/me' ")
+          Settings
+        %span(ng-if="path == '/me/settings' ")
+          Profile
+        %span(ng-if="path == '/me/trackers' ")
+          Trackers
+        %span(ng-if="path == '/me/teams' ")
+          Teams
+        %span(ng-if="path == '/me/notifications' ")
+          Notifications
+        %span(ng-if="path == '/me/invite' ")
+          Invitations
+
+      %ul.dropdown-menu.dropdown-options
+
+        %li
+          %a.primary(href="#/me/settings" style="")
+            Profile
+        %li
+          %a.primary(href="#/me/trackers" style="")
+            Trackers
+        %li
+          %a.primary(href="#/me/teams" style="")
+            Teams
+        %li
+          %a.primary(href="#/me/notifications" style="")
+            Notifications
+        %li
+          %a.primary(href="#/me/invite" style="")
+            Invitations
+  
+  .col-xs-2.button-bar-column()
+    .button-bar-section
+    
+      .btn.button-bar-button(ng-click="sync()" ng-show="connected.length > 0 " style="" )
+        %i.fa.fa-refresh(ng-if="pollAllowed")
+        %i.fa.fa-refresh.fa-spin(ng-if="!pollAllowed")
+        
+      .btn.button-bar-button(ng-show="connected.length == 0 && user.of.ma == true && !pollAllowed" )
+        %i.fa.fa-refresh.fa-spin()
+
+
+

@@ -1,0 +1,129 @@
+
+/
+  .noselect
+    {{ getChallengeMonth() }}
+    %span( style="color:#27c302;")
+      {{getChallengeDuration(Date.now(),challenge.endTime)}} left
+/
+  %div
+    %input(type="text" metro-typeahead on-selected="setOtherMetro()" name="metroName" ng-model="selectedMetro.name" placeholder="by Metro Area")
+
+
+.row.hidden-xs(ng-if="true"  )
+
+  .col-xs-4.button-bar-column()
+
+    .button-bar-section()
+      .primary()
+        .battle-duration(style="padding-left:12px; padding-right:12px;padding-top:6px;padding-bottom:6px;")
+          {{ getChallengeMonth() }}
+          
+
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown")
+        {{board_name}}
+
+      %ul.dropdown-menu()
+        %li()
+          %a.primary(ng-if="hide_people != true" ng-click="setBoard('people')" ng-class="{active: board == 'people'}" style="")
+            {{people_name}}
+        %li
+          %a.primary(ng-if="group =='office' || group == 'league'"  ng-click="setBoard('factions')" ng-class="{active: board == 'factions' || board == 'teams' }" style="" ng-hide="!user.admin" )
+            Teams
+        %li
+          %a.primary(ng-if="group=='league' || group=='world'|| group=='metro'" ng-click="setBoard('groups')" ng-class="{active: board == 'groups'}" style="" )
+            {{groups_name}}
+        %li
+          %a.primary(ng-if="group=='world'" ng-click="setBoard('metros')" ng-class="{active: board == 'metros'}" style="")
+            Metros
+
+  .col-xs-4.button-bar-column(ng-if="group == 'metro'")
+    .button-bar-section()
+      .primary()
+        .battle-duration(style="padding-left:12px; padding-right:12px;padding-top:6px;padding-bottom:6px;")
+          Average
+
+  .col-xs-4.button-bar-column(ng-if="group != 'metro'")
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown" style="")
+        {{boardViewName}}
+
+      %ul.dropdown-menu.dropdown-options(ng-if="board != 'metros'")
+        %li
+          %a.primary(ng-if="board != 'league'" href="" ng-click="setView('avg', 'Average','avg')" change-parent-text target="scoreType" style="")
+            Average
+        %li
+          %a.primary(ng-if="board != 'metros' && board != 'league'" href="" ng-click="setView('hi', 'Best Day','Best')" change-parent-text target="scoreType" style="")
+            Best Day
+        %li
+          %a.primary(ng-if="board != 'league'" ng-if="path == '/team'" href="" ng-click="setView('imp', '% Change','%chg')" change-parent-text target="scoreType" style="")
+            \% Change
+            
+        %li
+          %a.primary(href="" ng-click="setView('sum', 'Total','tot')" change-parent-text target="scoreType" style="")
+            Total
+
+            
+  // THIS IS THE MOBILE VIEWS 
+.row.hidden-sm.hidden-md.hidden-lg(ng-if="true" style="margin:0px;")
+  
+  .col-xs-4.button-bar-column()
+    .button-bar-section(ng-if="path != '/team'")
+      .btn.button-bar-button(type="button" )
+        {{ getChallengeMonth() }}
+        
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown")
+        {{board_name}}
+        %span.caret-container
+          .caret.caret-button-bar
+      %ul.dropdown-menu.dropdown-options
+        %li
+          %a.primary(ng-if="hide_people != true"  ng-click="setBoard('people')" ng-class="{active: board == 'people'}" style="")
+            {{people_name}}
+        %li
+          %a.primary(ng-if="group =='office' || group == 'league'"  ng-click="setBoard('teams')" ng-class="{active: board == 'factions' || board == 'teams' }" style="" ng-hide="!user.admin" )
+            Teams
+        %li
+          %a.primary(ng-if="group=='league' || group=='world'|| group=='metro'" ng-click="setBoard('groups')" ng-class="{active: board == 'groups'}" style="")
+            {{groups_name}}
+        %li
+          %a.primary(ng-if="group=='world'" ng-click="setBoard('metros')" ng-class="{active: board == 'metros'}" style="")
+            Metros
+          
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown" style="")
+        {{boardViewNameMini}} 
+        %span.caret-container(ng-if="board != 'metros'")
+          .caret.caret-button-bar
+      %ul.dropdown-menu.dropdown-options(ng-if="board != 'metros'")
+        %li
+          %a.primary(href="" ng-click="setView('avg', 'Average', 'avg')" change-parent-text target="scoreType" style="")
+            Avg 
+        %li
+          %a.primary(ng-if="board != 'metros' && board != 'groups' " href="" ng-click="setView('hi', 'Best Day', 'best')" change-parent-text target="scoreType" style="")
+            Best
+        %li
+          %a.primary(ng-if="path == '/team'" href="" ng-click="setView('imp', 'Most Improved', '%CHG')" change-parent-text target="scoreType" style="")
+            \%Chg
+        %li
+          %a.primary(href="" ng-click="setView('sum', 'Total', 'TOT')" change-parent-text target="scoreType" style="")
+            Tot
+
+
+
+%div(ng-if="false")
+  .button-bar-section(ng-if="path == '/team'")
+    .btn.button-bar-button(type="button" data-toggle="dropdown")
+      {{ getChallengeMonth() }}
+      %span.caret-container
+        .caret.caret-button-bar
+    %ul.dropdown-menu.dropdown-options(ng-if="path == '/team'")
+      %li(ng-click="challengeNav.showChallenge($index)" ng-repeat="spec in challengeNav.challenges" style="")
+        %a.primary(style="color:#00adef;") {{spec.name}}
+  .button-bar-section(ng-if="path != '/team'")
+    .btn.button-bar-button(type="button" data-toggle="dropdown")
+      {{ getChallengeMonth() }}   

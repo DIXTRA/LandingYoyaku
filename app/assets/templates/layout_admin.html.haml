@@ -1,0 +1,89 @@
+
+.row(ng-if="user.admin == true" style="border: 1px solid gainsboro; padding-top: 8px;")
+  .col-md-2
+    %p.bg-success
+      %i.fa.fa-angle-double-right
+        admin access
+      %i.fa.fa-angle-double-right
+  .col-md-4
+    %select(ng-model="officeAdmin.oid"
+            ng-options="office.id as office.name for office in officeAdmin.offices")
+  .col-md-1.center
+    %a(href ng-href="#/boss/info")GROUP INFO
+  .col-md-1.center
+    %a(href ng-href="#/boss/members")MEMBERS
+  .col-md-1.center
+    %a(href ng-show="officeAdmin.onPlan" ng-href="#/boss/factions")GROUPS
+    %span(ng-hide="officeAdmin.onPlan")TEAMS
+  .col-md-1.center
+    %a(href ng-show="officeAdmin.onPlan" ng-href="#/boss/challenges")GOALS & REWARDS
+    %span(ng-hide="officeAdmin.onPlan")GOALS & REWARDS
+  .col-md-1.center
+    %a(href ng-show="officeAdmin.onPlan" ng-href="#/boss/plan")PLAN
+    %span(ng-hide="officeAdmin.onPlan")PLAN
+  .col-md-1.center
+    %a(href ng-href="#/boss/payment")PAYMENT
+
+#settings.row
+  .col-lg-2.col-md-2.col-12-sm.col-12-xs.menu
+
+    .hidden-xs.hidden-sm(ng-if="user.admin" style="border: 1px solid gainsboro; padding-top: 8px;")
+      %p.bg-success
+        %i.fa.fa-angle-double-down
+          admin access
+        %i.fa.fa-angle-double-down
+      %ul.list-unstyled.settings-link
+        %li(ng-class="{active: path == '/admin/admin_newgroup'}")
+          %a(ng-href="#/admin/admin_newgroup")
+            Create Group
+        %li(ng-class="{active: path == '/admin/admin_offices'}")
+          %a(ng-href="#/admin/admin_offices")
+            Groups
+        %li(ng-class="{active: path == '/admin/admin_progroups' || path == '/admin' }")
+          %a(ng-href="#/admin/admin_progroups")
+            Pro Groups
+        %li(ng-class="{active: path == '/admin/admin_fulfill'}")
+          %a(ng-href="#/admin/admin_fulfill")
+            Fulfillment 
+        %li(ng-class="{active: path == '/admin/admin_invoice'}")
+          %a(ng-href="#/admin/admin_invoice")
+            Invoices                 
+        %li(ng-class="{active: path == '/admin/admin_txns'}")
+          %a(ng-href="#/admin/admin_txns")
+            Transactions
+
+      %ul.list-unstyled.settings-link(ng-if="partner_is_us")  
+        
+        %li
+          %a(ng-href="#/accounts")
+            Marketing Tools
+        %li
+          %a(ng-href="#/broadcast")
+            Slack Broadcast
+        %li(ng-class="{active: path == '/admin/admin_challenge'}")
+          %a(ng-href="#/admin/admin_challenge")
+            Challenges        
+        %li(ng-class="{active: path == '/admin/admin_diaries'}")
+          %a(ng-href="#/admin/admin_diaries")
+            Diaries
+        %li(ng-class="{active: path == '/admin/admin_pointslog'}")
+          %a(ng-href="#/admin/admin_pointslog")
+            Points Log
+        %li(ng-class="{active: path == '/admin/admin_metro_history'}")
+          %a(ng-href="#/admin/admin_metro_history")
+            Metro Battles
+        %li(ng-class="{active: path == '/admin/admin_metro_prizes'}")
+          %a(ng-href="#/admin/admin_metro_prizes")
+            Metro Prizes
+        %li(ng-class="{active: path == '/admin/admin_prizes'}")
+          %a(ng-href="#/admin/admin_prizes")
+            Prizes
+        %li
+          %a(ng-href="/measurement/getAllUsers")
+            Search User
+        %li
+          %a(:ng-href="/measurement#/")
+            Measurements
+
+
+  .col-lg-10.col-md-10.col-12-xs.col-12-sm(app-view-segment="2")

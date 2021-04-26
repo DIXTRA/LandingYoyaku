@@ -1,0 +1,152 @@
+
+/ .reward-square(ng-if="!team && !office.onPlan")
+/   %p
+/     This group does not offer rewards to its members
+
+/ .reward-square(ng-if="!team && office.onPlan")
+/   %p
+/     This group offers rewards to it's team members.
+
+
+/ .reward-square(ng-if="rewards.length == 0"  )
+
+/   %p 
+/     No Goal
+    
+/   %p
+/     Competition is a great motivator.
+    
+/   %p
+/     So is cash!
+
+/   .btn.btn-ci.btn-primary.green(ng-click="go('/boss/challenges')" style="margin-top15px;" )
+/     Set Up Rewards  
+
+
+
+.reward-square(ng-if="reward=='indi'")
+  .goal(ng-if="office.prize.igt == 'score' || office.prize.igt == undefined ")
+    .title Score
+    .score {{office.prize.is}}
+    
+
+  .goal(ng-if="office.prize.igt == 'rank'")
+    .title(ng-if="office.prize.is == 1") Top
+    .title(ng-if="office.prize.is == 10") Top
+    .title(ng-if="office.prize.is == 20") Top %
+    .score(ng-if="office.prize.is == 1") 1
+    .score(ng-if="office.prize.is == 10") 3
+    .score(ng-if="office.prize.is == 20") 10
+  
+  .detail
+    .desc(ng-if="office.prize.io=='amazon'")
+      ${{office.prize.indiAmt}} Amazon Gift Card
+    .desc(ng-if="office.prize.io=='chipotle'")
+      ${{office.prize.indiAmt}} Chipotle Gift Card
+
+    .desc(ng-if="office.prize.io=='starbucks'")
+      ${{office.prize.indiAmt}} Starbucks Gift Card
+    .desc(ng-if="office.prize.io=='fandango'")
+      ${{office.prize.indiAmt}} Fandango Gift Card
+    .desc(ng-if="office.prize.io=='lululemon'")
+      ${{office.prize.indiAmt}} Lululemon Gift Card
+    .desc(ng-if="office.prize.io=='classpass'")
+      ${{office.prize.indiAmt}} ClassPass Gift Card
+    .desc(ng-if="office.prize.io=='wholefoods'")
+      ${{office.prize.indiAmt}} Whole Foods Gift Card
+
+    .desc(ng-if="office.prize.io=='fillin'")
+      {{office.prize.if}} 
+      
+    .desc(ng-if="office.prize.io=='cash'")
+      ${{office.prize.indiAmt}} Cash Prize
+    %br
+    .title
+      For You
+    /
+      .outlook
+        .progress
+          %span.progress-bar(style="width:10%;" ng-if="getOutlook(office.indiPrizeOutlook) == 'Not so good'")
+          %span.progress-bar(style="width:40%;" ng-if="getOutlook(office.indiPrizeOutlook) == 'Promising'")
+          %span.progress-bar(style="width:65%;" ng-if="getOutlook(office.indiPrizeOutlook) == 'Good'")
+          %span.progress-bar(style="width:85%;" ng-if="getOutlook(office.indiPrizeOutlook) == 'Excellent'")
+        .desc
+          {{getOutlook(office.indiPrizeOutlook)}}
+
+.reward-square(ng-if="reward=='team'"  ng-class="{active: $index == currentReward}" )
+  .goal(ng-if="office.prize.tgt == 'score'")
+    .title Score
+    .score {{office.prize.ts}}
+
+  .goal(ng-if="office.prize.tgt == 'rank'")
+    .title Top
+    .score(ng-if="office.prize.ts == 1") 1
+    .score(ng-if="office.prize.ts == 10") 3
+    .score(ng-if="office.prize.ts == 20") 10%
+
+  .detail
+    .desc
+      {{office.prize.tt}}
+    .title
+      For Your Team
+  /
+    .outlook
+      .progress
+        %span.progress-bar.no-outlook
+      .desc
+        Outlook not available
+
+
+.reward-square(ng-if="reward=='group'"  ng-class="{active: $index == currentReward}" )
+  .goal
+    .title Score
+    .score {{office.prize.gs}}
+
+  .detail
+    .desc
+      {{office.prize.gt}}
+    .title
+      for the Office
+  /
+    .outlook
+      .progress
+        %span.progress-bar(style="width:10%;" ng-if="getOutlook(office.groupPrizeOutlook) == 'Not so good'")
+        %span.progress-bar(style="width:40%;" ng-if="getOutlook(office.groupPrizeOutlook) == 'Promising'")
+        %span.progress-bar(style="width:65%;" ng-if="getOutlook(office.groupPrizeOutlook) == 'Good'")
+        %span.progress-bar(style="width:85%;" ng-if="getOutlook(office.groupPrizeOutlook) == 'Excellent'")
+      .desc
+        {{getOutlook(office.groupPrizeOutlook)}}
+
+.reward-square(ng-if="reward=='benefits'"  ng-class="{active: $index == currentReward}" )
+  .goal
+    .title Score
+    .score {{office.prize.bs}}
+  
+  .detail
+    .desc(ng-if="office.prize.bo=='amazon'")
+      ${{office.prize.benefitsAmt}} Amazon Gift Card
+    .desc(ng-if="office.prize.bo=='chipotle'")
+      ${{office.prize.benefitsAmt}} Chipotle Gift Card
+    .desc(ng-if="office.prize.bo=='starbucks'")
+      ${{office.prize.benefitsAmt}} Starbucks Gift Card
+    .desc(ng-if="office.prize.bo=='fandango'")
+      ${{office.prize.benefitsAmt}} Fandango Gift Card
+    .desc(ng-if="office.prize.bo=='Lululemon'")
+      ${{office.prize.benefitsAmt}} Lululemon Gift Card
+    .desc(ng-if="office.prize.bo=='classpass'")
+      ${{office.prize.benefitsAmt}} ClassPass Gift Card
+    .desc(ng-if="office.prize.bo=='wholefoods'")
+      ${{office.prize.benefitsAmt}} Whole Foods Market Gift Card
+    .desc(ng-if="office.prize.bo=='fillin'")
+      {{office.prize.bf}} 
+    .desc(ng-if="office.prize.bo=='cash'")
+      ${{office.prize.benefitsAmt}} Cash Prize 
+    %br
+    .title
+      For You
+  /
+    .outlook
+      .progress
+        %span.progress-bar.no-outlook
+      .desc
+        Outlook not available

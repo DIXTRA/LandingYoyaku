@@ -1,0 +1,115 @@
+/
+  .container
+    .row.hero_bar
+      .col-sm-3.hidden-xs
+        .avatarCircle(flow-init flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()" flow-file-success="getUser()" flow-upload-started="startSpin()" flow-complete="stopSpin()" flow-file-error="error()" style="margin-top: 20px;" )
+          %img.avatar(ng-src="{{user.a}}" style="")
+          %input.update(type="button" value="update" flow-btn flow-btn flow-attrs="{accept:'image/*'}")
+              
+      .col-xs-12.col-sm-9(style="padding:20px;")
+        .top_line
+          .name {{user.f}} {{user.n}}
+
+        .next_line
+          %a(ng-href="#/team" style="color:#9fa0a2") {{user.of.n}}
+
+.hidden-xs.hidden-sm()
+  .jumbotron-fluid.cover-img()
+    .black-overlay.short
+    .container
+
+      .row.firstrow
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs
+          .logo-holder(flow-init="{testChunks: false, singleFile: true }" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-file-success="getUser()" flow-files-submitted="$flow.upload()" flow-complete="reloadPage()" flow-file-error="error()")
+            .logo(background-img bg-url="{{user.a}}" ) 
+              /                                   
+                .options-holder.collapse#avt-options(style="")
+                  %span.option( flow-btn flow-attrs="{accept: 'image/*'}")
+                    Update avatar
+                  .divider
+                  %span.option
+                    Remove avatar
+                .avt-update-holder
+                  %span.update(data-toggle="collapse" data-target="#avt-options")
+                    %i.fa.fa-camera.fa-2x
+
+              .avt-update-holder
+                %span.update( flow-btn flow-attrs="{accept: 'image/*'}")
+                  %i.fa.fa-camera.fa-2x
+
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+          .name-holder
+            .name
+              {{user.f}} {{user.n}}
+    
+    .secondrow()
+      .container
+        .row
+          .col-lg-3.col-md-3.col-sm-3.hidden-xs()
+
+          .col-lg-9.col-md-9.col-sm-9.col-xs-12(ng-include src="'#{asset_path('shared/me_button-bar.html')}'" )           
+
+
+.hidden-lg.hidden-md()
+  .jumbotron-fluid.cover-img()
+    .container
+      .name-holder                 
+        .name
+          {{user.f}} {{user.n}}
+
+        /
+          .cover-update-holder
+            .settings_btn.inactive(ng-click="go('/me/settings')"  ng-if="path == '/me/activity' || path == '/me/stats' || path == '/me'")
+              %i.fa.fa-cog.fa-2x
+            .settings_btn(ng-click="go('/me/activity')" ng-if="path != '/me/activity' && path != '/me/stats' && path != '/me'")
+              %i.fa.fa-cog.fa-2x
+  
+  .secondrow(style="padding:0px;" ng-include src="'#{asset_path('shared/me_button-bar.html')}'" )
+
+
+.container.main-page-container
+
+  .row()
+    .col-lg-3.col-md-3.hidden-sm.hidden-xs
+
+      .row
+        .col-xs-12
+
+          %ul.list-group.nav-group
+
+            .list-group-item()
+              .item()
+                Joined {{user.j|date}} 
+
+
+            .list-group-item()
+              .item(style="font-weight:bold;")
+                Group
+              %a.item(ng-href="/#/team")
+                {{user.of.n}}
+
+            .list-group-item(ng-click="go('/me/teams')" )
+              .item(style="font-weight:bold; cursor:pointer;")
+                Teams
+              .item(ng-repeat="factionName in user.factionNames")
+                {{factionName}}
+              .item(ng-if="user.factionNames.length == 0")
+                none yet!
+
+            .list-group-item(ng-click="go('/me/trackers')" )
+              .item(style="font-weight:bold; cursor:pointer;")
+                Trackers
+              .item(ng-repeat="dev in connected" ng-click="go('/me/trackers')" )
+                {{dev.device}}
+
+            /
+              .list-group-item(ng-click="" )
+                .item(style="font-weight:bold; cursor:pointer;")
+                  Last Poll
+                .item()
+                  {{minutes_ago}} mins ago
+
+    .col-xs-12.col-sm-12.col-md-9.col-lg-9(app-view-segment="3")
+
+
+

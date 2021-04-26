@@ -1,0 +1,238 @@
+
+/* THIS IS FOR THE EXTERNAL GUIDE PAGE */
+
+/* MOBILE VIEWS */
+
+@media screen and (max-width: 768px) {
+
+  .foot {
+    margin-top: 1400px;
+  }
+
+  h4.model-fix {
+       margin-left: 0px;
+    }
+
+    img.tracker-img {
+
+    width: 35px;
+    height: 35px;
+    margin-top: -12px;
+  }
+
+
+  .tracker-fa {
+
+    color: #818285;
+
+  }
+
+  .btn.btn-guide {
+    background: #27c302;
+    background-image: -webkit-linear-gradient(top, #00adef, #00adef);
+    background-image: -moz-linear-gradient(top, #00adef, #00adef);
+    background-image: -ms-linear-gradient(top, #00adef, #00adef);
+    background-image: -o-linear-gradient(top, #00adef, #00adef);
+    background-image: linear-gradient(to bottom, #00adef, #00adef);
+    -webkit-border-radius: 11;
+    -moz-border-radius: 11;
+    border-radius: 11px;
+    font-family: Open Sans;
+    color: #ffffff;
+    font-size: 15px;
+    border-color: #00adef;
+    padding: 2px 10px 2px 10px;
+    text-decoration: none;
+
+  }
+
+}
+
+/* TABLET VIEW STYLE */
+
+@media screen and (min-width: 779px) and (max-width: 982px) {
+
+
+  .guide_body {
+    margin-top: 10px;
+  }
+
+  img.tracker-img {
+
+  position:absolute;
+  right:30px;
+  width: 35px;
+  height: 35px;
+  margin-top: -6px;
+  }
+
+
+  .foot {
+    margin-top: 400px;
+  }
+
+
+  .tracker-fa {
+
+    color: #818285;
+    position:absolute;
+    margin-top: -5px;
+    right:10px;
+
+
+
+  }
+
+  .btn.btn-guide {
+    background: #00adef;
+    background-image: -webkit-linear-gradient(top, #00adef, #00adef);
+    background-image: -moz-linear-gradient(top, #00adef, #00adef);
+    background-image: -ms-linear-gradient(top, #00adef, #00adef);
+    background-image: -o-linear-gradient(top, #00adef, #00adef);
+    background-image: linear-gradient(to bottom, #00adef, #00adef);
+    -webkit-border-radius: 11;
+    -moz-border-radius: 11;
+    border-radius: 11px;
+    font-family: Open Sans;
+    color: #ffffff;
+    font-size: 15px;
+    border-color: #00adef;
+    padding: 2px 10px 2px 10px;
+    text-decoration: none;
+    position:absolute;
+    right:0px;
+    margin-top: 15px;
+  }
+
+
+
+}
+
+
+/* DESKTOP VIEW STYLE */
+@media screen and (min-width: 983px) {
+
+  .guide_body {
+
+    background-color: white;
+    height: 5000px;
+
+  }
+
+
+
+  .guide_body {
+    margin-top: 50px;
+  }
+
+  .tracker-fa {
+
+    color: #818285;
+    position:absolute;
+    margin-top: -5px;
+    right:10px;
+
+  }
+
+  img.tracker-img {
+    position:absolute;
+    right:30px;
+    width: 35px;
+    height: 35px;
+    margin-top: -6px;
+  }
+
+
+    h4.model-fix {
+       margin-left: -25px;
+    }
+
+
+
+  .btn.btn-guide {
+    background: #00adef;
+    background-image: -webkit-linear-gradient(top, #00adef, #00adef);
+    background-image: -moz-linear-gradient(top, #00adef, #00adef);
+    background-image: -ms-linear-gradient(top, #00adef, #00adef);
+    background-image: -o-linear-gradient(top, #00adef, #00adef);
+    background-image: linear-gradient(to bottom, #00adef, #00adef);
+    -webkit-border-radius: 11;
+    -moz-border-radius: 11;
+    border-radius: 11px;
+    font-family: Open Sans;
+    color: #ffffff;
+    font-size: 15px;
+    border-color: #00adef;
+    padding: 2px 10px 2px 10px;
+    text-decoration: none;
+    position:absolute;
+    right:0px;
+    margin-top: 15px;
+  }
+
+}
+
+
+.post-container {
+    overflow: hidden;
+}
+
+.post-thumb {
+    float: left;
+}
+
+.post-content {
+    margin-left: 100px;
+}
+
+
+.btn-primary.outline2 {
+
+
+  border-radius: 40px;
+  padding: 2px 10px;
+  background: $primaryColor;
+
+
+}
+
+a.users {
+  color: #818285;
+}
+
+a.models{
+  color: #818285;
+}
+
+a.cost {
+  color:#818285;
+}
+
+a.on{
+  color: #00adef;
+}
+
+
+
+.btn.btn-guide:hover {
+  background: #00adef;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+
+.btn-primary.outline:active, .btn-primary.outline.active {
+  border-color: #007299;
+  color: #007299;
+  box-shadow: none;
+}
+.guide_body {
+
+	background-color: white;
+	height: 1900px;
+	margin-top: -10px;
+}

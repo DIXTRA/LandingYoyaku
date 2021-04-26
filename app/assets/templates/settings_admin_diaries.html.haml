@@ -1,0 +1,41 @@
+%h1 Diaries
+.row
+  .col-md-12
+    %input(type="text" size="40" placeholder="user ident" ng-model="in.userident")
+    %button.btn.btn-default.btn-sm(ng-click="loadDiary()") Load
+
+.row
+  .col-md-12
+    %table.table.table-condensed
+      %thead
+        %th user day
+        %th activity
+        %th event timings
+        %th measure rid
+        %th.numeric score
+      %tbody(style="font-size: 9pt; font-family: Monaco, monospace")
+        %tr(ng-repeat="entry in entries")
+          %td {{ entry.dz|date:'M/d' }}
+          %td
+            {{entry.s}}:{{entry.t}} <br />
+            {{entry.mmValue}} {{entry.mmUnits}}
+          %td
+            %table.table.table-condensed
+              %tbody
+                %tr
+                  %td initial measurement
+                  %td {{ entry.eventDate|date:'M/d H:mm:ss a' }}
+                %tr
+                  %td last update
+                  %td {{ entry.updatedAt|date:'M/d H:mm:ss a' }}
+                %tr
+                  %td last measurement time
+                  %td {{ entry.mmEventTime|date:'M/d H:mm:ss a' }}
+                %tr
+                  %td last measurement recvd
+                  %td {{ entry.mmRecvTime|date:'M/d H:mm:ss a' }}
+                %tr
+                  %td zone/DT/DO
+                  %td {{ entry.mmZone }} / {{ entry.mmDateOnly ? 'DO' : 'DT' }}
+          %td {{ entry.mmRID }}
+          %td.numeric {{ entry.r }}

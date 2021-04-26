@@ -1,0 +1,132 @@
+
+.setup-office.animated.fadeIn
+  .row
+    .col-md-7
+      .section-label(ng-show="companies.length == 0")
+        Enter your Count It group name, i.e. the name of your company, community, organization, etc.
+        .clearfix
+          %form(ng-submit="submitCompany()")
+            .row
+              .col-md-8
+                .form-group(ng-if="partner_is_us == false")
+                  %input.form-control.your-office(type="text" office-typeahead on-selected="submitCompany()" name="officeName"   placeholder="eg, GOOGLE")
+                    
+                .form-group(ng-if="partner_is_us == true")
+                  %input.form-control.your-office(type="text" office-typeahead on-selected="submitCompany()" name="officeName" ng-model="formData.userCompany" placeholder="eg, IBM")
+                  
+                .form-group
+                  %a.btn.btn-default.btn-setup.btn-ci(ng-href="#/logout")
+                    Back
+                  %button.btn.btn-default.btn-setup.btn-ci(type="submit" ng-disabled="formData.userCompany == ''" )
+                    Onward
+
+      .section-label(ng-if="companies.length > 1")
+        Which is your Group?
+      .load.l-abs()
+      .companies.animated.fadeIn(ng-show="companies.length >0")
+
+        .radio(ng-repeat="company in companies" ng-if="companies.length > 1")
+          %input(id="comp-{{$index}}" type="radio" name="selectedCompany" ng-click="selectCompany($index)"   data-cname="{{company.name}}" ng-checked="{{$index}} == 0" ) 
+          %label.lbl.padding-16(for="comp-{{$index}}") {{company.name}}
+          %span.pull-right(ng-if="company.locations.length > 0") {{company.locations[0].coworkers}} Members 
+          %span.pull-right(ng-if="company.locations.length < 1") 0 Members
+        
+      %div(ng-if="companies.length == 1")
+        %label {{companies[0].name}}
+        %span.pull-right(ng-if="newco == false && companies[0].locations.length > 0") {{companies[0].locations[0].coworkers}} Members 
+        %span.pull-right(ng-if="newco") 0 Members
+        
+      .sep
+
+      .section-label(ng-show="newco")
+        Where are you located?
+
+      .locations.animated.fadeIn(ng-show="newco")
+        /.animated.fadeIn(ng-show="locations.length == 0")
+        .animated.fadeIn
+          .row
+            .col-md-6
+              .form-group
+                %input.form-control.us_zip(lookup-zip on-zip = "lookupZip()" type="text" maxlength="5" ng-model="userZip" placeholder="US ZIP Code" tabindex=2)
+                /.zipload(ng-if="locations.length == 0")
+
+        %div(ng-show="locations.length > 0")
+          .radio(ng-repeat="location in locations" ng-if="locations.length > 0")
+            %input(id="loc-{{$index}}" type="radio" name="selectedLocation" ng-click="selectLocation($index)" ng-checked="userLocation == $index" )
+            %label.lbl.padding-16(for="loc-{{$index}}") {{location.displayName}}
+          /
+            .animated.fadeIn(ng-show="needZip")
+              .form-group
+                %input.form-control.us_zip(lookup-zip on-zip = "lookupZip()" type="text" name="userZip" ng-model="userZip" placeholder="US ZIP Code" maxlength="5" style="" tabindex=1 )
+                .zipload(ng-if="needZip")
+
+
+        .metro_or
+          or
+        
+        .row
+          .col-md-8
+            %form
+              .form-group
+                %input.form-control.us_zip(country-typeahead type="text" maxlength="5" ng-model="userCountry" placeholder="Country" tabindex=2 typeahead-append-to-body="false"  )
+                /.zipload(ng-if="locations.length == 0")
+
+
+        %div(ng-show="newco")
+          / .section-label
+          /   Select your group privacy option
+          /%div(ng-show="locations.length > 0")
+          .animated.fadeIn
+            .row
+              .col-md-12
+                %form
+                  .form-group
+                    .checkbox.checkbox-inline
+                      %input#privacy-checkbox(type="checkbox" checked ng-click="togglePrivacy()")
+                        %label(for="privacy-checkbox")
+                    %span(style="margin-left: 10px;") Show my group on public leaderboards
+
+        %br
+          %span.reset.btn.btn-default.btn-setup.btn-ci(ng-show="companyFreeform && companies.length == 1" ng-click="resetCompany()" tabindex=2 )
+            Back
+          %span.reset.btn.btn-default.btn-setup.btn-ci(ng-show="companyFreeform && companies.length > 1" ng-click="resetCompanies()" tabindex=2 )
+            Back
+          %a.reset.btn.btn-default.btn-setup.btn-ci(ng-show="!companyFreeform" ng-href="#/logout" tabindex=2 )
+            Back
+          %span.btn.btn-default.btn-setup.btn-ci(ng-if="newco" ng-click="saveLocationAndPrivacy()" tabindex=3 ng-disabled="!userLocation && countryCode=='us'" )
+            Onward
+
+      %div(ng-show="!newco && companies.length > 0")
+        %br
+          %span.reset.btn.btn-default.btn-setup.btn-ci(ng-show="companyFreeform && companies.length == 1" ng-click="resetCompany()" tabindex=2 )
+            Back
+          %span.reset.btn.btn-default.btn-setup.btn-ci(ng-show="companyFreeform && companies.length > 1" ng-click="resetCompanies()" tabindex=2 )
+            Back
+          %a.reset.btn.btn-default.btn-setup.btn-ci(ng-show="!companyFreeform" ng-href="#/logout" tabindex=2 )
+            Back
+          %span.btn.btn-default.btn-setup.btn-ci(ng-if="!newco" ng-click="saveCompany()" tabindex=3 )
+            Onward
+
+    .col-md-5
+
+      .bots.hidden-xs(ng-if="selectedCompanyIndex != -1 && coworkers == 0 && newco")
+        .bot-talk.right.animated.zoomInRight(typewrite type-delay="100" type-delay="30" blink-delay="500" text=" Your Group is new to Count It")
+        .bot-body.animated.bounceInRight
+
+      .bots.hidden-xs(ng-if="selectedCompanyIndex != -1 && coworkers == 0 && !newco")
+
+        .bot-talk.right.animated.zoomInRight(typewrite type-delay="100" type-delay="30" blink-delay="500" text="You're the 1st person to join this group!")
+        .bot-body.animated.bounceInRight
+
+      .bots.hidden-xs(ng-if="selectedCompanyIndex != -1 && coworkers > 0")
+        .bot-talk.right.animated.zoomInRight(typewrite type-delay="100" type-delay="30" blink-delay="500" text="Awesome! You are the {{coworkers + 1 | ordinal}} person to join the group!")
+
+
+        .bot-body.animated.bounceInRight
+
+
+        .message-holder.animated.fadeIn()
+          %p.bg-danger.error.animated.fadeIn(ng-show="error") {{error}}
+
+
+

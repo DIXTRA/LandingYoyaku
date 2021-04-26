@@ -1,0 +1,45 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin list-option{
+  .option{
+    padding:40px;
+    cursor:pointer;
+    border-bottom:1px solid #ffffff;
+    border-top:1px solid $borderColorLight;
+    .radio{
+      float:left;
+      margin-top:25px;
+    }
+    .info{
+      margin-left:200px;
+      font-size:16px;
+    }
+
+    &:hover{
+      
+      background-color:#ebf8fd;
+      & + .option{
+        border-top:1px solid #ffffff;
+      }
+    }
+  }
+  .option.active{
+    border-top:1px solid $primaryColor !important;
+    border-bottom:1px solid $primaryColor !important;
+    background-color:#ebf8fd;
+    & + .option{
+      border-top:1px solid #ffffff;
+    }
+  }
+  .option:first-child{
+     border-top:1px solid #ffffff;
+  }
+  .option:last-child{
+    border-bottom:1px solid $borderColorLight;
+  }
+  
+}

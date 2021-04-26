@@ -1,0 +1,199 @@
+%form(ng-submit="updateName()" style="padding-top:10px;padding-bottom:10px;")
+
+  .title.hidden-md.hidden-lg
+    Group Name
+  .row
+    .title.col-md-4.hidden-xs.hidden-sm
+      Group Name
+
+    .col-md-6.col-sm-8.col-xs-8
+      .form-group(ng-show="!user.norm")
+        %input.form-control(style="" type="text" ng-model="formData.newName" placeholder="{{groupName}}")
+
+    .col-md-2.col-sm-4.col-xs-4(ng-show="!user.norm")
+      / .div(style="height:75px;")
+      / .form-group(style="position:absolute;bottom:0;right:15px;")
+      %button.btn.btn-primary.btn-ci.btn-disrupt(type="submit")
+        Update
+
+%form(ng-submit="confirmLocation()" style="padding-top:10px;padding-bottom:10px;")
+
+  .title.hidden-md.hidden-lg
+    HQ Location
+  .row
+    .title.col-md-4.hidden-xs.hidden-sm
+      HQ Location
+
+    .col-md-6.col-sm-8.col-xs-8
+      %p
+        {{metro_name}}
+
+      .form-groupz(ng-show="!user.norm")
+        %input.form-control(lookup-zip on-zip = "lookupZip()" type="text" ng-model="formData.companyZip" placeholder="Enter US ZIP Code" style="")
+
+      /.zipload(style="display:inline-block;")
+
+      .div(ng-show="locations.length > 0" style="display:inline-block")
+        .radio(ng-repeat="location in locations" ng-if="locations.length > 0")
+          %input(id="loc-{{$index}}" type="radio" name="selectedLocation" ng-click="selectLocation($index)" ng-checked="location_index == $index" )
+          %label.lbl.padding-16(for="loc-{{$index}}") {{location.city}}, {{location.state | uppercase}}
+
+      %p or
+
+      .form-group(ng-show="!user.norm")
+        %input.form-control.us_zip(country-typeahead typeahead-append-to-body="true" type="text" maxlength="5" ng-model="userCountry" placeholder="Country" tabindex=2)
+
+        /.zipload(ng-if="locations.length == 0")
+
+    .col-md-2.col-sm-4.col-xs-4(ng-show="!user.norm")
+      %button.btn.btn-ci.btn-primary.btn-disrupt(ng-class="{disabled: !locationc }" ng-click="updateLocation()" )
+        Update
+
+
+%div(style="padding-top:10px;padding-bottom:10px;")
+
+  .title.hidden-md.hidden-lg
+    Invitation Link
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Invitation Link
+
+    .col-md-6.col-sm-8.col-xs-8
+      .form-group
+        %input.form-control#invite-linkz(value="{{ getInviteLink() }}" )
+
+    .col-md-2.col-sm-4.col-xs-4(ng-show="!user.norm")
+      .form-group
+        .btn.btn-ci.btn-primary.btn-disrupt(ngclipboard data-clipboard-target="#invite-linkz")
+          Copy Link
+          %i.fa.fa-clipboard
+
+%div(style="padding-top:10px;padding-bottom:10px;")
+
+  {{formData.defaultMetric}}
+  .title.hidden-md.hidden-lg
+    Default Leaderboard Metric
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Default Leaderboard Metric
+    .col-md-6.col-sm-8.col-xs-8
+      %select.form-control(ng-model="defaultMetric" ng-change="updateDefaultMetric()")
+        %option(value="average") Average
+        %option(value="hi") Best Day
+        %option(value="imp") % Change
+        %option(value="sum") Total
+
+%div(style="padding-top:10px;padding-bottom:10px;margin-top:50px;")
+  .title.hidden-md.hidden-lg(style="margin-bottom:10px;")
+    Count these activities
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Count these activities
+    .col-md-6.col-sm-10.col-xs-8
+      %form
+        .form-group
+          .checkbox-inline(style="min-width:102px;")
+            %input(type="checkbox" ng-disabled="isPro == false" name="walking" id="a_walking" ng-model="walk" ng-change="updateActivities()")
+            %label.lbl(for="a_walking")
+              Steps
+          .checkbox-inline.checkbox-inline-margin(style="min-width:100px;")
+            %input(type="checkbox" ng-disabled="isPro == false" name="swimming" id="a_swimming" ng-model="swim" ng-change="updateActivities()")
+            %label.lbl(for="a_swimming")
+              Swimming
+        .form-group
+          .checkbox-inline(style="min-width:102px;")
+            %input(type="checkbox" ng-disabled="isPro == false" name="cycling" id="a_cycling" ng-model="bike" ng-change="updateActivities()")
+            %label.lbl(for="a_cycling")
+              Cycling
+          .checkbox-inline.checkbox-inline-margin(style="min-width:100px")
+            %input(type="checkbox" ng-disabled="isPro == false" name="mindfulness" id="a_mindfulness" ng-model="mind" ng-change="updateActivities()")
+            %label.lbl(for="a_mindfulness")
+              Meditation
+
+    .col-md-2.col-sm-4.col-xs-4(ng-show="isPro == false")
+      <a href="#/pricing" style="font-size: 14px;color: #00adef;">Upgrade to PRO</a>
+
+%div(style="padding-top:10px;padding-bottom:10px;")
+
+  {{formData.defaultView}}
+  .title.hidden-md.hidden-lg
+    Default Leaderboards Units
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Default Leaderboard Units
+    .col-md-6.col-sm-8.col-xs-8
+      %form
+        .form-group
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" name="default_unit" id="dfu_points" value="points" ng-model="defaultUnit" ng-change="updateDefaultUnit()")
+            %label.lbl(for="dfu_points")
+              Points
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" ng-disabled="isPro == false" name="default_unit" id="dfu_steps" value="steps" ng-model="defaultUnit" ng-change="updateDefaultUnit()")
+            %label.lbl(for="dfu_steps" ng-style="isPro == false ? {'color':'#AAA'} : {'color':'#555'}" )
+              Steps (Equivalent)
+    .col-md-2.col-sm-4.col-xs-4(ng-show="isPro == false")
+      <a href="#/pricing" style="font-size: 14px;color: #00adef;">Upgrade to PRO</a>
+
+%div(style="padding-top:10px;padding-bottom:10px;")
+
+  {{formData.defaultView}}
+  .title.hidden-md.hidden-lg
+    Default Leaderboard Group
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Default Leaderboard Group
+    .col-md-6.col-sm-8.col-xs-8
+      %form
+        .form-group
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" name="default_view" id="dfv_people" value="people" ng-model="defaultView" ng-change="updateDefaultView()")
+            %label.lbl(for="dfv_people")
+              People
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" ng-disabled="isPro == false" name="default_view" id="dfv_teams" value="factions" ng-model="defaultView" ng-change="updateDefaultView()")
+            %label.lbl(for="dfv_teams" ng-style="isPro == false ? {'color':'#AAA'} : {'color':'#555'}" )
+              Teams
+    .col-md-2.col-sm-4.col-xs-4(ng-show="isPro == false")
+      <a href="#/pricing" style="font-size: 14px;color: #00adef;">Upgrade to PRO</a>
+
+%div(style="padding-top:10px;padding-bottom:10px;")
+
+  .title.hidden-md.hidden-lg
+    Allow Manual Entry
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Allow Manual Entry
+    .col-md-6.col-sm-8.col-xs-8
+      %form
+        .form-group
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" name="group_manual_entry" id="g_ma_no" ng-value="false" ng-model="manualEntry" ng-change="updateManualEntry()")
+            %label.lbl(for="g_ma_no")
+              No
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" ng-disabled="isPro == false" name="group_manual_entry" id="g_ma_yes" ng-value="true" ng-model="manualEntry" ng-change="updateManualEntry()")
+            %label.lbl(for="g_ma_yes" ng-style="isPro == false ? {'color':'#AAA'} : {'color':'#555'}")
+              Yes
+
+    .col-md-2.col-sm-4.col-xs-4(ng-show="isPro == false")
+      <a href="#/pricing" style="font-size: 14px;color: #00adef;">Upgrade to PRO</a>
+
+%div(style="padding-top:10px;padding-bottom:10px;")
+
+  .title.hidden-md.hidden-lg
+    Appear on Metro and World Leaderboards
+  .row(style="")
+    .title.col-md-4.hidden-xs.hidden-sm
+      Appear on Metro and World Leaderboards
+    .col-md-8.col-sm-12.col-xs-12
+      %form
+        .form-group
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" name="group_privacy" id="g_public" ng-value="false" ng-model="groupPrivacy" ng-change="updatePrivacy()")
+            %label.lbl(for="g_public")
+              Yes
+          .radio-inline(style="min-width:100px;")
+            %input(type="radio" name="group_privacy" id="g_private" ng-value="true" ng-model="groupPrivacy" ng-change="updatePrivacy()")
+            %label.lbl(for="g_private")
+              No

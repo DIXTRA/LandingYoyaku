@@ -1,0 +1,78 @@
+%h1 Create Group
+
+.row(style="padding-top: 2em;")
+  .col-md-12
+    %form(ng-submit="createGroup()")
+
+      .title.hidden-md.hidden-lg
+        Group Name
+      .row(style="")
+        .title.col-md-4.hidden-xs.hidden-sm
+          Group Name
+        
+        .col-md-6.col-sm-8.col-xs-8
+
+          .row
+            .col-xs-8
+              .form-group
+                %input.form-control(style="" type="text" ng-model="formData.newName" placeholder="new group name")
+            
+            .col-xs-4
+              .div(style="height:75px;")
+                .form-group(style="")
+                  %button.btn.btn-ci.btn-primary(type="submit")
+                    Create            
+
+      .title.hidden-md.hidden-lg
+        Metro Area
+      .row
+        .title.col-md-4.hidden-xs.hidden-sm
+          Metro Area
+          
+        .col-md-6.col-sm-8.col-xs-8
+
+          .row
+            .col-xs-8
+              %p
+                {{metro_name}}
+
+              .form-groupz
+                %input.form-control(lookup-zip on-zip = "lookupZip()" type="text" ng-model="formData.companyZip" placeholder="Enter US ZIP Code" style="")
+              
+              /.zipload(style="display:inline-block;")
+            
+              .div(ng-show="locations.length > 0" style="display:inline-block")
+                .radio(ng-repeat="location in locations" ng-if="locations.length > 0")
+                  %input(id="loc-{{$index}}" type="radio" name="selectedLocation" ng-click="selectLocation($index)" ng-checked="location_index == $index" )
+                  %label.lbl.padding-16(for="loc-{{$index}}") {{location.city}}, {{location.state | uppercase}}
+
+              %p or 
+
+              .form-group
+                %input.form-control.us_zip(country-typeahead typeahead-append-to-body="true" type="text" maxlength="5" ng-model="userCountry" placeholder="Country" tabindex=2)
+            
+            .col-xs-4
+              .div(style="height:75px;")
+                %button.btn.btn-ci.btn-primary(type="button" ng-class="{disabled: !locationc }" ng-click="updateLocation()" style="position:absolute;bottom:0;left:15px;" )
+                  Set
+
+            /.zipload(ng-if="locations.length == 0")
+
+      .title.hidden-md.hidden-lg
+        Public/Private
+      .row(style="")
+        .title.col-md-4.hidden-xs.hidden-sm
+          Public/Private
+          
+        
+        .col-md-6.col-sm-8.col-xs-8
+          .row
+            .col-xs-8
+              %span(ng-if="mytogglestatus == true")
+                Group will not appear on leaderboards or any search results.
+              %span(ng-if="mytogglestatus == false")
+                Group appears on public leaderboards and in search results.
+        
+            .col-xs-4
+              #priv_toggle.toggle-iphone
+

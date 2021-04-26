@@ -1,0 +1,16 @@
+%h2.blue Choose One!
+
+%p Reward your participants with virtual gift certificates for healthy lunch options, or choose a cause which your group will support -- if they earns it!
+.reward-wrap
+  .rewards.clearfix
+    .reward(ng-repeat="vend in vendors" ng-click="setVendor(vend)" ng-class="{active: vend.name == vendor.name}" analytics-on analytics-category="reward" analytics-event="{{vend.rewardType}}" analytics-label="{{vend.name}}")
+      %img(ng-src="{{vend.logo}}")
+      .type
+        .local(ng-show="{{vend.local == true}}")
+          Local
+        {{getTypeText(vend.rewardType).text}}
+  .check
+  .center.button-content-slider
+    .btn.btn-lg.btn-primary.btn-ci.create.create-reward(ng-click="setStep(2)" ng-class="{disabled: !sponsorType}")
+      Next
+      %i.fa.fa-arrow-circle-right

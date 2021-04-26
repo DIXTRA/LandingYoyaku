@@ -1,0 +1,48 @@
+
+.main_panel.col-md-12.col-sm-12.col-xs-12(style="padding-top:15px")
+
+  %div()
+    .diary
+      .row.log
+        .col-sm-2.col-xs-3
+          .stat-box(ng-if="challenge.active")
+            .stat
+              {{convert_score(weekly_score)}}
+        .col-sm-10.col-xs-9
+          .stat-line
+            %strong Weekly Average
+          .stat-line
+            {{user.of.weekly_battle_display}}
+      .row.log
+        .col-sm-2.col-xs-3
+          .stat-box
+            .stat
+              {{convert_score(weekly_best)}}
+        .col-sm-10.col-xs-9
+          .stat-line
+            %strong Best Day This Week
+          .stat-line
+            {{weekly_best_date | date:'MMMM dd, yyyy'}}
+
+      .row.log
+        .col-sm-2.col-xs-3
+          .stat-box
+            .stat
+              {{convert_score(monthly_score)}}
+        .col-sm-10.col-xs-9
+          .stat-line
+            %strong Monthly Average
+          .stat-line
+            {{user.of.monthly_battle_display}}     
+      .row.log
+        .col-sm-2.col-xs-3
+          .stat-box
+            .stat
+              {{convert_score(monthly_best)}}
+        .col-sm-10.col-xs-9
+          .stat-line
+            %strong Best Day This Month
+          .stat-line
+            {{monthly_best_date | date:'MMMM dd, yyyy'}}
+
+%span(ng-init="triggerResize()")

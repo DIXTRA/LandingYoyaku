@@ -1,0 +1,86 @@
+
+
+.row.hidden-xs( )
+
+  .col-xs-4.button-bar-column()
+
+    .button-bar-section()
+      .primary()
+        .battle-duration(style="padding-left:12px; padding-right:12px;padding-top:6px;padding-bottom:6px;")
+          //{{ getChallengeMonth() }}
+          {{ league.layout.battle_start | date : "MMM d" }} - {{ league.layout.battle_end | date : "MMM d"}}
+
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown")
+        {{board_name}}
+
+      %ul.dropdown-menu()
+        %li()
+          %a.primary(ng-if="hide_people != true || !user.norm" ng-click="setBoard('people')" ng-class="{active: board == 'people'}" style="")
+            {{people_name}}
+        //%li
+        //  %a.primary(ng-click="setBoard('teams')" ng-class="{active: board == 'factions' || board == 'teams' }" style="" ng-hide="!user.admin" )
+        //    Teams
+        %li
+          %a.primary(ng-click="setBoard('groups')" ng-class="{active: board == 'groups'}" style="" )
+            {{groups_name}}
+
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown" style="")
+        {{boardViewName}} 
+
+      %ul.dropdown-menu.dropdown-options(ng-if="board != 'metros'")
+        %li
+          %a.primary(ng-if="board != 'league'" href="" ng-click="setView('avg', 'Average','avg')" change-parent-text target="scoreType" style="")
+            Average
+        %li
+          %a.primary(href="" ng-click="setView('sum', 'Total','Tot')" change-parent-text target="scoreType" style="")
+            Total
+
+            
+  // THIS IS THE MOBILE VIEWS 
+.row.hidden-sm.hidden-md.hidden-lg(style="margin:0px;")
+  
+  .col-xs-4.button-bar-column()
+    .button-bar-section(ng-if="path != '/team'")
+      / .btn.button-bar-button(type="button" )
+      /   {{ getChallengeMonth() }}
+      .primary()
+        .battle-duration(style="padding-left:6px; padding-right:6px;padding-top:6px;padding-bottom:6px;")
+          //{{ getChallengeMonth() }}
+          {{ league.layout.battle_start | date : "MMM d" }} - {{ league.layout.battle_end | date : "MMM d"}}
+        
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown")
+        {{board_name}}
+        %span.caret-container
+          .caret.caret-button-bar
+      %ul.dropdown-menu.dropdown-options
+        %li
+          %a.primary(ng-if="hide_people != true"  ng-click="setBoard('people')" ng-class="{active: board == 'people'}" style="")
+            {{people_name}}
+        //%li
+        //  %a.primary(ng-click="setBoard('teams')" ng-class="{active: board == 'factions' || board == 'teams' }" style="" ng-hide="!user.admin" )
+        //    Teams
+        %li
+          %a.primary(ng-click="setBoard('groups')" ng-class="{active: board == 'groups'}" style="")
+            {{groups_name}}
+
+          
+  .col-xs-4.button-bar-column()
+    .button-bar-section
+      .btn.button-bar-button(type="button" data-toggle="dropdown" style="")
+        {{boardViewNameMini}} 
+        %span.caret-container(ng-if="board != 'metros'")
+          .caret.caret-button-bar
+      %ul.dropdown-menu.dropdown-options(ng-if="board != 'metros'")
+        %li
+          %a.primary(href="" ng-click="setView('avg', 'Average', 'avg')" change-parent-text target="scoreType" style="")
+            Avg 
+        %li
+          %a.primary(href="" ng-click="setView('sum', 'Total', 'Tot')" change-parent-text target="scoreType" style="")
+            Tot
+

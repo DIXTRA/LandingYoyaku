@@ -1,0 +1,20 @@
+
+/ %a.dropdown-item(href="" ng-click="go('/team')" ng-class="{active: path == '/team' }" )		    Home
+
+
+%li
+	%a.dropdown-item(href="" ng-click="go('/team')" ng-hide="path == '/team'" )
+		{{user.of.n}}
+
+%li
+	%a.dropdown-item(href="" ng-click="go('/world')" ng-hide="path == '/world'" )
+		World
+
+%li
+	%a.dropdown-item(href="#/metro/{{user.of.msl}}" ng-hide="path.substring(0,6) == '/metro'" )
+		{{user.of.msa}}
+
+%li
+	%a.dropdown-item(ng-repeat="league in user.of.leagues" href="" ng-click="go('/league/' + league.s)" ng-hide="path.substring(0,7) == '/league'" )
+		{{league.m}}
+        

@@ -1,0 +1,24 @@
+.connect.animated.fadeIn
+  .row.row-pad
+    .col-sm-12
+      %p
+        Count It syncs with most popular fitness trackers.  You can connect with a wearable device or you can use one of several free apps on any iPhone or Android smartphone.
+  .row
+    .col-sm-12
+      .section-label.center
+        Do you currently use an activity tracking app or device?
+  .row.semi-spacious
+    .col-sm-4.col-sm-offset-2
+      %a.btn.btn-block.btn-default.btn-ci.btn-setup(href="#/setup/devices{{routeParams}}")
+        Yeah, I've got one!
+    .col-sm-4
+      %a.btn.btn-block.btn-default.btn-ci.btn-setup(href="#/setup/moves{{routeParams}}")
+        No, I need one.
+  .row
+    .col-sm-12
+      .center
+        %img.img-responsive(src="/images/devices/all.jpg")
+  .cancel
+    %p
+      %a(ng-href="#/team{{routeParams}}")
+        Skip step

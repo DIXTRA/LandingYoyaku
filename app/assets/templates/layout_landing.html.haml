@@ -1,0 +1,252 @@
+.top-nav{:role => "navigation", :style => "border-bottom: 1px solid #d7d7d7; max-width:1700px; padding-top: 2px; margin-top:1px;"}
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", :type => "button", }
+      %i.fa.fa-bars
+    %a.navbar-brand{ :href => "/#/"}
+      %img.img-responsive{:height => "150", :src => "./images/count-it-dot.png", :width => "150", :style => "margin-top: -7px; margin-left: 60px;"}
+    / Collect the nav links, forms, and other content for toggling
+  .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+    %ul.nav.navbar-nav
+      / Hidden li included to remove active class from about link when scrolled up past about section
+      %li
+        %a.page-scroll{:href => "/#/slack"}
+          %img.img-responsive{:src => "./images/slacklogo.png", :height => "25", :width =>"25", :style => "margin-top:-6px; margin-right: 5px;"}
+          %span Add to Slack!
+      %hr.hidden-sm.hidden-md.hidden-lg
+      %li
+        %a.page-scroll{:href => "/#/trackers"} Trackers Guide
+      %hr.hidden-sm.hidden-md.hidden-lg
+      %li
+        %a.page-scroll{:href => "/#/pricing"} Pricing
+      %hr.hidden-sm.hidden-md.hidden-lg
+      %li
+        %a.page-scroll{:href => "/#/pro"} PRO Features
+        /
+          %a.btn.btn-primary.btn-xs.outline.hidden-sm.hidden-xs{:href => "/#/pro", :role => "button", :style => "background-color:#00adef; margin-top: 7px; font-size: 15px; padding-top:5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;"} Count.It PRO
+          %a.page-scroll.hidden-md.hidden-lg{:href => "/#/pro"} Count.It PRO
+      /
+        %hr.hidden-sm.hidden-md.hidden-lg
+        %li{:style => "padding-right: 25px;"}
+          %a.page-scroll{:href => "/#/pricing"} Pricing
+      %hr.hidden-sm.hidden-md.hidden-lg
+
+      %li
+        %a.page-scroll{:href => "/#/create"}
+          %strong Join
+      %hr.hidden-sm.hidden-md.hidden-lg
+      %li.hidden-xs.hidden-sm
+        %a(style="padding-left:2px;padding-right:2px; margin-top: -15px;" )
+        |
+      %li
+        %a.page-scroll{:href => "/#/login"}Login
+
+
+  /.alert-message-holder.animated.fadeInDown
+  /  .alert-message.error
+  /    %i.fa.fa-info-circle
+  /    %span.alert-title
+  /      Sync Delay!
+  /    %span.alert-msg
+  /    Due to site maintenance, please allow 1-2 hours for data sync’ing today.
+  /    %i.fa.fa-times-circle.alert-close.alert_dismiss{"aria-label" => "close", "data-dismiss" => "alert"}
+
+
+.landing_body
+  / SECTION 1(CONTAINS INTRO)
+  %section.module.parallax.parallax-3.container-fluid
+    .row
+      .col-md-8.col-md-offset-2
+        %div{:style => "height: 125px;"}
+        %h1.hidden-md.hidden-lg{:style => " color: #00adef; font-family: 'AvantGarde-Demi', sans-serif; font-size: 50px; display:inline; text-align:center;"} Challenge Your Company.
+        %h1.hidden-xs.hidden-sm{:style => "color: #555555; display:inline; font-family: 'AvantGarde-Demi',sans-serif; font-size: 50px; text-align:center; "} Challenge your
+        %span.wants-you.hidden-xs.hidden-sm{:style => "display: none; padding-left: 10px; font-family:'AvantGarde-Demi',sans-serif;color: #00ADEF; font-size: 50px !important;"}
+          company.
+        %h3.welcome.hidden-xs.hidden-sm{:style => "display: inline; padding-left: 20px; color: #00adef; font-family: 'AvantGarde-Demi', sans-serif; font-size: 50px; text-align:center;"}
+          %span.hidden-xs.hidden-sm.site-description
+        %br
+        %br
+        %br
+        %p{:style => "color: #555555;text-align:center; font-weight: 100;"}
+          Count.It connects with wearable tracking devices and apps
+          to power community fitness challenges
+          and reinvent workplace wellness.
+        %br.hidden-xs.hidden-sm
+        %br.hidden-xs.hidden-sm
+        %br.hidden-xs.hidden-sm
+        %br.hidden-xs.hidden-sm
+        %a.btn.btn-primary.btn-md.outline{:href => "/#/create", :role => "button", :style => "background-color:#27c302;font-size: 18px;"}
+          Get Started -
+          %strong Free
+    %div{:style => "height: 150px;"}
+
+
+  // SECTION 2 (CONTAINS the three info bubbles)
+  %section.module.parallax.parallax-3.container-fluid
+    .col-md-8.col-md-offset-2
+      %h1{:style => "color: #00adef; font-family: 'AvantGarde-Demi',sans-serif; text-align:center;"} Super Simple
+    .col.md-8.col-md-offset-2
+
+    .col-md-10.col-md-offset-1
+      %div{:style => "height: 50px;"}
+      .col-sm-4
+        .panel.panel-round.hidden-xs.hidden-sm{:style => "background-color: #FFFFFF;"}
+          %div{:style => "height: 40px;"}
+          %img{:height => "150", :src => "./images/wearable-icon-blue.png", :width => "150", :style => ""}
+          %h3{:style => "color: #00adef; margin-top: -12px; text-align:center;"} Connect
+
+        //for mobile
+        %img.hidden-md.hidden-lg{:height => "150", :src => "./images/wearable-icon-blue.png", :width => "150", :style => "margin-top: -32px;"}
+        %h3.hidden-md.hidden-md.hidden-lg{:style => "color: #00adef; margin-top: -17px; text-align:center;"} Connect
+
+      .col-sm-4
+        .panel.panel-round.hidden-xs.hidden-sm{:style => "background-color: #FFFFFF;"}
+          %div{:style => "height: 75px;"}
+          %i.fa.fa-5x.fa-trophy{"aria-hidden" => "true", :style => "color: #00adef;"}
+          %h3{:style => "color: #00adef; text-align:center;"} Compete
+
+        //for mobile
+        %i.fa.fa-5x.fa-trophy.hidden-md.hidden-lg{"aria-hidden" => "true", :style => "color: #00adef;"}
+        %h3.hidden-md.hidden-lg{:style => "color: #00adef; text-align:center;"} Compete
+
+      .col-sm-4
+        .panel.panel-round.hidden-xs.hidden-sm{:style => "background-color: #FFFFFF;"}
+          %div{:style => "height: 75px;"}
+          %i.fa.fa-5x.fa-users{"aria-hidden" => "true", :style => "color: #00adef;"}
+          %h3{:style => "color: #00adef; text-align:center;"} Bond
+
+        //for mobile
+        %i.fa.fa-5x.fa-users.hidden-md.hidden-lg{"aria-hidden" => "true", :style => "color: #00adef;"}
+        %h3.hidden-md.hidden-lg{:style => "color: #00adef; text-align:center;"} Bond
+
+
+  // SECTION 4 (CONTAINS COMPANY QUOTES)
+  %section.module.parallax.parallax-3.container-fluid
+    .holder
+      %div{:style => "height: 100px;"}
+      .row
+        %div.hidden-sm.hidden-md.hidden-lg{:style => "height: 25px"}
+        .col-sm-4.col-sm-offset-2
+          %div.hidden-xs{:style => "height: 70px;"}
+          %div.hidden-lg.hidden-xs
+          %h1{:style => "color: #00adef;"} Super Popular
+          #quote1
+            %p
+              "Count.It Changed our Office Culture. Best thing HR has ever done." -
+              %i Apartment Therapy
+          #quote2
+            %p
+              "It's made a lot of people alot more active. It pushes them over that next hill." -
+              %i Billtrust
+          %br.hidden-md.hidden-sm.hidden-lg
+          .circle2.hidden-lg.hidden-md.hidden-sm
+          %br.hidden-md.hidden-sm.hidden-lg
+        .col-sm-4
+          .circle2.hidden-xs
+          %div.hidden-md.hidden-sm.hidden-lg{:style => "height: 50px;"}
+          %a
+            %img.fancybox-media{:src => "./images/play-icon2.png", :height => "80", :width => "80", :style => "margin-top: -400px; cursor:pointer;", :href => "https://vimeo.com/178219149"}
+      %div.hidden-xs{:style => "height: 25px;"}
+      %div.hidden-md.hidden-sm.hidden-lg.hidden-xs{:style => "height: 100px;"}
+
+  %section.module.parallax.parallax-3.container-fluid
+    .holder
+      .row
+        .col-sm-4.col-sm-offset-2
+          %h1.hidden-sm.hidden-md.hidden-lg{:style => "color:#00adef;"} Global Community
+          %p.hidden-sm.hidden-md.hidden-lg {{officeCount}} teams in {{metroCount}} cities. Battle rivals. Move the world.
+          .image
+            %img.img-responsive.hidden-xs.hidden-sm{:src => "/images/globefitted.png", :height => "350", :width => "350"}
+            %img.img-responsive.hidden-md.hidden-lg{:src => "/images/globefitted.png", :height => "250", :width => "250"}
+            %h2{ :style => "color: #fff;"}
+              /%span.hidden-xs{:style => "color:#27c302"} {{officeCount}} Teams
+              /%span.hidden-md.hidden-lg.hidden-sm{:style => "color:#00adef;"} {{officeCount}} Teams
+        .col-sm-5
+          %div.hidden-xs.hidden-sm{:style => "height: 125px;"}
+          %h1.hidden-xs{:style => "color:#00adef;"} Global Community
+          %p.hidden-xs
+            %span{:style => "font-weight:bold;"} {{officeCount}}
+            teams in
+            %span{:style => "font-weight:bold;"} {{metroCount}}
+            cities. Battle rivals. Move the world.
+      %div.hidden-xs{:style => "height: 50px;"}
+      %div.hidden-md.hidden-sm.hidden-lg.hidden-xs{:style => "height: 100px;"}
+
+  /SECTION 5 (CONTAINS APPS)
+  %section.module.parallax.parallax-3.container
+    .holder
+      %div{:style => "height: 50px;"}
+      .row
+        .col-sm-4.col-sm-offset-2
+          %div.hidden-md.hidden-sm{:style => "height: 75px;"}
+          %h1{:style => "color: #00adef;"} Wide Open
+          %p
+            Any fitness tracking device or app will do. No manual data entry required.
+          %div.hidden-md.hidden-sm.hidden-lg{:style => "height: 25px;"}
+          %img.img-responsive.hidden-sm.hidden-md.hidden-lg{:style => "height: 60%; width: 60%;", :src => "/images/apps2.png"}
+          %br.hidden-sm.hidden-md.hidden-lg
+          %br.hidden-sm.hidden-md.hidden-lg
+        .col-sm-4.hidden-xs
+          %div{:style => "height: 20px;"}
+          %img.img-responsive{:style => "height: 90%; width: 90%;", :src => "./images/apps2.png"}
+      %div.hidden-xs{:style => "height: 75px;"}
+
+  //SECTION 6 (CONTAINS COUNT IT SCORE)
+  %section.module.parallax.parallax-3.container
+    .holder
+      %div.hidden-md.hidden-lg.hidden-sm{:style => "height: 40px"}
+      .row
+        .col-sm-4.col-sm-offset-2
+          %div.hidden-lg.hidden-xs{:style => "height: 50px;"}
+          %img.img-responsive.hidden-xs{:src => "./images/tracked.gif", :height => "", :width =>"", :style => ""}
+        .col-sm-4
+          %div{:style => "height: 75px"}
+          %h1{:style => "color: #00adef;"}
+            Multi Activity
+          %p Everyone gets a Count.It score. Runners, cyclists, swimmers, and dancers can play together.
+          %img.img-responsive.hidden-md.hidden-sm.hidden-lg{:src => "./images/tracked.gif", :height => "75%", :width =>"75%", :style => ""}
+          %br.hidden-sm.hidden-md.hidden-lg
+      %div.hidden-xs{:style => "height: 50px;"}
+
+  // SECTION 6 (CONTAINS SLACK INFO)
+  %section.module.parallax.parallax-3.container
+    .holder
+      .row
+        .col-sm-4.col-sm-offset-2
+          %div.hidden-md.hidden-sm{:style => "height: 100px;"}
+          %h1{:style => "color: #00adef;"} Slacker Ready
+          %p
+            Count.It now streaming live in your Slack and Hipchat @channels.
+          %img.img-responsive.hidden-md.hidden-lg.hidden-sm{:height => "75%", :src => "/images/bots.png", :width => "75%"}
+          %br.hidden-sm.hidden-md.hidden-lg
+          %br.hidden-sm.hidden-md.hidden-lg
+          %a.hidden-lg.hidden-md.hidden-sm{:href => "/auth/slack"}
+            %img.img-responsive.slack{:href => "/auth/slack", :height => "50%", :src => "./images/slack-button.png", :width => "50%", :style => "margin-top: -70px;"}
+        .col-sm-4
+          %img.img-responsive.iphone.hidden-xs{:src => "/images/slacklogo4.png", :height => "350", :width => "350"}
+      %div{:style => "height: 25px;"}
+      %div.hidden-md.hidden-sm.hidden-lg{:style => "height: 100px;"}
+
+  //CALL TO ACTION
+  %section.module.parallax.parallax-3.container-fluid
+    .holder
+      .row
+        %div.hidden-sm.hidden-md.hidden-lg{:style => "height: 25px"}
+        .col-sm-10.col-md-offset-1
+          %div.hidden-xs{:style => "height: 70px;"}
+          %div.hidden-lg.hidden-xs
+          %h1{:style => "color: #00adef;  text-align:center;"} Join Us!
+          %br
+          %img.img-responsive{:src => "/images/clientlogos.png", :style => ""}
+          %br
+          %br
+          %p{:style => "text-align:center;"}
+            These cool companies use Count.It PRO to energize their office culture.
+        .col-sm-8.col-sm-offset-2
+          %br
+
+          %a.btn.btn-primary.btn-md.outline{:href => "/#/create", :role => "button", :style => "background-color:#27c302; text-align:center;border: 1px #27c302; font-size: 18px;"}
+            Get Started -
+            %strong Free
+      %div.hidden-xs{:style => "height: 100px;"}
+  //
+.foot(ng-include src="'#{asset_path('shared/footer.html')}'")

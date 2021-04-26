@@ -1,0 +1,101 @@
+
+-# hipchat
+-#
+.row.integrations
+  .col-md-3
+    /{{integrations_const['hipchat'].l}}
+    %img(ng-src="{{integrations_const['hipchat'].l}}" height="50")
+  .col-md-9
+    .row.input-row
+      .col-md-3
+        API Token
+      .col-md-9
+        %input(type="text" ng-model="integrations['hipchat'].c.api_token" placegholder="API Token")
+    .row.input-row
+      .col-md-3
+        Room
+      .col-md-9
+        %input(type="text" ng-model="integrations['hipchat'].c.room_name" placegholder="Room Name")
+    .row.input-row
+      .col-md-3
+        Level
+      .col-md-9
+        %select(ng-model="integrations['hipchat'].v" ng-options="level.value as level.name for level in levels")
+    .row.input-row
+      .col-md-9.col-md-offset-3
+        %button.btn.btn-ci.btn-sm.btn-default(ng-click="saveIntegration(integrations['hipchat'].n)") Save
+        %button.btn.btn-ci.btn-sm.btn-default(ng-click="removeIntegration(integrations['hipchat'].n)" ng-show="integrations['hipchat'].e") Remove
+        %button.btn.btn-ci.btn-sm.btn-default(ng-click="testIntegration(integrations['hipchat'].n)" ng-show="integrations['hipchat'].e") Test
+    .row(ng-show="test['hipchat'].error")
+      .col-md-9.col-md-offset-3
+        %strong {{ test['hipchat'].error }}
+    .row(ng-show="test['hipchat'].feedback")
+      .col-md-9.col-md-offset-3
+        %strong {{ test['hipchat'].feedback }}
+
+%br
+
+-# slack
+-#
+.row.integrations(ng-show="!integrations['slack'].e")
+  .col-md-3(ng-if="otherOffice() == true")
+    %a.btn.btn-default.btn-ci.login.relative(ng-click="cantAddIntegrationAlert()" style="padding:0px;")
+      %img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x")
+
+  .col-md-3(ng-if="otherOffice() == false")
+    %a.btn.btn-default.btn-ci.login.relative(href="https://slack.com/oauth/authorize?scope=incoming-webhook,chat:write:bot,commands,users:read,team:read&client_id={{slack_client_id}}&state={{user.oid}}&redirect_uri={{slack_redirect_uri}}_extra&other={{partner_host}}" style="padding:0px;")
+      %img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x")
+
+  .col-md-9
+    Get challenge news and inspiration from the CountItBot in your Slack channel(s)!
+    %br
+    Use slash commands to see your Count.It leaderboard, and prizes, in Slack!
+    %br 
+    It's awesome!
+
+
+.row.integrations(ng-show="integrations['slack'].e")
+  .col-md-3
+    %a.btn.btn-default.btn-ci.login.relative(ng-click="removeIntegration('slack')")
+      Remove from Slack
+        
+  .col-md-9
+    .row.input-row
+      .col-md-3
+        Channel
+      .col-md-9
+        %input(type="text" ng-model="integrations['slack'].c.webhook_channel" placegholder="Channel")
+    .row.input-row
+      .col-md-3
+        Level
+      .col-md-9
+        %select(ng-model="integrations['slack'].v" ng-options="level.value as level.name for level in levels")
+    .row.input-row
+      .col-md-9.col-md-offset-3
+        %button.btn.btn-ci.btn-sm.btn-default(ng-click="saveIntegration(integrations['slack'].n)") Save
+        %button.btn.btn-ci.btn-sm.btn-default(ng-click="removeIntegration(integrations['slack'].n)" ng-show="integrations['slack'].e") Remove
+        %button.btn.btn-ci.btn-sm.btn-default(ng-click="testIntegration(integrations['slack'].n)" ng-show="integrations['slack'].e") Test
+        
+    .row(ng-show="test['slack'].error")
+      .col-md-9.col-md-offset-3
+        %strong {{ test['slack'].error }}
+    .row(ng-show="test['slack'].feedback")
+      .col-md-9.col-md-offset-3
+        %strong {{ test['slack'].feedback }}
+
+
+
+      
+
+
+-# TODO: only show remove if there is an integration
+-# TODO: better padding
+-# TODO: API calls, then some quick and dirty notification logic to mimic what oliver was sending.
+-#
+-# So an integration has:
+-#   - name
+-#   - config_parameters (name/value)
+-#   - created by and at
+-#   - level
+-#
+-# Integration is an office level thing.

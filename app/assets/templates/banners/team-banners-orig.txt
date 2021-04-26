@@ -1,0 +1,212 @@
+-# Challenge is over AND the team has competed in a challenge previously
+    -#
+    .col-lg-9.col-md-10.banner-callout.banner-results.show(ng-if="!activeChallenge && honors.length > 0")
+      %h3 The Challenge is Over!  Long live the challenge!
+
+      %p  Congratulations and long life to the winner:
+      .row.winner
+        .col-xs-2
+          .av
+            %img(ng-src="{{honors[0].winner.pic}}")
+        .col-xs-10
+          .name
+            {{honors[0].winner.name}}
+            .score
+              With a score of
+              %span.num
+                {{honors[0].winner.score}}.
+      .row.winner
+        .col-xs-12
+          %p
+            The next challenge starts in
+            %timer(end-time="getNextChallengeTime(challenge.startTime)")
+              {{ddays}} D : {{hhours}} H : {{mminutes}} M : {{sseconds}} S
+
+
+    -# Challenge is over AND the team has not competed in a challenge previously
+    -#
+    .col-lg-9.col-md-10.banner-callout.banner-results.show(ng-if="!activeChallenge && honors.length == 0 && team")
+      %h3 Your 1st Challenge is Starting Soon.
+      %p
+        Get ready to go!  The {{challenge.title}} challenge starts in:
+        %timer(end-time="getNextChallengeTime(challenge.startTime)")
+          {{ddays}} D : {{hhours}} H : {{mminutes}} M : {{sseconds}} S
+
+    -# Challenge is over AND the team has competed in a challenge previously AND not the users team
+    -#
+    .col-lg-9.col-md-10.banner-callout.banner-results.show(ng-if="!activeChallenge && honors.length == 0 && !team")
+      %h3 The Next Challenge is Starting Soon.
+      %p
+        Get ready to go!  The {{challenge.title}} challenge starts in:
+        %timer(end-time="getNextChallengeTime(challenge.startTime)")
+          {{ddays}} D : {{hhours}} H : {{mminutes}} M : {{sseconds}} S
+
+    -# Not on a plan, so no prize possible.
+    -#
+    .col-lg-9.col-md-10.banner-callout.banner-reward.banner-callout-one(ng-if="team && office.onPlan == false")
+      %i.fa.fa-times-circle.close
+      %h3 Your're missing a motivating company prize!
+      %p Upgrade to Nitro Edition to set a motivating company prize.
+      %a.btn.btn-ci.btn-orange.pull-right(ng-href="#/happiness")
+        $$ Upgrade $$
+
+
+    -# On a plan, but no prize set.
+    -#
+    .col-lg-9.col-md-10.banner-callout.banner-reward.banner-callout-one(ng-if="team && office.onPlan == true && (office.prize == false || (!office.prize.groupEnable && !office.prize.indiEnable))")
+      %i.fa.fa-times-circle.close
+       %h3 Hold on, the prize is not yet set up.
+      %p Once the prize has been set by the administrator, details will appear here.
+      %div(ng-show="user.boss || user.manager")
+        %p
+          Since you are a plan administrator, you can configure the prize. <br />
+          %a.btn.btn-ci.btn-orange.pull-right(ng-href="#/boss/challenges")
+            Configure Prize
+
+
+    -# On a plan, with prize set.
+    -#
+    .col-xs-9.banner-callout.banner-reward.rewarded.banner-callout-one(ng-if="team && office.onPlan == true && (office.prize.groupEnable || office.prize.indiEnable)")
+      %i.fa.fa-times-circle.close
+      .row
+        .col-md-2.col-xs-2
+          %i.icon.ci-ribbon.prize
+        .col-md-10.col-xs-10
+          %h3
+            {{office.officeChallenge.challenge.startDate|date:'MMMM'}} Prize
+
+          %div(ng-show="office.prize.indiEnable")
+            .row
+              .col-md-2.col-xs-3
+                %p
+                  %strong IF:
+              .col-md-10.col-xs-9
+                %p
+                  {{ (office.prize.it == 'indi') ? 'YOU' : 'The office'}} can score a <strong>{{office.prize.is}}</strong>
+            .row.row-pad
+              .col-md-2.col-xs-3
+                %p
+                  %strong THEN:
+              .col-md-10.col-xs-9
+                %p
+                  {{ (office.prize.it == 'indi') ? 'YOU get' : 'EVERYONE gets' }} a freakin gift card to <strong>{{office.prize.io[0]|uppercase}}{{office.prize.io.slice(1)}}</strong>
+
+          %div(ng-show="office.prize.groupEnable")
+            .row
+              .col-md-12
+                %em.more(ng-show="office.prize.indiEnable")
+                  But wait... There's More!
+            .row
+              .col-md-2.col-xs-3
+                %p
+                  %strong IF:
+              .col-md-10.col-xs-9
+                %p
+                  The office scores <strong>{{office.prize.gs}}</strong>
+                %p
+            .row
+              .col-md-2.col-xs-3
+                %p
+                  %strong THEN:
+              .col-md-10.col-xs-9
+                %p
+                  Everyone gets <strong>{{office.prize.gt}}</strong>
+
+    .col-lg-9.col-md-10.banner-callout.banner-score.banner-callout-two
+      %i.fa.fa-times-circle.close
+      %h3 Count It Score
+      %p(ng-show="office && office.teamMemberCount > 1")  The compnay score is the average of the individual members.
+      %p(ng-show="office && office.teamMemberCount <= 1")  Once there is more than one member, the company score will be the average of the individual members. Until then, it will be zero.
+      %p(ng-show="!office")  The company score is the average of the individual members, unless there are fewer than two members, in which case it is zero.
+
+    .col-lg-9.col-md-10.col-sm-9.col-xs-9.banner-callout.banner-battles.banner-callout-four
+      %i.fa.fa-times-circle.close
+      .row(ng-if="battleCount == 0 && challenge.battleState != 'on'")
+        .col-md-12
+          %h3.center
+            Battles are one on one company match ups that run during the
+            challenge.  Challenge has not yet started.
+      .row(ng-if="battleCount == 0 && challenge.battleState == 'on'")
+        .col-md-12
+          %h3.center
+            {{team ? 'Your' : 'This'}} company is not competing in any battles.
+      .row(ng-if="battleCount > 0")
+        .col-md-5
+          .you-vs
+            {{team ? 'Your' : 'This'}} company vs
+        .col-md-7.relative
+          .battling-wrap
+            .battling(battling ng-class="{battlemid: battleCount <= 4}")
+
+              .message(ng-if="battlesWinning.length > 0 && battlesLosing.length == 0 && team")
+                Congrats you're on top!
+              .battles-losing
+                .battle(ng-repeat="battle in battlesLosing | orderBy:'diff':reverse")
+                  %i.fa.fa-circle
+                  %strong {{battle.diffString}}
+                  %a(ng-href="#/office/{{battle.slug}}")
+                    {{battle.vs}}
+
+              .bullseye
+                %i.fa.fa-dot-circle-o
+
+              .message(ng-if="battlesWinning.length == 0 && battlesLosing.length > 0 && team")
+                Step it up to get on top!
+              .battles-winning
+                .battle(ng-repeat="battle in battlesWinning | orderBy:'diff'")
+                  %i.fa.fa-circle
+                  %strong {{battle.diffString}}
+                  %a(ng-href="#/office/{{battle.slug}}")
+                    {{battle.vs}}
+
+
+
+metro reward orig
+
+ .col-xs-9.banner-callout.banner-metro-prize
+      %h3 Count It {{pageTitle}}
+
+      .reward-content
+        .row
+          .col-xs-2.col-md-2.col-sm-2
+            .reward-box
+              .reward-ribbon
+                %i.icon.ci-ribbon
+          .col-xs-10.col-md-5.col-sm-6
+            .reward
+              %div(ng-hide="reward")
+                .playing-for
+                  Competing For
+                Honor & Glory
+              %div(ng-show="reward")
+
+                Killer Prizes! Mad Glory.
+                .playing-for
+                  .sponsored
+                    Sponsored by {{reward.gn}}
+
+                %button.btn.btn-success.btn-ci.hidden-xs.hidden-sm(ng-click="revealReward = 1" ng-show="revealReward == 0" ng-init="revealReward = 0") More Info
+
+
+                %button.btn.btn-success.btn-ci.btn-xs.hidden-md.hidden-lg(ng-click="revealReward = 1" ng-show="revealReward == 0" ng-init="revealReward = 0") More Info
+          .col-xs-10.col-md-5.col-sm-6
+            .metro-stats
+              .metro-stat(ng-if="metro.score >= 0")
+                Count It Score
+                %strong {{metro.score}}
+              .metro-stat(ng-if="metro.rankOrd")
+                USA Rank
+                %strong {{metro.rankOrd}}
+              .metro-stat
+                Teams Playing:
+                %strong {{entries.length}}
+              .metro-stat(ng-if="honors[0].winner")
+                Defending Champ
+                %a.winner(ng-href="#/office/{{honors[0].winner.slug}}")
+                  %strong {{honors[0].winner.name}}
+
+        .row.row-pad.animated.fadeIn(ng-show="revealReward == 1")
+          .col-xs-12.col-md-10.col-md-offset-2.prize
+            <hr />
+            %i.fa.fa-times-circle.close(ng-click="revealReward = 0")
+            %p {{reward.d}}

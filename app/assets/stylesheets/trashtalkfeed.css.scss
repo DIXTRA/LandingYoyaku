@@ -1,0 +1,435 @@
+/* Trash Talk Chat -- patent pending */
+
+.trash-talk-container-btn {
+  display: none;
+}
+
+@media screen and (max-width: 1199px) {
+  .modal-container-open {
+    overflow: hidden;
+  }
+
+  .trash-talk-container-parent {
+    z-index: 999999999999;
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    .trash-talk-container {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      overflow-y: scroll;
+      right: 0;
+
+      .chatter {
+        margin: 0;
+        width: 100vw;
+        border-radius: 0;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        overflow-y: initial;
+        height: calc(100vh - 50px);
+
+        .send-btn {
+          width: 100%;
+          padding: 10px 0;
+        }
+
+        .trash-talkz {
+          padding: 0 8px;
+          flex: 1;
+          overflow: hidden;
+          overflow-y: scroll;
+
+          .trash-talker {
+            max-height: initial;
+          }
+        }
+      }
+    }
+
+    &.is_m_open {
+      display: block !important;
+    }
+  }
+
+  .trash-talk-container-btn {
+    background-color: #00ADEF;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 10px;
+    z-index: 100;
+    right: 10px;
+    border-radius: 100%;
+    border: none;
+    display: block;
+
+    i {
+      color: white;
+      font-size: 21px;
+    }
+
+    &.is_m_open {
+      display: none;
+    }
+  }
+
+  .navbar-fixed-top.is_m_chat_open {
+    display: none;
+  }
+
+  .uv-icon.uv-bottom-right {
+    bottom: 10px;
+    left: 12px;
+  }
+
+  .close_chat_btn {
+    position: absolute;
+    left: 0;
+    margin-top: -9px;
+    font-size: 24px;
+    border: none;
+    background-color: transparent;
+  }
+}
+
+@media screen and  (min-width: 1200px) {
+
+  .trash-talk-container {
+    position: fixed;
+    z-index: 100;
+
+    top: 54px;
+    bottom: 0;
+    right:0;
+
+
+    /* bottom: 50px; */
+
+    width: 300px;
+
+
+    &.collapse.width, &.collapsing {
+     /* height: 25px; */
+     /* depending on your element height */
+      overflow: hidden;
+      -webkit-transition: width 0.25s ease;
+      -moz-transition: width 0.25s ease;
+      -o-transition: width 0.25s ease;
+      transition: width 0.25s ease;
+    }
+
+    .row {
+      opacity: 1;
+
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .chatter {
+      box-shadow: 0px 0px 6px rgba(0,0,0, 0.4);
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      border-radius: 10px 10px 0px 0px;
+      width:100%;
+    }
+
+    .trash-talker {
+      margin-top: 0px;
+     /* position:absolute; */
+      bottom:100px;
+     /*max-height: 450px;*/
+     height:100vh;
+    }
+
+    .talk-box {
+      width: 300px;
+      height:200px;
+      z-index: 200;
+    /*  bottom: 40px; */
+      box-shadow: 0px -4px 3px -3px rgba(0,0,0, 0.2);
+    /*  position:fixed; */
+      background-color:$darkGrey;
+    }
+
+
+
+    .trash-title-bar {
+      cursor: pointer;
+      background-color: $primaryColor;
+      text-align: center;
+      height: 45px;
+      border-radius: 10px 10px 0px 0px;
+
+      .trash-title {
+        color: white;
+        padding-top: 9px;
+        font-weight: 600;
+      }
+
+      .close-btn-container {
+        font-size: 13px;
+        color: white;
+        margin-top: -32px;
+        margin-right: 28px;
+      }
+
+      .close-btn-container:focus {
+        outline: none;
+      }
+    }
+
+    .trash-line {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+
+    .mention-container {
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+
+    .send-btn-container {
+
+      .send-btn {
+        padding: 12px 12px !important;
+        border-radius: 100px;
+        font-size: 10px;
+      }
+    }
+
+
+  }
+
+  .trash-talk-container{
+    background-color: rgba(0,0,0,0) !important;
+  }
+
+  #trash-feed-open {
+    z-index: 1;
+   /* width:50px; */
+  }
+
+
+}
+
+
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+
+  .trash-talk-container {
+    position: fixed;
+    z-index: 100;
+    bottom: 0%;
+    right:300px;
+
+    .row {
+      opacity: 1;
+
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .chatter {
+      box-shadow: 0px 0px 6px rgba(0,0,0, 0.4);
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      border-radius: 10px 10px 0px 0px;
+    }
+
+    .trash-talker {
+      margin-top: 0px;
+      max-height: 450px;
+    }
+
+    .talk-box {
+      width: 100%;
+      z-index: 10;
+      bottom: 0%;
+      box-shadow: 0px -4px 3px -3px rgba(0,0,0, 0.2);
+    }
+
+    .trash-title-bar {
+      cursor: pointer;
+      background-color: $primaryColor;
+      text-align: center;
+      height: 45px;
+      border-radius: 10px 10px 0px 0px;
+
+      .trash-title {
+        color: white;
+        padding-top: 9px;
+        font-weight: 600;
+      }
+
+      .close-btn-container {
+        font-size: 13px;
+        color: white;
+        margin-top: -32px;
+        margin-right: 28px;
+      }
+
+      .close-btn-container:focus {
+        outline: none;
+      }
+    }
+
+    .trash-line {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+
+    .mention-container {
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+
+    .send-btn-container {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      margin-top: 15px;
+
+      .send-btn {
+        padding: 12px 12px !important;
+        border-radius: 100px;
+        font-size: 10px;
+      }
+    }
+
+  }
+
+  .trash-talk-container{
+    background-color: rgba(0,0,0,0) !important;
+  }
+
+  #trash-feed-open {
+    z-index: 1;
+  }
+
+}
+
+
+.trash-talker{
+
+ /* max-height: 400px; */
+ max-height:90%;
+
+ overflow-x: hidden;
+
+  p.trash-info{
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+  margin-top:15px;
+  button{
+    margin-top:10px;
+  }
+ .trash-lines{
+
+  }
+
+  input{
+    width: 100%;
+    border: 1px solid $borderColorLight;
+    font-size: 20px;
+  }
+
+  textarea{
+    width: 100%;
+    border: 1px solid $borderColorLight;
+    font-size: 14px;
+  }
+
+  .trash-line{
+    border-bottom:1px solid $borderColorLight;
+/*    overflow-y: scroll; */
+    margin-bottom:2px;
+    padding:6px 0;
+    .username{
+      font-size:14px;
+      font-weight:600;
+    }
+    .message{
+      font-size:14px;
+    }
+    .time{
+      color:$lightText;
+      font-size:10px;
+      padding:2px 0;
+    }
+    a{
+      font-size: 12px;
+      font-weight: 600;
+      color:$primaryColor;
+    }
+  }
+}
+
+
+.chatter{
+  width:300px;
+  background: white;
+  /*overflow-y: scroll;*/
+  position: relative;
+  right: 0;
+  top: 0;
+  margin: auto;
+  vertical-align: middle;
+  /*bottom: 165px; */
+
+  .alert{
+    a{
+      color:$primaryColor;
+    }
+  }
+}
+
+
+
+.chatter-old{
+  background:#f9f9f9;
+  height:400px;
+  min-height:400px;
+  overflow-y:scroll;
+  position:fixed;
+  right:0;
+  border:1px solid #d9d9d9;
+  margin-top:20px;
+  padding-top:10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+  .alert{
+    a{
+      color:$primaryColor;
+    }
+  }
+}
+.chat-full{
+  width:100%;
+}
+
+.chatterz{
+  background:#fff;
+ position: fixed;
+ right: 0;
+  .alert{
+    a{
+      color:$primaryColor;
+    }
+  }
+}
+.chat-full{
+  width:100%;
+}
+
+

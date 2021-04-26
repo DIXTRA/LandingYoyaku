@@ -1,0 +1,387 @@
+/* THIS CONTROLS THE LEADERBOARD STYLE */
+
+.battle-duration {
+  border:none; 
+  /*color:#00adef; */ 
+  color:white;
+  font-size: 15px; 
+  font-weight: 400;
+  text-transform: uppercase; 
+}
+
+
+.bar-line{
+  height:100%;
+  @include border-radius(25px);
+  overflow:visible;
+  .score{
+    float: right; 
+    position:relative;
+    margin-top: 7px;
+    font-weight: 600;
+    color:$lightGreen;
+    z-index:800;
+   /* background-color:$greenText; */
+  }
+  background-color:$lightGreen;
+}
+
+
+.select-group{
+  display:inline-block;
+  font-size:12px;
+  padding-left:20px;
+  font-family: $pageFont;
+  position:relative;
+  font-weight:300;
+  label{
+    font-weight:300;
+  }
+  select {
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    font-style:normal;
+    padding: 8px 10px 8px 4px;
+    margin: 0;
+    outline: none;
+    line-height: 1.2;
+    background: #ffffff;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+  }
+
+  &:after{
+   content: "\f0d7";
+    line-height: 30px;
+    padding: 0;
+    color: #555555;
+    pointer-events: none;
+    -webkit-border-radius:  0;
+    -moz-border-radius: 0;
+    border-radius: 0 ;
+    font-family:FontAwesome;
+    position:absolute;
+    top:0;
+    right:2px;
+  }
+}
+
+.board {
+  margin-top:0px;
+  margin-bottom:40px;
+ 
+  span.bench{
+    font-size:14px;
+    color:#6c6c6c;
+    margin-left:40px;
+  }
+  .above .bar-line{
+    background:$primaryColor;
+    .score{
+      color:$primaryColor;
+    }
+  }
+  img.member{
+    height:32px;
+    width:32px;
+    border-radius:50%;
+  }
+  .below .bar-line{
+    background:$secondaryColor;
+    .score{
+      color:$secondaryColor;
+    }
+  }
+  .me .bar-line{
+    background:$darkBlue;
+    .score{
+      color:$darkBlue;
+    }
+  }
+  .notme .bar-line{
+    background:$lightGreen;
+    .score{
+      color:$lightGreen;
+    }
+  }
+
+
+  .item {
+    font-size:16px;
+    display:block;
+    cursor:pointer;
+    color: #ffffff;
+    height: 35px;
+    margin:25px 0 25px 20px;
+    background: #f6f5f1;
+    @include border-radius(25px);
+    box-shadow: 0 1px 2px rgba(97, 97, 97, 0.2) inset;
+    position:relative;
+    
+    
+    .ranking-name {
+      float:left; 
+     /* z-index:-800; */
+      overflow-x:hidden;
+      /*
+      position:relative;
+
+      */
+      
+      padding-top: 7px;
+      strong{
+        font-weight:600;
+      }
+      .nameonboard {
+        overflow:visible;
+        position:absolute;
+        
+        /*
+        display:inline-block;  
+        
+        line-height:50px;
+        height:50px;  
+        */
+        &.dark {
+          color:#555555 !important;
+
+        }
+      }
+    }
+
+    .ranking-name.dark{
+      color:#555555 !important;
+    }
+    .av{
+      float:left; 
+      height:45px; 
+      width:45px; 
+      margin: -5px 16px 0 -20px;
+
+      img{
+        width: 45px;
+        height: 45px;
+        @include border-radius(25px);
+      }
+    }
+    a{
+      color:$mediumText;
+    }
+
+  }
+
+  .challenge-off.item{
+      display:inline-block;
+      vertical-align: middle;
+      padding: 15px 10px 5px 10px;
+    span{
+      line-height:40px;
+    }
+  }
+
+
+  .bench {
+    margin-top:30px;
+    .item {
+      margin-left:0px;
+      
+      .desc {
+        padding-top: 10px;
+        padding-left:60px;
+        color:$mediumText;
+        font-weight:300;
+      }
+    
+    }
+  }
+
+
+}
+
+
+
+.board.ranking {
+  .ranking-name{
+    margin-left:10px;
+  }
+  .item{
+    margin: 25px 0 25px 0px;
+  }
+}
+
+
+.leaderboard {
+   margin-top:60px;
+   h1{
+    margin:0;
+    padding-bottom: 6px;
+    font-size:32px;
+    font-family:$secondaryPageFont;
+    line-height: 32px;
+  }
+}
+
+.leaderboard-metric {
+  text-align:right;
+  height: 60px;
+  display: table;
+  margin-left: auto;
+  margin-bottom: -60px;
+  span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  .metric-label {
+    color: #999999;
+  }
+  .metric-value {
+    color: #00adef;
+    font-weight: bold;
+    text-transform:capitalize;
+  }
+}
+
+.leaderboard-holder {
+  margin-top: 60px;
+}
+.member-board {
+  .item{
+    float: left;
+    text-align: center;
+    margin: 10px;
+      .av{
+
+      height:50px;
+      width:50px;
+      margin:0 20px;
+
+      img{
+        width: 50px;
+        height: 50px;
+        @include border-radius(25px);
+      }
+    }
+
+    .info{
+      font-size:20px;
+      color: $mediumText;
+      margin-top: 8px;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+
+  .teamCircle {
+    width:50px;
+    height:50px;
+    border-radius:25px;
+    /*text-align:center; */
+    /*float:right;*/
+    margin: 0 auto;
+    background:white;
+    border-color:$primaryColor;
+    border-style:solid;
+    border-width:5px;
+  }
+
+  .teamCircle .rank {
+    font-size:25px;
+    color:$primaryColor;
+    line-height:40px;
+    font-weight:400;
+    text-align:center;
+  }
+
+  .board {
+    .bench {
+      .item {
+        .desc {
+          padding-top: 5px;
+          padding-left:60px;
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 991px) and (min-width: 769px) {
+
+
+
+  .teamCircle {
+    height:100%;
+    border-radius:50%;
+    /*text-align:center; */
+    /*float:right;*/
+    margin: 0 auto;
+    background:white;
+    border-color:$primaryColor;
+    border-style:solid;
+    border-width:5px;
+  }
+
+  .teamCircle .rank {
+    font-size:25px;
+    color:$primaryColor;
+    line-height:40px;
+    font-weight:400;
+    text-align:center;
+  }
+
+
+  .board {
+    .bench {
+      .item {
+        .desc {
+          padding-top: 5px;
+          padding-left:60px;
+        }
+      }
+    }
+  }
+
+
+
+}
+
+@media screen and (max-width: 768px) {
+
+  .teamCircle {
+    height:100%;
+    border-radius:50%;
+    /*text-align:center; */
+    /*float:right;*/
+    margin: 0 auto;
+    background:white;
+    border-color:$primaryColor;
+    border-style:solid;
+    border-width:5px;
+  }
+
+  .teamCircle .rank {
+    font-size:30px;
+    color:$primaryColor;
+    line-height:50px;
+    font-weight:400;
+    text-align:center;
+  }
+
+  .board {
+    .bench {
+      .item {
+        .desc {
+          padding-top: 10px;
+          padding-left:60px;
+        }
+      }
+    }
+  }
+
+}

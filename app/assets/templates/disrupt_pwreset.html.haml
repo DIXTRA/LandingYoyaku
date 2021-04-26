@@ -1,0 +1,32 @@
+-#.row
+-#  .col-md-6.col-md-offset-3
+-#    %h1 Log in to Count It
+
+.row.semi-spacious
+  .col-md-6.col-md-offset-3
+    %h3 Forgot Password
+    %form(role="form")
+      .form-group
+        %label(for="email")Email
+        %input.form-control#email(type="email" ng-model="creds.email" placeholder="eg, you@fun.com" autofocus)
+      %button.btn.btn-default.btn-ci(ng-click="passwordResetRequest()")
+        Reset Password
+
+.row(ng-show="feedback.error")
+  .col-md-6.col-md-offset-3
+    .alert.alert-danger(role="alert")
+      {{feedback.error}}
+
+.row(ng-show="feedback.message")
+  .col-md-6.col-md-offset-3
+    .alert.alert-success(role="alert")
+      {{feedback.message}}
+
+.row
+  .col-md-6.col-md-offset-3
+    Remember your password?
+    %a(href="#/login")Login
+.row
+  .col-md-6.col-md-offset-3
+    Don't have an account?
+    %a(href="#/create")Create a Count It account.

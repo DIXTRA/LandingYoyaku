@@ -1,0 +1,170 @@
+
+.main_panel.col-md-12.col-sm-12.col-xs-12(style="padding-top:15px")
+  .settings_pane
+    .list-group
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Name
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Name
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            {{user.f}} {{user.n}}
+            %span(ng-show="user.admin") (System Admin)
+            %span(ng-show="user.boss") (Captain-Admin)
+            %span(ng-show="user.manager") (Captain)
+        %hr(style="padding:0px;margin:5px;")
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Username
+        .row(style="height:50px;")
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Username
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            %div(ng-show="changingUsername == false")
+              %div
+                {{user.shortname}}
+              %div
+                %button.btn.btn-ci.btn-default(ng-click="changingUsername = true")
+                  Change
+                %button.btn.btn-ci.btn-default(ng-show="user.un != ''" ng-click="updateUsername()")
+                  Reset
+            %div(ng-show="changingUsername == true")
+              %div
+                {{user.shortname}}
+              %form(ng-submit="updateUsername()" style="display:inline-block;")
+                .form-group()
+                  %input.form-control.inline(style="width:60%" type="text" ng-model="formData.newUsername" )
+                  %button.btn.btn-ci.btn-default(type="submit")
+                    Update
+              %button.btn.btn-ci.btn-default.inline(ng-click="changingUsername = false" style="display:inline-block;")
+                Cancel
+        %hr(style="padding:0px;margin:5px;")
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Group
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Group
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            {{user.of.n}}
+        %hr(style="padding:0px;margin:5px;")
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Email
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Email
+
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            {{user.e}}
+            %span.label.label-info(ng-show="user.emailValid")
+              %i.fa.fa-check verified
+            %button.btn.btn-ci.btn-info.btn-sm(ng-hide="user.emailValid" ng-click="sendEmailConfirmation()") Verify Email
+        %div(ng-show="confirmResult" style="height: 60px;")
+          %p.alert.alert-success(ng-show="confirmResult")
+            {{confirmResult}}
+        %hr(style="padding:0px;margin:5px;")
+
+      .list-group-item(ng-show="false")
+        .title.hidden-md.hidden-lg
+          Password
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Password
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            %button.btn.btn-default.btn-ci(ng-click="passwordResetRequest()")
+              Reset Password
+
+            .row(ng-show="feedback.error")
+              .col-md-6.col-md-offset-3
+                .alert.alert-danger(role="alert")
+                  {{feedback.error}}
+
+            .row(ng-show="feedback.message")
+              .col-md-6.col-md-offset-3
+                .alert.alert-success(role="alert")
+                  {{feedback.message}}
+        %hr(style="padding:0px;margin:5px;")
+
+      .list-group-item(ng-if="user.linkedin")
+        .title.hidden-md.hidden-lg
+          LinkedIn
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              LinkedIn
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            .btn(ng-click="reloadAccount()" analytics-on analytics-category="button" analytics-event="reload account")  Reload LinkedIn Profile Info
+        %hr(style="padding:0px;margin:5px;")
+      /
+        .row(ng-if="user.slack")
+          .col-xs-4
+            .title
+              Slack:
+          .col-xs-8
+            .btn(ng-click="reloadAccount()" analytics-on analytics-category="button" analytics-event="reload account")  Reload Slack Profile Info
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Member Since
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Member Since
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            {{user.j|date}}
+        %hr(style="padding:0px;margin:5px;")
+
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Show me on public boards
+        .row
+          .col-lg-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Show me on public boards
+          .col-lg-8.col-md-8.col-sm-12.col-xs-12
+            #userpublic_toggle.toggle-iphone
+        %hr(style="padding:0px;margin:5px;")
+
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Allow Admin to update my logs
+        .row
+          .col-lg-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Allow Admin to update my logs
+          .col-lg-8.col-md-8.col-sm-12.col-xs-12
+            #asl_toggle.toggle-iphone
+        %hr(style="padding:0px;margin:5px;")
+
+      .list-group-item
+        .title.hidden-md.hidden-lg
+          Remove my account
+        .row
+          .col-md-4.col-md-4.hidden-xs.hidden-sm
+            .title
+              Remove my account
+
+          .col-md-8.col-lg-8.col-sm-12.col-xs-12
+            %div(ng-hide="confirmDelete == 1")
+              .btn.btn-ci.btn.btn-default.btn-sm(ng-click="confirmDelete = 1") Remove Account
+
+            .alert.alert-danger(ng-show="confirmDelete == 1")
+              %h4
+                Really remove your account?
+
+              .btn.btn-ci.btn.btn-default.btn-default(ng-click="deleteAccount()" analytics-on analytics-category="button" analytics-event="remove account" analytics-label="removed") Proceed
+              %button.btn-ci.btn.btn-default.btn-default(ng-click="confirmDelete = 0" ) Cancel
+        %hr(style="padding:0px;margin:5px;")
+

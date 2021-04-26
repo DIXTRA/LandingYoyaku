@@ -1,0 +1,90 @@
+.container(ng-if="false")
+  .row.hero_bar(ng-if="true" style="padding-top: 30px;")
+    .col-sm-3.hidden-xs
+      .avatarCircle
+        %img.avatar(ng-src="{{pageUser.a}}" style="width:100%")
+            
+    .col-xs-10.col-sm-7
+      .top_line 
+        .name
+          {{pageUser.f}} {{pageUser.n}} 
+      .next_line(ng-if="sameCompany || !pageUser.of.privacy")
+        %a(ng-href="#/office/{{pageUser.oid}}"  ng-if="!sameCompany" style="color:#818285;") 
+          {{pageUser.of.n}}
+        %a(ng-href="#/team"  ng-if="sameCompany" style="color:#818285;") 
+          {{pageUser.of.n}}
+    
+
+.hidden-xs.hidden-sm
+  .jumbotron-fluid.cover-img(background-img bg-url="" default-img="" style="")
+    .black-overlay.short
+    .container
+
+      .row.firstrow
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs
+          .logo-holder()
+            %img.logo(ng-src="{{pageUser.a}}" ) 
+
+
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+          .name-holder
+            .name
+              {{pageUser.f}} {{pageUser.n}}
+
+    .secondrow
+      .container
+        .row
+          .col-lg-3.col-md-3.col-sm-3.hidden-xs()
+
+          .col-lg-9.col-md-9.col-sm-9.col-xs-12(ng-include src="'#{asset_path('shared/user_button-bar.html')}'" )  
+
+.hidden-lg.hidden-md()
+  .jumbotron-fluid.cover-img
+    .container
+      .name-holder                 
+        .name
+          {{pageUser.f}} {{pageUser.n}}
+
+  .secondrow(ng-include src="'#{asset_path('shared/user_button-bar.html')}'" )
+
+.container.main-page-container
+
+  .row
+
+    .col-lg-3.col-md-3.hidden-sm.hidden-xs
+
+      .row
+        .col-xs-12
+
+          %ul.list-group.nav-group
+
+            .list-group-item()
+              .item()
+                Joined {{pageUser.j|date}} 
+
+            .list-group-item()
+              .item(style="font-weight:bold;")
+                Group
+              %a.item(ng-href="#/office/{{pageUser.oid}}" )
+                {{pageUser.of.n}}
+
+            .list-group-item(ng-if="sameCompany")
+              .item(style="font-weight:bold;")
+                Teams
+              .item(ng-repeat="factionName in pageUser.factionNames")
+                {{factionName}}
+              .item(ng-if="pageUser.factionNames.length == 0")
+                none yet!
+                
+            .list-group-item(ng-if="sameCompany")
+              .item(style="font-weight:bold; cursor:pointer;")
+                Trackers
+              .item(ng-repeat="dev in pageUser.devs" )
+                {{dev.device}}
+
+
+    .col-md-9.col-sm-12(style="padding-top:15px" app-view-segment="3")
+
+
+
+  %span(ng-init="triggerResize()")

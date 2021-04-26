@@ -1,0 +1,143 @@
+
+/
+  .row
+    .col-md-4
+      %span.sys-label email domains
+    .col-md-4
+      %span.sys-label eligability list
+    .col-md-4
+      %span.sys-label join mode
+  .row
+    .col-md-4
+      %span.komputer Any
+    .col-md-4
+      %span.komputer 0 Entries
+    .col-md-4
+      %i.fa.fa-arrow-circle-right
+      %span.komputer OPEN <br />
+      %i.fa.fa-circle-o(style="color: gainsboro;")
+      %span.komputer(style="color: gainsboro;") INVITE ONLY
+
+
+
+
+%span.sys-label {{members.length}} current members
+%table.table.table-condensed
+  %thead
+    %th
+    %th Name
+    %th Email
+    %th Joined
+    %th Score
+    %th(ng-if="user.of.nitro") Team
+    %th
+  %tbody
+    %tr(ng-repeat="member in members"
+        ng-mouseenter="setHover($index)"
+        ng-mouseleave="setHover(-1)")
+
+      -# Prompting for DELETE
+      -#
+      %td(ng-show="editRow==$index && editOp=='delete'" colspan="6")
+        .alert.alert-danger
+          Please confirm delete of {{member.fullName}} ({{member.email}}). <br />
+          .checkbox
+            %input#ban(type="checkbox" name="ban" value="ban_yes" ng-model="edit.ban")
+              %label(for="ban")
+            %span(style="padding-left: 32px;")
+              Also ban this user from joining in the future.
+          %button.btn.btn-primary.btn-sm(ng-click="confirmEdit()") Delete
+          %button.btn.btn-default.btn-sm(ng-click="cancelEdits()") Cancel
+
+      -# Prompting for LEVEL UP
+      -#
+      %td(ng-show="editRow==$index && editOp=='levelUp'" colspan="6")
+        .alert.alert-info
+          Please confirm assignment of Captain role to {{member.fullName}} ({{member.email}}). <br />
+          %button.btn.btn-primary.btn-sm(ng-click="confirmEdit()") Assign Role
+          %button.btn.btn-default.btn-sm(ng-click="cancelEdits()") Cancel
+
+      -# Prompting for LEVEL DOWN
+      -#
+      %td(ng-show="editRow==$index && editOp=='levelDown'" colspan="6")
+        .alert.alert-info
+          Please confirm removal of Captain role for {{member.fullName}} ({{member.email}}). <br />
+          %button.btn.btn-primary.btn-sm(ng-click="confirmEdit()") Remove Role
+          %button.btn.btn-default.btn-sm(ng-click="cancelEdits()") Cancel
+
+      -# Regular user table:
+      -#
+      %td(ng-hide="editRow == $index")
+        %img(ng-src="{{member.avatar}}" width="32")
+      %td(ng-hide="editRow == $index")
+        %a(ng-href="#/user/{{member.id}}")
+          {{member.fullName}} 
+        <br />
+        %span.minitext.redboxed(ng-show="member.isAdmin") Count It/Admin
+        %span.minitext.blueboxed(ng-show="member.isBoss") Captain/Admin
+        %span.minitext.grayboxed(ng-show="member.isManager") Captain
+      %td(ng-hide="editRow == $index")
+        {{member.email}}
+      %td(ng-hide="editRow == $index")
+        {{member.joindate|date}}
+      %td(ng-hide="editRow == $index")
+        {{convert_score(member.chScore)}}
+      %td(ng-hide="editRow == $index" ng-if="user.of.nitro")
+        %div(ng-hide="edit.changingTeam == $index")
+          %div(ng-if="member.factions && member.factions.length > 0")
+            %div(ng-repeat="faction in member.factions")
+              {{faction}}
+              %span.action(style="padding-left:3px")
+                %a.danger(ng-if="!user.norm" ng-click="removeFromTeam($parent.$parent.$index, faction)")
+                  %i.fa.fa-times 
+            %span(ng-if="!user.norm" ng-click="edit.changingTeam = $index" ng-hide="edit.changingTeam !=index && edit.changingTeam != -1")
+              %a(href="")
+                Add a team
+          %div(ng-if="!user.norm && (!member.factions || member.factions.length == 0)")
+            %span( style="font-weight:600;")
+              No team yet. <br />
+            %span(ng-click="edit.changingTeam = $index" ng-hide="edit.changingTeam !=index && edit.changingTeam != -1")
+              %a(href="")
+                Assign Team
+        .form-group(ng-show="edit.changingTeam == $index")
+          %div(ng-show="factions.length == 0")
+            %span( style="font-weight:600;")
+              Group has no teams yet <br />
+            %span
+              %a(href="#/boss/factions")
+                Create teams for your group
+            .row
+              .col-md-12.col-sm-12.col-xs-12.action(style="text-align:center;")
+                %a.danger(href="" ng-click="resetChangingTeams()")
+                  %i.fa.fa-times
+          %div(ng-hide="factions.length == 0")
+            %div(ng-repeat="faction in member.factions")
+              {{faction}}
+            %select.form-control(ng-model="fname.selected" )
+              %option(ng-repeat="faction in factions | filter:filterAlreadyAdded" value="{{faction.n}}")
+                {{faction.n}}
+            .row
+              .col-md-6.col-sm-6.col-xs-6.action(style="text-align:center;")
+                %a.confirm(href="" ng-click="confirmTeamChange($index)")
+                  %i.fa.fa-check
+              .col-md-6.col-sm-6.col-xs-6.action(style="text-align:center;")
+                %a.danger(href="" ng-click="resetChangingTeams()")
+                  %i.fa.fa-times
+              / %hr
+              / .col-md-12.col-sm-12.col-xs-12.action(style="text-align:center;" ng-if="member.factions && member.factions != []")
+              /   %a.danger(href="" ng-click="removeFromTeam($index)")
+              /     Remove from team
+      %td(ng-hide="editRow == $index")
+        %div
+          %a(ng-show="!user.norm" ng-click="promptDelete($index)" ng-class="{ toolhidden: !(hoverRow == $index) }")
+            %li.fa.fa-trash
+          %div(ng-show="user.boss || user.admin")
+            -# norms can become managers
+            %a(href ng-href title="create manager"
+                    ng-click="promptLevelUp($index)" ng-hide="member.isAdmin || member.isBoss"
+                    ng-class="{ toolhidden: !(hoverRow == $index) }")
+              %li.fa.fa-level-up
+            -# managers can become norms
+            %a(href ng-href title="remove manager" ng-click="promptLevelDown($index)"
+                    ng-show="member.isManager" ng-class="{ toolhidden: !(hoverRow == $index) }")
+              %li.fa.fa-level-down

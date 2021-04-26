@@ -1,0 +1,165 @@
+.row
+  .col-lg-2.col-md-2.side.hidden-sm.hidden-xs
+    .ci-score
+      .score {{office.spm}}
+    .title-lbl
+      Count-it Score
+
+  .col-lg-10.col-md-10.col-sm-12.col-xs-12.main
+    .summary
+      %h1 {{office.n}}
+      .city
+        %i.icon.ci-marker
+        .text
+          %a(ng-href="#/city/{{office.msl}}")
+            {{office.lc}}, {{office.ls}}
+      .ranked
+        %i.icon.ci-ribbon
+        .text
+          %span
+            Ranked:
+          %span.num
+            {{office.rank}}
+          %span
+            out of:
+          %span.num
+            {{office.poolSize}}
+
+    .visible-sm.visible-xs.side
+      .ci-score
+        .score {{office.spm}}
+      .title-lbl
+        Count-it Score
+
+.row
+  .col-lg-2.col-md-2.hidden-sm.hidden-xs.side
+    %p something here?
+
+  .col-lg-10.col-md-10.col-12-sm.col-12-sx.main
+    %h1 Let Them Eat Lunch
+
+    %div.pledge-form(ng-show="pledge.valid && editPledge<1")
+
+      %h4 Your Current Pledge
+      %table.table-condensed
+        %thead
+        %tbody
+          %tr
+            %td created
+            %td <strong>{{pledge.madeDate}}</strong>
+          %tr
+            %td restaurant
+            %td <strong>{{pledge.vendor}}</strong>
+          %tr
+            %td pledge amount
+            %td <strong>{{pledge.amount|currency}}</strong>
+          %tr
+            %td earned amount
+            %td <strong>{{pledge.atStake|currency}}</strong> ({{pledge.pctEarned}}%)
+          %tr
+            %td fees
+            %td
+          %tr(ng-repeat="fee in pledge.fees")
+            %td.pull-right {{fee.desc}}
+            %td {{fee.amt|currency}}
+          %tr
+            %td total
+            %td <strong>{{pledge.total|currency}}</strong>
+          %tr
+            %td on card
+            %td <strong>{{pledge.card.type}} {{pledge.card.number}}</strong>
+          %tr
+            %td challenge ends
+            %td <strong>{{pledge.dueDate}}</strong>
+      %p
+        %button.btn.btn-xs.btn-default(ng-click="editPledge=1") Edit Pledge
+
+
+    %div.pledge-form(ng-show="editPledge==1")
+      %form.form-horizontal(role="form")
+        .form-group
+          %label.col-sm-2.control-label(for="pVendor") Restaurant
+          .col-sm-6
+            %select#pVendor.form-control(ng-model="pVendor" ng-options="vend.name for vend in vendors")
+              %option(value="") choose...
+        .form-group
+          .col-sm-offset-2.col-sm-6
+            {{pVendor.desc}}
+        .form-group
+          %label.col-sm-2.control-label(for="pAmount") Amount
+          .col-sm-6
+            %input#pAmount.form-control(type="text" placeholder="0.00" ng-model="pAmount")
+            %span.help-block You will be charged no more than this amount at the end of the month.
+
+        .form-group
+          .col-sm-offset-2.col-sm-6
+            %button.btn.btn-success(ng-click="editPledge=3") Next: Payment Details
+            %a.btn.btn-default(href ng-href="#/team") Cancel
+
+
+
+    %div.pledge-form(ng-show="editPledge==3")
+      %form.form-horizontal(stripe:form="saveCustomer" role="form")
+        .form-group
+          %label.col-sm-2.control-label(for="pVendor") Restaurant
+          .col-sm-6
+            %p.form-control-static {{pVendor.name}}
+        .form-group
+          %label.col-sm-2.control-label(for="pAmount") Amount
+          .col-sm-6
+            %p.form-control-static {{pAmount|currency}}
+            %span.help-block You will be charged no more than this amount at the end of the month.
+
+        %div(ng-if="pCC && authValid")
+          .form-group(ng-if="pCC")
+            %label.col-sm-2.control-label(for="pCC") Charge To Card
+            .col-sm-6
+              %p.form-control-static.bg-info
+                {{pCC.type}}-{{pCC.number}} exp {{pCC.exp}}
+                %a.btn.btn-xs.btn-default.pull-right(ng-click="revealEditCard()") change
+
+        %div(ng-show="(editCard == 1) || (!authValid)")
+          %fieldset
+            %input(type="text" size="20" data-stripe="number" placeholder="4242424242424242")
+            %input(type="text" size="4" data-stripe="cvc" placeholder="CVC")
+            %input(type="text" size="2" data-stripe="exp-month" placeholder="MM")
+            %input(type="text" size="4" data-stripe="exp-year" placeholder="YYYY")
+
+          %button#stripe-submit.btn.btn-success.btn-xs(type="submit") Save New Card
+
+        .form-group
+          .col-sm-offset-2.col-sm-6
+            %button.btn.btn-success(ng-click="stagePledge()" type="button") Review Order
+            %button.btn.btn-default(ng-click="editPledge=1" type="button") Back
+            %span.help-block There will be a confirmation page after this
+
+
+    %div.pledge-form(ng-show="editPledge==2")
+      %h4 Confirm your pledge
+      %table.table-condensed
+        %thead
+        %tbody
+          %tr
+            %td challenge ends
+            %td <strong>{{pendingPledge.dueDate}}</strong>
+          %tr
+            %td restaurant
+            %td <strong>{{pendingPledge.vendor}}</strong>
+          %tr
+            %td pledge amount
+            %td <strong>{{pendingPledge.amount|currency}}</strong>
+          %tr
+            %td fees
+            %td
+          %tr(ng-repeat="fee in pendingPledge.fees")
+            %td.pull-right {{fee.desc}}
+            %td {{fee.amt|currency}}
+          %tr
+            %td total amount possible
+            %td <strong>{{pendingPledge.total|currency}}</strong>
+          %tr
+            %td on card
+            %td <strong>{{pendingPledge.card.type}} {{pendingPledge.card.number}}</strong>
+      %p
+        %button.btn.btn-success(ng-click="confirmPledge()") Make Pledge
+        %button.btn.btn-default(ng-click="editPledge=1") Cancel

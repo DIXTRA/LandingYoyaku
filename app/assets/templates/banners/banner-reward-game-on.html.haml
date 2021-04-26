@@ -1,0 +1,57 @@
+%h3.banner-callout-title.green(ng-if="office.prize.groupEnable && office.prize.indiEnable")
+  You've got hot prizes!
+
+%h3.banner-callout-title.green(ng-if="!office.prize.groupEnable || !office.prize.indiEnable")
+  You've got a hot prize!
+
+
+
+.indivudial.reward(ng-if="office.prize.indiEnable")
+  .row.row-pad
+    .col-sm-12
+      %strong Individual Reward
+  .row.game-on-info.row-pad
+    .col-sm-4
+      .content-box
+        .big-text
+          {{office.prize.is}}
+          %img.arrow(ng-src="/images/arrow-gray.jpg")
+        .small-text  Count It Score Goal
+    .col-sm-4
+      .content-box
+        .big-text ${{office.prize.indiAmt}}
+        .small-text  Value
+    .col-sm-4
+      %strong 
+      .content-box
+        %img.card-logo(ng-src="{{office.prize.indiPrizeUrl}}")
+        .small-text.card-text  
+          Gift Card
+  .row.row-pad
+    .col-sm-12
+      %p
+        Prize outlook: {{getOutlook(office.indiPrizeOutlook)}}
+
+
+.group.reward(ng-if="office.prize.groupEnable")
+  .row.row-pad
+    .col-sm-12
+      %strong Team Reward
+  .row.game-on-info.row-pad
+    .col-sm-4
+      .content-box
+        .big-text
+          {{office.prize.gs}}
+          %img.arrow(ng-src="/images/arrow-gray.jpg")
+        .small-text  Count It Score Goal
+    .col-sm-8
+      .content-box
+        %p.prize-details {{office.prize.gt}}
+    
+  .row.row-pad
+    .col-sm-12
+      %p
+        Prize outlook: {{getOutlook(office.groupPrizeOutlook)}}
+
+
+

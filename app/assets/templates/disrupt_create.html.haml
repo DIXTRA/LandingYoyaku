@@ -1,0 +1,49 @@
+.row
+  .col-md-4
+    .sexytalk
+      %p Anyone can setup a group on Count It for FREE, and invite others to join.
+      %p Upgrade any time to <strong>Count It Pro</strong> to set group goals, fund rewards, create teams, get reports, and more.
+      %p Starting at just $4.99 / month!
+
+  .col-md-6.col-md-offset-1
+    .row
+      .col-md-12
+        %h1 Create a Count It Account
+
+    .row.semi-spacious
+      .col-md-12
+        %h3 Do you have a LinkedIn Account?
+
+        %p Sign up with LinkedIn and we grab your name, email, avatar, and current position automatically!
+
+        %a.btn.btn-primary.btn-ci.linkedin(ng-href="/auth/linkedin")
+          %i.fa.fa-linkedin
+          Sign up with LinkedIn
+
+    .row.semi-spacious
+      .col-md-12
+        %p Or, create an account directly:
+        %form(role="form")
+          .form-group
+            %label(for="name")Name
+            %input.form-control#name(type="text" ng-model="creds.name" placeholder="e.g., Bob Dobbs")
+          .form-group
+            %label(for="email")Work Email
+            %input.form-control#email(type="email" ng-model="creds.email" placeholder="e.g., you@corp.com")
+          .form-group
+            %label(for="password")Password
+            %input.form-control#password(type="password" ng-model="creds.password" placeholder="e.g., ••••••••••••")
+          .row
+            .col-md-4
+              %button.btn.btn-primary.btn-ci(ng-click="createAccount()")
+                Create New Account
+            .col-md-8
+              %span.fineprint Click to create your free acount, and agree to our reasonable terms of service. We won't sell your info, or spam you, and you can remove your account at any time.
+
+        .alert.alert-danger(ng-show="error.isError" role="alert")
+          {{error.message}}
+
+    .row
+      .col-md-12
+        Already have an account?
+        %a(href="#/login")Log in.

@@ -1,0 +1,217 @@
+
+%header.navbar.navbar-default.navbar-fixed-top.hidden-xs.hidden-sm.cbt
+  .ci-navbar(ng-style="noUserStyle()")
+    .container-fluid
+      .container(style="text-align:left;" ng-style="noUserStyle()")
+        .row
+          .col-lg-3.col-md-3.col-sm-3.hidden-xs
+            /
+              .navbar-header
+                .logo_left
+                  %img.logo-small(src="/images/countdot.png")
+
+            .pull-left()
+              %img.logo-small(ng-src="{{partner_logo_main}}")
+
+          .col-lg-9.col-md-9.col-sm-9.col-xs-12(style="")
+
+            / Log in or Join button for non-logged-in users
+            /%div(ng-if="!user || onboarding()")
+            .pull-right(ng-if="!user || onboarding()")
+              %ul.nav.navbar-nav.navbar-right(ng-show="path != '/' &&  path != '/invite'  && !onboarding()")
+                %li
+                  %a(ng-if="path == '/login'")
+                    Don't have an account yet?
+                  %a(ng-if="path == '/create'")
+                    Already have an account?
+                %li
+                  %a.btn.btn-primary.navbar-btn.btn-ci(ng-href="#/create" analytics-on analytics-category="button" analytics-event="login" ng-if="(path != '/create')")
+                    Join for Free
+                %li
+                  %a.btn.btn-primary.navbar-btn.btn-ci(ng-href="#/login" analytics-on analytics-category="button" analytics-event="signup" ng-if="(path != '/login')")
+                    Log In
+
+
+            .pull-right(ng-if="user" )
+              %ul.nav.navbar-nav.navbar-right
+                %li(ng-if="!path.startsWith('/setup')")
+                  /
+                    %form.form-inline(ng-show="search_box_showing"  style="border-radius: 30px 0px 0px 30px;")
+                      .input-group
+                        %input.form-control.search-form(ng-keydown="doSearch()" name="search" ng-model="searchData.searchText" type="text" placeholder="Search")
+                        %span.input-group-btn
+                          %button.btn.btn-primary.btn-ci.search-btn( style="border-radius: 0px 30px 30px 0px;"  ng-click="toggleSearchBox()" )
+                            %i.fa.fa-times
+                  %a(href="" ng-click="toggleSearchBox()" ng-hide="search_box_showing")
+                    %i.fa.fa-search
+                /
+                  %li
+                    %a(target="_blank" href="https://countit.uservoice.com/")
+                      %i.fa.fa-question
+                /
+                  %li
+                    %a(data-toggle="collapse" data-target="#trash-feed" href="")
+                      %i.fa.fa-comments
+
+                %li(ng-if="!path.startsWith('/setup')")
+                  %a(href="#/world" ng-click="clearSearch()" ng-class="{'active' : path == '/world'}")
+                    %i.fa.fa-globe
+                    World
+
+                %li(ng-if="!path.startsWith('/setup')")
+                  %a(href="#/team" ng-click="clearSearch()" ng-class="{'active' : path == '/team'}")
+                    %i.fa.fa-home
+                    Home
+
+                %li
+                  %a(href="#/me/activity" ng-click="clearSearch()" ng-class="{'active' : path.startsWith('/me') && !path.includes('/metro')}")
+                    %i.fa.fa-user
+                    {{user.f}}
+                %li
+                  %a.dropdown-toggle(data-toggle="dropdown")
+                    %span.caret
+
+                  %ul.dropdown-menu
+                    %li
+                      %a(href="#/me/settings" )
+                        Settings
+                    %li(ng-if="partner_is_us")
+                      %a(href="#/me/invite" )
+                        Invite People
+                    %li
+                      %a(target="_blank" href="https://countit.uservoice.com/")
+                        Help
+                    %hr(ng-if="!user.norm" style="margin: 0.2em auto; width: 75%;")
+                    %li(ng-if="!user.of.nitro && !user.norm" style="padding-top:0px;")
+
+                      %a(href="#/boss" )
+                        Group Admin
+                    %li(ng-if="user.of.nitro && !user.norm" style="padding-top:0px;")
+                      %a(href="#/boss")
+                        PRO Admin
+                    %hr(style="margin: 0.2em auto; width: 75%;")
+
+                    %li
+                      %a(href="#/logout" )
+                        Log Out
+
+
+            / Navigation for logged-in users
+            %div(ng-if="user" )
+              .nav.navbar-nav.nav-center(ng-hide="search_box_showing" )
+
+                /
+                  %li(ng-if="!user.of.nitro")
+                    %a.btn.btn-primary.navbar-btn.btn-ci.green
+                      Go PRO
+
+
+              /.navz.nav-barz.nav-centerz(ng-show="search_box_showing" style="background-color:green;display:inline-block;")
+              %div(ng-show="search_box_showing" style="overflow:hidden;text-align:left;" )
+                .search_box_holder(style="text-align:left;")
+                  .search_box
+                    %span(ng-if="!partner_is_us" )
+                      COUNT IT
+                      |
+                    %i.fa.fa-search(ng-click="clearSearch()")
+                    /%div(style="height:35px; margin-top: -4px;")
+                    %input(ng-keydown="doSearch()" name="search" ng-model="searchData.searchText" type="text" placeholder="Search")
+
+                    /%button.fa.fa-times( ng-click="toggleSearchBox()" )
+
+                    /%button.fa.fa-search(ng-click="toggleSearchBox()" style="display:inline-block;" ng-show="search_box_showing")
+                    /%button.fa.fa-search(ng-click="toggleSearchBox()" style="display:inline-block;" ng-show="!search_box_showing")
+
+
+
+%header.navbar-fixed-top.hidden-md.hidden-lg.top-nav#el_nav_movil(headroom tolerance='{down : 10,up : 20}' offset='0' classes="{pinned:'slide--reset',unpinned:'slide--up',initial:'slide'}")
+  .container-fluid.container
+    .navbar-header
+
+      %a(ng-href="/" ng-if="pageView != 'league'" style="")
+        %img.logo-smallest(ng-src="{{partner_logo_main}}" style="padding:0px; margin:12px 4px 8px 8px;")
+
+      %ul.nav.nabar-nav.nav-pills.pull-right(style="display:inline-block;")
+
+        %li
+          %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-collapse" ng-if="user")
+            %i.fa.fa-bars
+
+      .collapse.navbar-collapse.full(nav-collapse)
+        %ul.nav.navbar-nav(ng-if="user")
+
+          %li
+            %a(href="#/me")
+              %span My Profile
+
+          %li
+            %a(href="#/team")
+              %span Home
+
+          %li
+            %a(href="#/metro/{{user.of.msl}}" ng-class="{'active' : path == '/metro/{{user.of.msl}}'}")
+              %span Metro
+
+          %li
+            %a(href="#/world")
+              %span World
+
+          %li(ng-repeat="league in user.of.leagues" )
+            %a(href="" ng-click="go('/league/' + league.s)" change-parent-text target="boardType")
+              %span {{league.m}}
+          /
+            %li
+              %a(href="#/me/settings" ng-click="closeSearch()")
+                %span Settings
+
+          %li(ng-if="!user.norm")
+            %a(href="#/boss/members" ng-click="closeSearch()")
+              %span Group Admin
+
+          %li
+            %a(href="#/search")
+              %span Search
+          %li
+            %a(href="https://countit.uservoice.com/knowledgebase")
+              %span Help
+          / %li
+          /  %a(href="#/trash-talk")
+          /    %span Trash Talk
+
+          %li
+            %a(href="#/me/invite")
+              %span Invite a Co-Worker
+          %li
+            %a(href="#/logout")
+              %span Logout
+
+      .mobile-buttons(ng-if="!user")
+        %a.btn.btn-primary.btn-ci.login.pull-right.relative(ng-href="#/login"  analytics-on analytics-category="button" analytics-event="login" ng-if="(path != '/login')" )
+          Log In
+        %a.btn.btn-primary.btn-ci.login.pull-right.relative(ng-href="#/create"  analytics-on analytics-category="button" analytics-event="signup" ng-if="(path != '/create')" )
+          Join For Free
+
+/ .alert-message-holder.main.animated.fadeInDown
+/   .alert-message.error
+/     %i.fa.fa-info-circle
+/     %span.alert-title
+/       ALERT!
+/     %span.alert-msg
+/       Count.It is recovering from a hacker attack.  :-(  We are working to restore all user data. Please check your email over the next 24 hours for updates.
+/     %i.fa.fa-times-circle.alert-close.alert_dismiss{"aria-label" => "close", "data-dismiss" => "alert"}
+
+.message-holder
+
+.content(ng-class="{landing: path == '/' || path == '/invite'}" style="" )
+
+
+  .container-fluid(app-view-segment="1" scroll-to-top-when="page-change")
+
+  .push
+
+
+%div(ng-if="partner_is_us" ng-include src="'#{asset_path('shared/footer.html')}'")
+%div(ng-if="!partner_is_us" ng-include src="'#{asset_path('shared/footer_partner.html')}'")
+
+
+

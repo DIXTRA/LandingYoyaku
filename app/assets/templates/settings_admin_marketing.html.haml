@@ -1,0 +1,285 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    :javascript
+      $(document).ready(function () {
+
+          function exportTableToCSV($table, filename) {
+
+              var $rows = $table.find('tr:has(td)'),
+
+                  // Temporary delimiter characters unlikely to be typed by keyboard
+                  // This is to avoid accidentally splitting the actual contents
+                  tmpColDelim = String.fromCharCode(11), // vertical tab character
+                  tmpRowDelim = String.fromCharCode(0), // null character
+
+                  // actual delimiter characters for CSV format
+                  colDelim = '","',
+                  rowDelim = '"\r\n"',
+
+                  // Grab text from table into CSV formatted string
+                  csv = '"' + $rows.map(function (i, row) {
+                      var $row = $(row),
+                          $cols = $row.find('td');
+
+                      return $cols.map(function (j, col) {
+                          var $col = $(col),
+                              text = $col.text();
+
+                          return text.replace(/"/g, '""'); // escape double quotes
+
+                      }).get().join(tmpColDelim);
+
+                  }).get().join(tmpRowDelim)
+                      .split(tmpRowDelim).join(rowDelim)
+                      .split(tmpColDelim).join(colDelim) + '"',
+
+                  // Data URI
+                  csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+              $(this)
+                  .attr({
+                  'download': filename,
+                      'href': csvData,
+                      'target': '_blank'
+              });
+          }
+
+          // This must be a hyperlink
+          $(".export").on('click', function (event) {
+              // CSV
+              exportTableToCSV.call(this, $('#dvData>table'), 'export.csv');
+
+              // IF CSV, don't do event.preventDefault() or return false
+              // We actually need this to be a typical hyperlink
+          });
+      });
+
+
+.top-nav{:role => "navigation", :style => "border-bottom: 1px solid #d7d7d7; max-width:1700px; padding-top: 2px; margin-top:1px;"}
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", :type => "button", }
+      %i.fa.fa-bars
+    %a.navbar-brand{ :href => "/#/"}
+      %img.img-responsive{:height => "150", :src => "./images/count-it-dot.png", :width => "150", :style => "margin-top: -7px; margin-left: 60px;"}
+    / Collect the nav links, forms, and other content for toggling
+  .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+    %ul.nav.navbar-nav
+      / Hidden li included to remove active class from about link when scrolled up past about section
+      %li
+        %a.page-scroll{:href => "/#/slack"}
+          %img.img-responsive{:src => "./images/slacklogo.png", :height => "25", :width =>"25", :style => "margin-top:-6px; margin-right: 5px;"} 
+          %span Add to Slack!
+      %hr.hidden-sm.hidden-md.hidden-lg
+      %li
+        %a.page-scroll{:href => "/#/trackers"} Trackers Guide
+      %hr.hidden-sm.hidden-md.hidden-lg
+      %li
+        %a.page-scroll{:href => "/#/pro"} PRO Features
+        /
+      %hr.hidden-sm.hidden-md.hidden-lg
+      
+      %li(ng-if="!user")
+        %a.page-scroll{:href => "/#/create", :style => ""}
+          %strong Join 
+      %li(ng-if="user")
+        %a.page-scroll{:href => "/#/team", :style => ""}
+          %strong Home
+      %hr.hidden-sm.hidden-md.hidden-lg 
+      %li.hidden-xs.hidden-sm
+        %a{:style => "padding-left:2px;padding-right:2px; margin-top: -15px;"}
+        |
+      %li(ng-if="!user")
+        %a.page-scroll{:href => "/#/login", :style => ""}Login
+      %li(ng-if="user")
+        %a{:href => "#/me", :style => ""}
+          {{user.f}}
+
+.wearable{:style => "height: 200px; background-color: #2ecc71"}      
+  .col-xs-8.col-xs-offset-2
+    %div{:style => "height:50px;"}
+    %div.hidden-lg.hidden-md.hidden-sm{:style => "height: 125px;"}
+    %h1{:style => "color:white;  font-family: 'AvantGarde-Demi',  sans-serif; font-size: 60px; text-align:center;"} Count.It Marketing
+    /%h4{:style => "text-align:center; color:white; font-size: 50px; padding-top: 10px; font-family:'AvantGarde-Demi',  sans-serif;"} Wearables Guide
+    %h3{:style => "color: #555555; font-weight: 100; color:white; font-size: 21px; text-align:center; margin-top: -2px;"} This page is for closers. 💸
+.container-fluid
+  .row(style="padding-top: 2em;")
+
+    %div{:style => "height:100px;"}
+      .col-md-4
+        .well{:style => "background-color:#fff;"}
+          %p{:style => ""} Total Offices: 
+          %h2{:style => "color:#00adef; font-size: 60px; font-weight: bold;"} {{offices.length}}
+      .col-md-4
+        .well{:style => "background-color:#fff;"}
+          %p Active Offices:
+          %h2{:style => "color:#00adef; font-size: 60px; font-weight: bold;"} {{activeCount}} 
+      .col-md-4
+        .well{:style => "background-color:#fff;"}
+          %p Average Score
+          %h2{:style => "color:#00adef; font-size: 60px; font-weight: bold;"} {{avgScore}}
+
+    %div{:style => "height: 200px;"}   
+      .col-md-4
+        %strong Filters: 
+        .row
+        .col-xs-4
+          plan
+          %br
+          %select{ "ng-model" => "planFilter"}
+            %option{:value => "pro"} PRO
+            %option{:value => "free"} Free
+            %option{:value => "" } All
+
+        .col-xs-4
+          privacy
+          %br
+          %select{ "ng-model" => "privacyFilter"}
+            %option{:value => "private"} Private
+            %option{:value => "public"} Public
+            %option{:value => "" } All          
+
+      .col-md-4
+        %strong Download CSV:
+        %br
+        %a.export{:href => "#"} 
+          %strong Export Table Data
+      .col-md-4
+        %strong Links:
+        %br
+        %a{:href => "https://docs.google.com/a/socialworkout.com/spreadsheets/d/1sbmR_rIyfAG4YU5y97Kh-onjTqWFikKftSyQUqj4ZPA/edit?usp=sharing"}
+          %strong Go to Prospecting Spreadsheet
+        %br
+        %a{:href => "https://countit.slack.com/messages/production/"}
+          %strong Go to Production Slack Channel
+        %br
+        %a{:href => "#/admin_broadcast"}
+          %strong Go to Super Admin Broadcast 
+
+    %div{:style => "height: 100%;"}
+      .col-md-12
+        #dvData
+          %table.table.table-hover.table-bordered
+            %thead
+              %th Group Name
+              %th 
+                %a.signups{"ng-click" => "sortBy('signUpDate')", :style => "cursor:pointer; "} Join Date
+              %th 
+                %a.signups{"ng-click" => "sortBy('planName')", :style => "cursor:pointer; text-align:right;"} Plan
+              %th 
+                %a.signups{"ng-click" => "sortBy('planStatus')", :style => "cursor:pointer; text-align:right;"} Status
+              %th
+                %a.signups{"ng-click" => "sortBy('usercount')", :style => "cursor:pointer;"} Users
+              %th
+                %a.signups{"ng-click" => "sortBy('active_users')", :style => "cursor:pointer;"} Active
+          
+              / %th Manager First Name
+              / %th Manager Last Name
+              / %th Manager Email
+ 
+              %th
+                %a.signups{"ng-click" => "sortBy('privacyNote')", :style => "cursor:pointer;"} Privacy
+              /
+                %th 
+                  %a.signups{"ng-click" => "sortBy('slackOffice')", :style => "cursor:pointer;"} Slack
+                %th 
+                  %a.signups{"ng-click" => "sortBy('hipchatOffice')", :style => "cursor:pointer;"} Hipchat
+
+              %th 
+                %a.costly{"ng-click" => "sortBy('adminName')", :style => "cursor:pointer; "} Admin Name
+              %th 
+                %a.costly{"ng-click" => "sortBy('adminEmail')", :style => "cursor:pointer; "} Admin Email
+
+              / 
+                %th 
+                  %a.costly{"ng-click" => "sortBy('loadsDay')", :style => "cursor:pointer; "} 1d
+                %th 
+                  %a.costly{"ng-click" => "sortBy('loadsLast7Days')", :style => "cursor:pointer; "} 7d
+                %th 
+                  %a.costly{"ng-click" => "sortBy('loadsThisMonth')", :style => "cursor:pointer; "} month 
+              %th 
+                %a.costly /user 
+              
+              %th 
+                %a.costly slack
+                
+              %th 
+                %a.costly hipchat
+              
+              / %th Boss First Name
+              / %th Boss Last Name
+              / %th Boss Email
+              / %th Office ID
+              %th Metrics
+                            
+            %tbody
+              %tr(ng-repeat-start="office in offices | orderBy: orderProp : reverse | filter:{planStatus:planFilter} | filter:{privacyNote:privacyFilter}  | filter:{privacyNote:privacyFilter} ")
+                %td {{ office.n }}
+                %td   
+                  %p{"ng-if" => "office.new =='newoffice'", :style => "color:#27c302; font-size: 20px;"} NEW
+                  %p{"ng-if" => "office.new !='newoffice'"}   {{office.signUpDate}}
+                %td {{ office.planName }}
+                %td{"ng-if" => "office.planStatus =='pro'", :style => "color:#27c302;"} {{ office.planStatus }} 
+                %td{"ng-if" => "office.planStatus =='free'"} {{ office.planStatus }} 
+                
+                %td {{ office.usercount }} 
+                %td {{ office.active_users }} 
+                
+                %td{"ng-if" => "office.privacyNote =='private'", :style => "color:red;"} {{office.privacyNote}}
+                %td{"ng-if" => "office.privacyNote =='public'", :style => "color:#00adef;"} {{office.privacyNote}}
+                /
+                  %td {{office.slackOffice}}
+                  %td {{office.hipchatOffice}}
+                
+                %td {{ office.adminName }}
+                %td {{ office.adminEmail }}
+
+                /
+                  %td {{ office.loadsDay }}
+                  %td {{ office.loadsLast7Days }}
+                  %td {{ office.loadsThisMonth }}
+                %td {{ (office.loadsThisMonth / office.active_users) | number:0 }}
+                
+                %td {{ office.slackOffice }}
+                %td {{ office.hipchatOffice }}
+                
+                /%td {{office.officeD}}
+                %td 
+                  /%button(data-toggle="collapse" data-target="#row_{{$index}}" ng-click="getManagers(office.officeD,$index)") 
+                  %button(ng-click="getMetrics(office.officeD,$index)") 
+                    %i.fa.fa-users
+
+              /%tr.collapse.out(id="row_{{$index}}" ng-repeat-end )
+              %tr(id="row_{{$index}}" ng-repeat-end ng-show="$index==show_index")
+                %td(colspan=14 style="")
+                  %div
+                    .col-md-4
+                      1 Day Metrics: {{loadsDay}}
+                    .col-md-4
+                      1 Week Metrics: {{loadsLast7Days}}
+                    .col-md-4
+                      1 Month Metrics: {{loadsThisMonth}}
+                      
+                  /
+                    .pull-right
+                      %div
+                        %strong Captains:
+                        %span(ng-repeat="u in bossmen")
+                          {{u.fullName}}
+                          {{u.email}}
+                      %div
+                        %strong Managers:
+                        %span(ng-repeat="u in managers")
+                          {{u.fullName}}
+                          {{u.email}}
+                /
+                  %td
+                    %span{"ng-if" => "office.planStatus =='pro'", :style => "color:#27c302;"} 
+                      %a{"ng-click" => "summaryTime(office.officeD)", :style => "cursor:pointer;"} 
+                        %i.fa.fa-envelope
+                        Summary Emails
+                      %a{"ng-click" => "summaryTime(office.officeD,true)", :style => "cursor:pointer;"} 
+                        %i.fa.fa-envelope
+                        Test Email
+                      
+              

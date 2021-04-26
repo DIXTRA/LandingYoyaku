@@ -1,0 +1,85 @@
+%h2.blue() Check Out
+
+.checkout()
+  %table.table
+    %tr
+      %td(width="80%")
+        {{getTypeText(vendor.rewardType).text}} Pledge Amount
+      %td.right
+        %strong
+          ${{pAmount}}
+    %tr
+      %td
+        Recurring:  {{(recurrence == 'once') ? "no" : "Monthly"}}
+      %td
+    %tr
+      %td
+        {{vendor.name}}  {{getTypeText(vendor.rewardType).reward}}
+      %td
+    %tr
+      %td
+        %a.edit(ng-click="setStep(2)") Edit
+      %td
+
+    %table.table
+      %tr
+        %td(width="0%")
+          Count It Pro Fee <br /> {{feeDesc}}
+        %td.right
+          %strong
+            ${{premiumFee}}
+
+      %tr(ng-if="false")
+        %td
+          %a.edit.info(data-container="body" data-toggle="popover" data-placement="right" data-content="Sample content can go here")
+            What's This?
+        %td
+
+    %table.table
+      %tr
+        %td.line-bottom(width="60%")
+          TOTAL
+        %td.line-bottom.right
+          %strong(ng-if="mode == 'reals'")
+            ${{getTotalCost()}}
+          %strong(ng-if="mode == 'dummy'")
+            No charge for you!
+      %tr(ng-if="mode == 'reals'")
+        %td.padded(colspan="2")
+          %br
+          You will not be charged until the end of the challenge.  The total shown is the most you will be charged.  If your group does not achieve the goal, you will be only charged the Count It fee.
+
+      %tr(ng-if="mode == 'dummy'")
+        %td.padded(colspan="2")
+          %br
+          During this Beta period, we are not accepting payments to sponsor your group.  You will be notified once we move out of Beta and into the real deal.  Get buck!
+          
+
+
+
+    %form#ccForm.form-horizontal.cc(ng-if="mode == 'reals'" set-fields stripe:form="saveCustomer" prevalidate="validateCC(ccForm)" name="ccForm" role="form")
+      .form-group
+        %h2 Billing Info
+
+      .form-group
+        %label Credit Card Number
+        %input(type="text" size="20" data-stripe="number" placeholder="4242424242424242" name="ccNumber" ng-model="ccNumber" required data-cc)
+
+      .form-group
+        %label Expiration Date
+        %input(type="text" id="ccMonth" size="2" maxlength="2" data-stripe="exp-month" placeholder="MM" name="ccMonth"  ng-model="ccMonth" required data-numeric)
+        %input(type="text" size="4" maxlength="4" data-stripe="exp-year" placeholder="YYYY" name="ccYear" ng-model="ccYear" required data-numeric)
+      .form-group
+        %label CVC Code
+        %input(type="text" size="4" data-stripe="cvc" placeholder="CVC" name="ccCvc" ng-model="ccCvc" required data-cvc)
+      .form-group.buttons
+        .btn.btn-lg.btn-default.btn-ci(ng-click="setStep(2)")
+          %i.fa.fa-arrow-circle-left
+          Back
+        %button#stripe-submit.btn.btn-lg.btn-primary.btn-ci(type="submit" ng-disabled="ccForm.$invalid || savingCustomer")
+          Complete Purchase
+          %i.fa.fa-arrow-circle-right
+        .load.purchase
+
+        %p.bg-danger.error.animated.fadeIn(ng-show="error")
+          {{error}}

@@ -1,0 +1,15 @@
+
+
+.reward-square(  ng-class="{active: $index == currentReward}" )
+  .goal()
+    .title {{reward.goalMetric}}
+    .score {{reward.goalScore}}
+  
+    .detail
+      .desc()
+        {{reward.desc}}
+  /
+    .criteria()
+      {{reward.criteria}}
+
+

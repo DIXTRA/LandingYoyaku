@@ -1,0 +1,27 @@
+.device-sync.animated.fadeIn
+  .row
+    .col-md-6
+      %p(ng-if="!syncComplete")One Moment Please...
+
+      %ul.list-unstyled.sync-status(ng-init="startStatusPolling()")
+        %li(ng-repeat="stat in statuses")
+          %i.fa.fa-circle.animated.fadeIn(ng-class="{green:$index + 1 < statuses.length || syncSuccess, red:$index + 1 == statuses.length && syncError}")
+          {{stat}}
+            
+
+      .animated.fadeInUp(ng-if="syncComplete")
+        %p(ng-if="!syncError") Success! You're all signed up and connected.
+        .small(ng-if="false")
+          Pro tip: You can add more (or disconnect) tracking devices any time on your 
+          %strong Settings 
+          page. 
+
+        %a.btn.btn-primary.btn-ci(ng-href="#/team" ng-if="syncComplete") Take me to the leaderboard!
+
+    .col-md-6.hidden-xs
+     
+      .bots
+        .bot-talk.right.animated.zoomInLeft(typewrite type-delay="20"  blink-delay="500" text="A Count It score of 100 is equal to 10,000 steps, 20 miles cycling, or about 80 minutes of swimming. Having a single, common score across activities and device types allows people to share goals and compare their activity levels! <strong>Pro Tip</strong>: You can connect more devices later via your Settings page!")
+            
+        .bot-body.smile.animated.swing
+

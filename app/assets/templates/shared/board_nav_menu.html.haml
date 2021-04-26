@@ -1,0 +1,85 @@
+
+
+
+/
+  %div
+    group = {{group}}
+    board = {{board}}
+
+.row.hidden-sm.hidden-xs
+
+  .col-xs-6.dropdown.dropdown-group
+    .btn.btn-default.btn-dropdown.dropdown-toggle#scoreType(type="button" data-toggle="dropdown")
+      {{boardViewName}}
+      %span.caret-container
+        .caret.dropdown-caret
+    %ul.dropdown-menu.dropdown-options
+      %li
+        %a(href="" ng-click="setView('avg', 'Average Score')" change-parent-text target="scoreType")
+          Average
+      %li
+        %a(href="" ng-click="setView('hi', 'Best Day')" change-parent-text target="scoreType")
+          Best Day
+      %li
+        %a(href="" ng-click="setView('imp', 'Most Improved')" change-parent-text target="scoreType")
+          Most Improved
+
+  .col-xs-6
+    .dropdown.dropdown-group.pull-right(style="padding-top:10px;")
+      .btn.btn-default.btn-dropdown.inline(ng-click="setBoard('people')" ng-class="{active: board == 'people'}" )
+        %i.fa.fa-user.fa-1x()
+        People
+      .btn.btn-default.btn-dropdown.inline(ng-if="group =='office' || group == 'league'"  ng-click="setBoard('teams')" ng-class="{active: board == 'factions' || board == 'teams' }" )
+        %i.fa.fa-users.fa-1x()
+        Teams
+      .btn.btn-default.btn-dropdown.inline(ng-if="group=='league' || group=='world'|| group=='metro'" ng-click="setBoard('groups')" ng-class="{active: board == 'groups'}" )
+        %i.fa.fa-cubes.fa-1x()
+        Groups
+      .btn.btn-default.btn-dropdown.inline(ng-if="group=='world'" ng-click="setBoard('metros')" ng-class="{active: board == 'metros'}" )
+        %i.fa.fa-map-marker.fa-1x()
+        Metros
+
+.row.hidden-sm.hidden-xs.hidden
+  .col-xs-4
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown( ng-click="setView('avg')" ng-class="{active: boardView == 'avg'}" )
+        Average Score
+  .col-xs-4
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown( ng-click="setView('hi')" ng-class="{active: boardView == 'hi'}"  )
+        Best Day
+  .col-xs-4
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown( ng-click="setView('imp')" ng-class="{active: boardView == 'imp'}" )
+        \% Improved
+
+.row.hidden-md.hidden-lg.hidden
+  .col-xs-4
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown( ng-click="setView('avg')" ng-class="{active: boardView == 'avg'}" )
+        Avg
+  .col-xs-4
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown( ng-click="setView('hi')" ng-class="{active: boardView == 'hi'}"  )
+        Best
+  .col-xs-4
+    .dropdown.dropdown-group
+      %a.btn.btn-default.btn-dropdown( ng-click="setView('imp')" ng-class="{active: boardView == 'imp'}" )
+        \% Chg
+
+.row.hidden-md.hidden-lg
+  .dropdown.dropdown-group
+    .btn.btn-default.btn-dropdown.dropdown-toggle#scoreType(type="button" data-toggle="dropdown")
+      {{boardViewName}}
+      %span.caret-container
+        .caret.dropdown-caret
+    %ul.dropdown-menu.dropdown-options
+      %li
+        %a(href="" ng-click="setView('avg', 'Average Score')" change-parent-text target="scoreType")
+          Average
+      %li
+        %a(href="" ng-click="setView('hi', 'Best Day')" change-parent-text target="scoreType")
+          Best Day
+      %li
+        %a(href="" ng-click="setView('imp', 'Most Improved')" change-parent-text target="scoreType")
+          \% Improve

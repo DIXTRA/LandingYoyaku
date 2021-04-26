@@ -1,0 +1,58 @@
+.moves.animated.fadeIn
+  .row.row-pad
+    .col-md-12
+      %p
+        There's no need for a wearable device to participate on Count It. 
+        All you need is an iPhone or Android device and one of these great, FREE Apps — including our own iOS App. 
+        Whatever you choose now, you can always change, or add more, later. 
+        Also, if you’d like to purchase a wearable device at a nice discount, check our 
+        %a(href="https://www.invitefitness.com/count-it-catalog/" target="_blank") Fitness Tracker store.
+  .row.row-pad#moves-setup
+
+    .col-sm-6
+      .row.hidden-xs
+        .col-xs-12.col-sm-6
+          %img.img-responsive(ng-src="/images/devices/count-it-app.png")
+        .col-xs-12.col-sm-6
+          .section-label
+            Count It App
+          %p.small
+            Our iOS App let's Count It access your Apple Health data, including any activity tracked by an Apple Watch. It's streamlined, runs in the background, and is battery friendly! 
+          .store
+            %a(ng-href="https://itunes.apple.com/us/app/count-it/id1203488642" target="_blank")
+              %img.img-responsive(src="/images/apple-store.png")
+
+      .row.hidden-sm.hidden-md.hidden-lg
+        .section-label
+          Count It App
+        %p.small
+          Our iOS App let's Count It access your Apple Health data, including any activity tracked by an Apple Watch. It's streamlined, runs in the background, and is battery friendly! 
+        .phone
+          %img.img-responsive.little-phone(ng-src="/images/devices/count-it-app.png")
+        .store
+          %a(ng-href="https://itunes.apple.com/us/app/count-it/id1203488642" target="_blank")
+            %img.img-responsive(src="/images/apple-store.png")
+
+    .col-sm-3
+      .section-label
+        Google Fit
+      %p.small
+        Google Fit is a fully featured health tracker for Android.
+      .phone
+        %img.img-responsive.little-phone(ng-src="/images/devices/google-fit-app.png")
+      .store
+        %a(ng-href="https://play.google.com/store/apps/details?id=com.google.android.apps.fitness" target="_blank")
+          %img.img-responsive(src="/images/google-play.png")    
+    
+  .row.row-pad
+  .row
+    .col-md-12
+      %p.small
+        I've completed installing .  Now
+        %a(ng-href="/#/me/trackers") Connect My Account!
+
+
+  .cancel
+    %p
+      %a(ng-href="#/team{{routeParams}}")
+        Skip step

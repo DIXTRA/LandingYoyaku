@@ -1,0 +1,145 @@
+/* THIS CONTAINS STYLING FOR THE HEADER - SIZES OF LOGO FOR LOGGED IN/LOGGED OUT/SIGN UP PAGES, AND MINOR STYLING FOR THE DROPDOWN */
+
+
+header{
+  border-bottom: 1px solid #d7d7d7;
+  background-color:white;
+  height:auto;
+  .fa.fa-bars{
+    font-size:28px;
+    color:#555555;
+  }
+  .btn{
+    font-size:12px;
+    margin-right: 6px !important;
+  }
+
+  .bot{
+    background:url('/images/bot-circle.png');
+    background-repeat: no-repeat;
+    height: 55px;
+    width: 55px;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+
+  img.logo-small{
+    height:30px;
+    margin-top:10px;
+  }
+  img.logo-smallest{
+    height:24px;
+    margin-top:20px;
+    float:left;
+  }
+  
+
+  .login{
+    margin:16px 0;
+    i{
+      position: absolute;
+      right: 0;
+      font-size: 44px;
+      top: -10px;
+      color: $primaryColor;
+    }
+    
+  }
+
+  .main-nav{
+    font-weight:300;
+    margin-top:0px;
+    li > a:hover,  li > a:focus{
+      background-color: inherit;
+      color:$darkText;
+      i{
+        color: $darkText;
+      }
+    }
+    li{
+      font-size:18px;
+      a{
+        color:$mediumText;
+        padding: 0px 20px 0px 0px;
+      }
+      i{
+        font-size: 20px;
+        vertical-align: sub;
+        color: #959595;
+      }
+    }
+
+    li.active{
+      a{
+        color:$primaryColor;
+        i{
+          color: $primaryColor;
+        }
+      }
+    }
+
+  }
+  .main-nav-right{
+    li{
+      a{
+        padding: 0px 60px 0px 0px;
+      }
+    }
+  }
+
+  .logged-in{
+    margin:0;
+    position:relative;
+    padding-right:30px;
+    .greeting{
+      color:$lightText;
+      font-weight:300;
+      font-size:16px;
+    }
+    .toggle{
+     display:inline;
+    }
+    .refresh{
+      margin-top:-2px;
+    }
+    .drop{
+      position:absolute;
+      right: 0;
+
+      padding-left: 15px;
+      margin-left: 10px;
+      top: 28px;
+      i{
+        color: #959595;
+        font-size: 20px;
+      }
+      i:hover{
+        color: $darkText;
+      }
+
+      
+    }
+
+    .dropdown-menu{
+
+      border: 1px solid #d7d7d7;
+      @include border-radius(0px);
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      border-top: none;
+      width: 200px;
+      margin-top: 19px;
+    }
+ }
+  .open{ 
+    i.fa-cog{
+      color:$darkText !important;
+    }
+  }
+
+}

@@ -1,0 +1,31 @@
+
+
+.main_panel.col-md-12.col-sm-12.col-xs-12()
+
+  .settings_pane
+    .list-group
+      .list-group-item.clearfix(ng-repeat="team in teams")
+        %h4(style="")
+          %div(style="height:45px;")
+            %i.fa.fa-users.blue
+            {{ team.n }} 
+
+            %div.pull-right
+              %small(ng-if="!team.active") Inactive
+              %button.btn.btn-ci.btn-default(ng-if="user.factionNames.indexOf(team.n) < 0" ng-click='joinTeam(team.n)') Join
+              %button.btn.btn-ci.btn-primary(ng-if="user.factionNames.indexOf(team.n) >= 0" ng-click='leaveTeam(team.n)') Leave
+              
+            %br.hidden-sm.hidden-md.hidden-lg
+            %small(style='padding-left:20px;') {{ team.size }} members
+
+            
+
+        
+        %hr(style="padding:0px;margin:5px;")
+            
+      .list-group-item(ng-show="usersCreateTeams" style="border:none;" )
+        %i.fa.fa-users.blue
+        %input(type="text" placeholder="new team name" ng-model="newFaction")
+        %button.btn.btn-ci.btn-primary.pull-right(ng-click="addFaction()")
+          Create
+          

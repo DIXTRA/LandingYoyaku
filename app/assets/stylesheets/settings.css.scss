@@ -1,0 +1,111 @@
+
+/* THIS CONTROLS SETTINGS. CONTROLPANEL HANDLES STYLING FOR BOSS/TEAMS. */
+
+
+.settings-controlpanel {
+  .radio-inline {
+    padding-left: 0px;
+  }
+  h4 {
+    padding-bottom: 1.1em;
+  }
+  .with-v-space {
+    padding-top: 1.5em;
+  }
+  .with-h-space {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+  }
+}
+
+/* THIS IS FOR LINKS ON LEFT SIDE OF USER PAGE  */
+
+.user-link {
+  
+
+}
+
+
+
+@media screen and (min-width: 992px) {
+
+  .user_settings {
+    padding-left:20px;
+    .title {
+      font-weight:normal;
+    }
+  }
+  
+  .settings_pane {
+    padding-left:20px;
+    
+    .list-group-item {
+      padding:0; 
+      border:none;
+    }
+    
+    .row {
+      height:40px;
+      .btn {
+        height:30px;
+      }
+    }
+    .title {
+      font-weight:300;
+      color:$lightText;
+    }
+  }
+
+
+  
+  
+
+}
+
+
+@media screen and (max-width: 991px) {
+
+  .user_settings {
+    padding-left:20px;
+    .title {
+      font-weight:bold;
+    }
+  }
+
+  .settings_pane {
+    padding-left:20px;
+    .row {
+      height:40px;
+      .btn {
+        height:30px;
+      }
+    }
+    .list-group-item {
+      padding:0; 
+      border:none;
+    }
+    .title {
+      font-weight:bold;
+    }
+  }
+
+  
+  
+
+
+}
+
+#settings {
+  .title {
+    font-weight:bold;
+  }
+}
+
+.challenge-controls {
+    .round-input {
+      border-radius: 5px;
+      border: 2px solid #ddd;
+      text-align:center;
+      width: 150px;
+    }
+}

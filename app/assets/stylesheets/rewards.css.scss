@@ -1,0 +1,489 @@
+/* THIS CONTROLS THE STYLING OF THE REWARDS */
+
+/*  medium and large screen widths */
+
+@media screen and (min-width: 992px) {
+
+  .reward {
+    text-align:center;
+    
+    .reward_title {
+      padding-top:20px;
+      color:$lightText;
+      font-weight:600;
+    }
+    
+    .numberCircle {
+        width:122px;
+        height:122px;
+        border-radius:61px;
+        font-size:50px;
+        color:$primaryColor;
+        line-height:100px;
+        /*text-align:center; */
+        /*float:right;*/
+        margin: 0 auto;
+        background:white;
+        border-color:$greenText;
+        border-style:solid;
+        border-width:5px;
+    }
+    .numberCircle .height_fix {
+        height:20px;
+        color:#fff;
+    }
+    .numberCircle .score {
+        font-size:60px;
+        color:$greenText;
+        line-height:60px;
+        font-family: $secondaryPageFont;
+        font-weight:600;
+        text-align:center;
+    }
+    .numberCircle .title {
+        font-size:15px;
+        color:$greenText;
+        line-height:15px;
+        text-align:center;
+        vertical-align:top;
+    }
+  
+    
+  
+  }
+
+  .navdot {
+    cursor:pointer;
+    display: inline-block;
+  }
+  .navdot.active {
+    color:$greenText;
+  }
+
+
+}    /* end  medium and large screens */
+
+
+/*  extra small and small screen widths */
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+  .reward {
+  
+     .numberCircle {
+        width:95px;
+        height:95px;
+        border-radius:85px;
+        font-size:36px;
+        color: $greenText;
+        line-height:35px;
+        
+        /*text-align:center; */
+        /*float:right;*/
+        margin: 0 auto;
+        background:white;
+        border-color:$greenText;
+        border-style:solid;
+        border-width:4px;
+    }
+    .numberCircle .height_fix {
+        height:12px;
+        color:#fff;
+    }
+    .numberCircle .score {
+        font-size:36px;
+        color:$greenText;
+        line-height:36px;
+        font-weight:600;
+        font-family: $secondaryPageFont;
+        text-align:center;
+    }
+    .numberCircle .title {
+        font-size:12px;
+        color: $greenText;
+        line-height:12px;
+        text-align:center;
+        vertical-align:top;
+    }
+
+    .reward_title{
+      font-weight: 600;
+    }
+  
+  }
+  
+  .navdot {
+    cursor:pointer;
+    padding: 5px;
+  }
+  .navdot.active {
+    /*color: white; */
+    color: $primaryColor;
+  }
+  #rcorners2 {
+      border-radius: 5px;
+      border: 1px solid #A9A9A9;
+      padding: 20px; 
+  }
+
+
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1197px) {
+
+}
+
+
+@media screen and (max-width: 768px){
+  .reward {
+  
+     .numberCircle {
+        width:95px;
+        height:95px;
+        border-radius:85px;
+        font-size:36px;
+        color: $greenText;
+        line-height:35px;
+        
+        /*text-align:center; */
+        /*float:right;*/
+        margin: 0 auto;
+        background:white;
+        border-color:$greenText;
+        border-style:solid;
+        border-width:4px;
+
+        padding-bottom: 15px;
+    }
+    .numberCircle .height_fix {
+        height:12px;
+        color:#fff;
+    }
+    .numberCircle .score {
+        font-size:36px;
+        color:$greenText;
+        line-height:36px;
+        font-weight:600;
+        font-family: $secondaryPageFont;
+        text-align:center;
+    }
+    .numberCircle .title {
+        font-size:12px;
+        color: $greenText;
+        line-height:12px;
+        text-align:center;
+        vertical-align:top;
+    }
+   
+    .reward_title {
+      font-weight: 600 !important;
+      font-size: 22px;
+    }
+  
+  }
+
+}
+  /* end extra small and small screen widths */
+
+
+.rewards {
+
+  border-top:none;
+  border-bottom:none;
+  text-align:center;
+  min-height:50px;
+  
+  .navdot.active {
+    color:white;
+    padding-left:0px;
+  }
+  
+  .subnav_item {
+    line-height:50px;
+    display:inline; 
+    width:100px; 
+    cursor:pointer;
+    text-align:center;
+  
+    .btn {
+     /* border:none; */
+    }
+  }
+  
+}
+
+#rcorners2 {
+  padding: 10px;
+}
+
+.panel.row {
+  max-width: 100%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.togglebutton {
+  float: right;
+
+  i {
+    color: #9E9E9E;
+  }
+
+  i.active {
+      color: #1CD647;
+  }
+
+}
+
+.prize-val {
+  width:100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.rewards {
+  background-color: transparent !important;
+
+  .desc p {
+    font-weight: 300;
+  }
+}
+
+
+.navdot.active {
+  color:$greenText;
+}
+
+.reward-horizontal {
+  .goal {
+    text-align: center;
+
+    .score {
+      font-size: 55px;
+      font-weight: bold;
+      color: $greenText;
+      margin-top: -15px;
+    }
+
+    .title {
+      margin-top: -10px;
+      font-size: 18px;
+    }
+  }
+
+  .detail {
+    .title {
+      font-weight: 600;
+    }
+  }
+
+  .outlook {
+    .title {
+      font-weight: 600;
+    }
+  }
+}
+
+.no-reward {
+    text-align: center;
+
+    .title {
+      font-size: 20px;
+    }
+}
+
+.reward-square-holder {
+
+  
+
+  .reward-square {
+
+    padding-top: 25px;
+    padding-bottom: 15px;
+    text-align: center;
+    box-shadow: 0px 0px 2px rgba(0,0,0, 0.2);
+    border-radius: 7px;
+    min-height: 200px;
+    overflow: scroll;
+    cursor:pointer;
+    
+    &.active {
+        border: 3px solid $greenText;
+    }
+
+
+    &:hover {
+      box-shadow: 0px 0px 10px rgba(0,0,0, 0.2);
+    }
+
+    .goal {
+      color: $primaryColor;
+      .title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .score {
+        font-size: 60px;
+        font-weight: 800;
+        line-height: 90%;
+      }
+    }
+
+    .detail {
+      padding-left: 3px;
+      padding-right: 3px;
+      margin-top: 10px;
+      font-size: 14px;
+      height: 40px;
+      max-height: 40px;
+      text-align: center;
+
+      .desc {
+        display: inline-block;
+      }
+      .title {
+        font-weight: 600;
+        display: inline-block;
+      }
+
+    }
+
+
+    .criteria {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .outlook {
+      font-size: 14px;
+      margin-top: 20px;
+      
+      .progress {
+        width: 90%;
+        margin: 0 auto;
+        height: 15px;
+        border-radius: 30px;
+
+        .progress-bar {
+          background-color: $greenText;
+          box-shadow: none;
+          &.no-outlook {
+            width: 0%;
+
+          }
+        }
+      }
+
+      .desc {
+        height: 20px;
+        max-height: 20px;
+        margin-top: 6px;
+      }
+    }
+
+  }
+
+  .reward-square.empty-reward {
+    box-shadow: none ;
+    border: 3px solid rgba(0,0,0,0.2);
+    border-style: dashed;
+
+    .add-button {
+      cursor: pointer;
+    }
+  }
+}
+
+
+
+.reward-tab-holder {
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    box-shadow: 0px 0px 2px rgba(0,0,0, 0.2);
+    border-radius: 7px;
+    cursor:pointer;
+    
+    &.active {
+       /* border: 3px solid $greenText; */
+       background-color: $greenText;
+       color:white;
+    }
+
+
+    &:hover {
+      box-shadow: 0px 0px 10px rgba(0,0,0, 0.2);
+    }
+
+}
+
+.reward-tab-current {
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    box-shadow: 0px 0px 2px rgba(0,0,0, 0.2);
+    border-radius: 7px;
+    cursor:pointer;
+    
+
+   /*  border: 3px solid $greenText; */
+
+
+    .goal {
+      color: $primaryColor;
+      .title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .score {
+        font-size: 60px;
+        font-weight: 800;
+        line-height: 90%;
+      }
+    }
+
+    .detail {
+      padding-left: 3px;
+      padding-right: 3px;
+      margin-top: 10px;
+      font-size: 14px;
+      height: 40px;
+      max-height: 40px;
+      text-align: center;
+
+      .desc {
+        display: inline-block;
+      }
+      .title {
+        font-weight: 600;
+        display: inline-block;
+      }
+
+    }
+
+
+    .criteria {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+
+}
+
+
+.mobile_rewards {
+  
+  text-align: center;
+  background: #fff;
+  width: 75%;
+  margin: auto;
+  margin-bottom: 20px;
+
+}
+

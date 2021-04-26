@@ -1,0 +1,175 @@
+%h1 Invoice Admin
+
+
+
+-# --------------------------------- list  view ---------------------------------
+%div(ng-if="listView==1")
+
+  %h4 Invoices
+
+  %table.table.table-condensed
+    %thead
+      %th created
+      %th office
+      %th description
+      %th amount
+      %th status
+      %th
+    %tbody
+      %tr(ng-repeat="invoice in invoices")
+        %td {{ invoice.ts|date:'M/d/yy' }}
+        %td
+          {{invoice.uo}} <br>
+          %span.small {{invoice.ul}}
+        %td {{ invoice.d }}
+        %td {{ invoice.a/100|currency }}
+        %td {{ invoice.s }}
+        %td
+          %button.btn.btn-default.btn-xs(ng-click="viewInvoice($index)") details
+
+
+-# --------------------------------- detail view ---------------------------------
+-# TODO: this is very similar to settings_account.html.haml
+-#
+%div(ng-if="listView==0")
+  %h4
+    %button.pull-right.btn.btn-default.btn-xs(ng-click="closeDetailView()")
+      %i.fa.fa-times
+    Invoice
+    %span.small {{invoice.nt}}
+
+  .row
+    .col-md-8
+      .well.well-sm
+        %h5 Timeline
+        %ul
+          %li
+            %span.komputer
+              {{invoice.pledge.date|date:'MM/d/yy hh:mm:ss a'}}
+            Pledge Created
+          %li
+            %span.komputer
+              {{invoice.challenge.endDate|date:'MM/d/yy hh:mm:ss a'}}
+            challenge ended ({{invoice.challenge.endReason}})
+          %li
+            %span.komputer
+              {{invoice.ts|date:'MM/d/yy hh:mm:ss a'}}
+            invoice created
+          %li(ng-repeat="tx in invoice.txns")
+            %span.komputer
+              {{tx.date|date:'MM/d/yy hh:mm:ss a'}}
+            credit card charged ({{tx.state}})
+          %li(ng-hide="invoice.txns.length > 0")
+            %span.komputer
+              \--------------------
+            credit card charged
+          %li(ng-show="invoice.f")
+            %span.komputer(ng-show="invoice.ff.cts")
+              {{invoice.ff.cts|date:'MM/d/yy hh:mm:ss a'}}
+            %span.komputer(ng-hide="invoice.ff.cts")
+              \--------------------
+            reward fulfilled
+
+  .row(ng-show="invoice.s == 'unpaid'")
+    .col-md-8
+      %button.btn.btn-default.btn-xs(ng-click="chargeInvoice(invoice.nt)") Charge Now
+
+  .row
+    .col-md-12
+      %p &nbsp;
+
+
+  %table.table.table-condensed
+    %tbody
+      %tr
+        %td invoice date
+        %td
+          {{invoice.ts|date:'M/d/yy'}}
+      %tr
+        %td pledge date
+        %td
+          {{invoice.pledge.date|date:'M/d/yy'}} <br />
+          %span.small ID {{invoice.i}}
+      %tr
+        %td user
+        %td
+          {{invoice.un}} <br/>
+          {{invoice.ue}} <br/>
+          %span.small active: {{invoice.user.active}}
+      %tr
+        %td team
+        %td
+          {{invoice.uo}} <br/>
+          %span.small {{invoice.ul}}
+      %tr
+        %td description
+        %td
+          {{invoice.d}} <br />
+          group score: {{invoice.challenge.score}} / participants: {{invoice.challenge.participants}}
+
+      %tr
+        %td(colspan="2") invoiced items
+
+      %tr(ng-repeat="item in invoice.li")
+        %td.pull-right(style="border: none;") {{item.d}}
+        %td {{item.a/100|currency}}
+
+      %tr
+        %td(style="border: none;" colspan="2") &nbsp
+
+      %tr
+        %td total amount
+        %td {{ invoice.a/100|currency }}
+
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Transactions
+    .panel-body
+      %table.table.table-condensed.table-striped
+        %thead
+          %th date
+          %th id
+          %th amount
+          %th status
+        %tbody
+          %tr(ng-repeat="tx in invoice.txns")
+            %td {{tx.date|date:'short'}}
+            %td
+              {{tx.id}} <br />
+              %span.small stripe id {{tx.svcId}} <br />
+              %span.small stripe user {{tx.svcUid}}
+
+            %td {{tx.amount/100|currency}}
+            %td {{tx.state}} {{ (tx.error) ? " / "+tx.error : "" }}
+
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Fulfillment
+    .panel-body(ng-hide="invoice.f")
+      %p This invoice had no fulfillment request.
+    .panel-body(ng-show="invoice.f")
+      %table.table.table-condensed
+        %tbody
+          %tr(ng-show="invoice.ff.r.length == 1")
+            %td(colspan="2") Rewarding 1 person with {{invoice.ff.r[0].amount/100|currency}} certficate at {{invoice.ff.v}}
+          %tr(ng-show="invoice.ff.r.length > 1")
+            %td(colspan="2") Rewarding {{invoice.ff.r.length}} people with {{invoice.ff.r[1].amount/100|currency}} certficates at {{invoice.ff.v}}
+          %tr
+            %td id
+            %td {{invoice.ff.fi}}
+          %tr
+            %td status
+            %td <strong>{{invoice.ff.s}}</strong>
+          %tr
+            %td started
+            %td {{invoice.ff.ts|date:'MM/d/yy hh:mm:ss a'}}
+          %tr
+            %td completed
+            %td {{invoice.ff.cts|date:'MM/d/yy hh:mm:ss a'}}
+          %tr
+            %td activity log
+            %td
+              %ul.list-unstyled
+                %li(ng-repeat="a in invoice.ff.a") {{a.ts|date:'MM/d/yy hh:mm:ss a'}} {{a.what}}

@@ -1,0 +1,168 @@
+
+.footer.hidden-xs.hidden-sm(ng-if="!hideFooter" style="background:#373f48;")
+  .ci-footer(ng-style="noUserStyle()")
+    .container-fluid
+      .container(style="")
+        .row
+          .col-md-3
+            %a(href="{{partner_homeurl}}" target="_blank")
+              %img.logo(ng-src="{{partner_logo_alt}}")
+            %p
+              The shizzle in workplace wellness.  
+              %br Join the movement.
+              / %a.btn.btn-ci.btn-success(ng-href="#/pro" ng-if="!user.of.nitro") Get Count It Pro!
+
+          .col-md-3
+            %ul.list-unstyled
+              %li 
+                %strong{:style => "font-size:18px;"} Product
+              %li
+                %a(href="https://countit.uservoice.com/knowledgebase" target="_blank" )
+                  FAQ  
+              %li
+                %a(href="#/pro")
+                  Count.It PRO
+              %li
+                %a(href="#/slack")
+                  CountItBot for Slack
+              %li
+                %a(href="#/pricing")
+                  Pricing        
+              %li
+                %a(href="#/terms")
+                  Terms & Conditions
+           
+          .col-md-3()
+            %ul.list-unstyled
+              %li 
+                %strong{:style => "font-size:18px;"} Resources
+              %li
+                %a(href="#/trackers")
+                  Fitness Trackers Guide 
+              %li
+                %a(href="https://www.invitefitness.com/count-it-garmin/" target="_blank" )
+                  Garmin Store
+              %li
+                %a(href="https://www.invitefitness.com/count-it-catalog/" target="_blank" )
+                  All Trackers Store
+              %li
+                %a(href="#/resources")
+                  Wellness Guides
+              %li
+                %a(href="https://www.medium.com/countit" target="_blank" )
+                  Our Blog
+
+          .col-md-3()
+            %ul.list-unstyled
+              %li 
+                %strong{:style => "font-size:18px;"} Company
+              %li
+                %a(href="https://medium.com/countit/our-story-2d04b4444e83#.p2wl04afm" target="_blank" )
+                  About
+              %li
+                %a(href="/messages/new")
+                  Schedule A Demo
+              %li
+                %a(href="mailto:info@countit.com")
+                  info@countit.com
+            
+            .social(style="margin-top:10px;")
+              %a(ng-if="partner_facebook != ''" href="http://www.facebook.com/{{partner_facebook}}" target="_blank")
+                %span.fa-stack.fa-lg
+                  %i.fa.fa-circle.fa-stack-2x
+                  %i.fa.fa-facebook.fa-stack-1x
+              %a(ng-if="partner_twitter != ''" href="http://www.twitter.com/{{partner_twitter}}" target="_blank")
+                %span.fa-stack.fa-lg
+                  %i.fa.fa-circle.fa-stack-2x
+                  %i.fa.fa-twitter.fa-stack-1x
+              %a(ng-if="partner_linkedin != ''" href="https://www.linkedin.com/{{partner_linkedin}}" target="_blank")
+                %span.fa-stack.fa-lg
+                  %i.fa.fa-circle.fa-stack-2x
+                  %i.fa.fa-linkedin.fa-stack-1x
+              %a(href="https://medium.com/countit" target="_blank")
+                %span.fa-stack.fa-lg
+                  %i.fa.fa-circle.fa-stack-2x
+                  %i.fa.fa-medium.fa-stack-1x
+              %a(ng-if="false" href="mailto:{{partner_support_email}}")
+                %span.fa-stack.fa-lg
+                  %i.fa.fa-circle.fa-stack-2x
+                  %i.fa.fa-envelope.fa-stack-1x
+
+
+
+
+
+.footer.footer-small.hidden-md.hidden-lg(ng-if="!hideFooter" style="background:#373f48;")
+  .container
+    .row.row-pad
+      .col-sm-12
+        %img.logo(ng-src="{{partner_logo_alt}}")
+        / 
+          %p
+            The shizzle in workplace wellness.  Join the movement.
+          %a.btn.btn-ci.btn-success(ng-href="#/pro" ng-if="!user.of.nitro") Get Count It Pro!
+        
+    .row.row-pad
+      .col-sm-12
+        %br
+        %ul.list-unstyled.bolded
+          %li
+            %a(href="https://medium.com/countit/our-story-2d04b4444e83#.p2wl04afm")
+              %p
+                About
+          %li
+            %a(href="https://countit.uservoice.com/knowledgebase")
+              %p
+                Help
+          / %li
+          /   %a(href="http://www.countit.com/blog" target="_blank")
+          /     Blog
+          %li
+            %a(href="#/terms")
+              %p
+                Terms & Conditions
+          %li
+            %a(href="#/trackers")
+              %p 
+                Wearables Guide
+          %li
+            %a(href="#/resources")
+              %p 
+                Guides & Resources
+          %li
+            %a(href="https://www.invitefitness.com/count-it-catalog/")
+              %p
+                Fitness Trackers Store
+          %li
+            %a(href="#/pricing")
+              %p
+                Pricing    
+    .row
+      .col-sm-12
+        %p
+          %strong Contact <br>
+          %a(href="mailto:info@countit.com")
+            info@countit.com
+        .social
+          %a(href="#" ng-if="false")
+            %span.fa-stack.fa-lg
+              %i.fa.fa-circle.fa-stack-2x
+              %i.fa.fa-facebook.fa-stack-1x
+          %a(href="http://twitter.com/countitco" target="_blank")
+            %span.fa-stack.fa-lg
+              %i.fa.fa-circle.fa-stack-2x
+              %i.fa.fa-twitter.fa-stack-1x
+          %a(href="https://www.linkedin.com/company/count-it-labs-inc-" target="_blank")
+            %span.fa-stack.fa-lg
+              %i.fa.fa-circle.fa-stack-2x
+              %i.fa.fa-linkedin.fa-stack-1x
+
+          %a(href="https://medium.com/countit" target="_blank")
+            %span.fa-stack.fa-lg
+              %i.fa.fa-circle.fa-stack-2x
+              %i.fa.fa-medium.fa-stack-1x
+          %a(href="http://eepurl.com/7Mdlr" target="_blank")
+            %span.fa-stack.fa-lg
+              %i.fa.fa-circle.fa-stack-2x
+              %i.fa.fa-envelope.fa-stack-1x
+

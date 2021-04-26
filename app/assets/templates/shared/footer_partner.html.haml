@@ -1,0 +1,109 @@
+
+.footery.hidden-xs.hidden-sm(ng-if="!hideFooter" style="background:#373f48;")
+  .ci-footer(ng-style="noUserStyle()")
+    .container-fluid
+      .container(style="text-align:center;height:100px;")
+        .pull-left(style="margin-top:25px;margin-bottom:25px;height:50px;")
+          %a(href="{{partner_homeurl}}" target="_blank")
+            %img.logo(ng-src="{{partner_logo_alt}}" style="height:50px;")
+
+          .social.partner.inline(style="margin-left:50px;")
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="partner_facebook != ''" href="http://www.facebook.com/{{partner_facebook}}" target="_blank" )
+                %i.fa.fa-facebook-official.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="partner_twitter != ''" href="http://www.twitter.com/{{partner_twitter}}" target="_blank")
+                %i.fa.fa-twitter.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="partner_linkedin != ''" href="https://www.linkedin.com/{{partner_linkedin}}" target="_blank")
+                %i.fa.fa-linkedin.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(href="mailto:{{partner_support_email}}")
+                %i.fa.fa-envelope.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="false" href="https://medium.com/countit" target="_blank")
+                %i.fa.fa-medium.fa-lg
+
+        .pull-right(style="margin-top:30px;")
+          %a(href="/#/slack" target="_blank" )
+            %img(src="/images/add_to_slack.png" style="height:30px;padding-right:10px;")
+          %a(href="https://itunes.apple.com/us/app/count-it/id1203488642?mt=8" target="_blank" )
+            %img(src="/images/apple-store.png" style="height:30px;padding-left:10px;")
+           
+.footery.hidden-xs.hidden-sm(ng-if="!hideFooter" style="background-color:#131618;height:35px;")
+  .ci-footer
+    .container-fluid(style="font-size:small; ")
+      .container(style="text-align:center;")
+        .pull-left(style="padding-top:10px;")
+          %span(style="")
+            %a(href="https://countit.uservoice.com/knowledgebase" target="_blank" )
+              Help  
+            /|
+            /%a(href="https://www.invitefitness.com/count-it-catalog/" target="_blank" )
+            /  Fitness Trackers Store              
+            |
+            %a(href="#/terms")
+              Terms & Conditions
+
+        %a.pull-right(href="https://www.countit.com" style="padding-top:6px;" target="_blank" )
+          %img(src="/images/countdot-white.png" style="height:20px;" )
+        %a.pull-right(href="https://www.countit.com" style="padding-top:10px;margin-right:8px;" target="_blank" )
+          %span(style="")
+            Powered By 
+
+.footery.footer-small.hidden-md.hidden-lg(ng-if="!hideFooter" style="background:#373f48;")
+  .ci-footer
+    .container(style="text-align:center;padding-top:15px;padding-bottom:15px;")
+      .row.row-pad(style="" )
+        .col-sm-12
+          %a(href="{{partner_homeurl}}" target="_blank")
+            %img.logo(ng-src="{{partner_logo_alt}}")
+          
+      .row
+        .col-sm-12
+          .social.inline(style="margin-left:50px;")
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="partner_facebook != ''" href="http://www.facebook.com/{{partner_facebook}}" target="_blank" )
+                %i.fa.fa-facebook-official.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="partner_twitter != ''" href="http://www.twitter.com/{{partner_twitter}}" target="_blank")
+                %i.fa.fa-twitter.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="partner_linkedin != ''" href="https://www.linkedin.com/{{partner_linkedin}}" target="_blank")
+                %i.fa.fa-linkedin.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(href="mailto:{{partner_support_email}}")
+                %i.fa.fa-envelope.fa-lg
+            %span(style="width:30px;display:inline-block;" )
+              %a(ng-if="false" href="https://medium.com/countit" target="_blank")
+                %i.fa.fa-medium.fa-lg
+
+      .row.row-pad(style="margin-top:25px;" )
+        .col-sm-12
+          %a(href="/#/slack" target="_blank" )
+            %img(src="/images/add_to_slack.png" style="height:30px;padding-right:10px;")
+          %a(href="https://itunes.apple.com/us/app/count-it/id1203488642?mt=8" target="_blank" )
+            %img(src="/images/apple-store.png" style="height:30px;padding-left:10px;")
+
+.footery.footer-small.hidden-md.hidden-lg(ng-if="!hideFooter" style="background:#131618;")
+  .ci-footer
+    .container(style="text-align:center;font-size:small;")
+      .row.row-pad
+        .col-sm-12
+          %br
+          %ul.list-unstyled.bolded
+            %li
+              %a(href="https://countit.uservoice.com/knowledgebase")
+                Help
+            %li
+              %a(href="#/terms")
+                Terms & Conditions
+            /%li
+            /  %a(href="https://www.invitefitness.com/count-it-catalog/")
+            /    Fitness Trackers Store
+            %li
+              %a(href="https://www.countit.com" style="padding-top:5px;" target="_blank" )
+                Powered By Count It
+
+
+

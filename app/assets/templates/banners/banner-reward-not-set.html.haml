@@ -1,0 +1,8 @@
+%h3.banner-callout-title.orange
+  Hold on, the prize is not yet set up.
+%p Once the prize has been set by the administrator, details will appear here.
+%div(ng-show="user.boss || user.manager")
+  %p
+    Since you are a plan administrator, you can configure the prize.
+  %a.btn.btn-ci.btn-orange(ng-href="#/boss/challenges")
+    Configure Prize

@@ -1,0 +1,259 @@
+%div(ng-if="isPro == false")
+  
+  .prowarnmessage(ng-show="!user.norm")
+    .basicplan(ng-show="is_basic")
+      %span
+        Uh oh! 
+        %br
+        %br
+        Your Count.It PRO subscription expired or was cancelled. 
+      %span
+        %a(style="font-weight: bold" href="#/pricing")
+          Click here to go PRO again!
+    .nonbasicplan(ng-if="status == 'cc_invalid'")
+      .panel.panel-default(style="background-color:white; padding:20px;")
+        %span
+          Uh oh! 
+          %br
+          %br
+          Your Count.It PRO subscription has been suspended. This usually means your credit card has expired, or you don't yet have a credit card on file. To fix, please update your credit card info on the
+        %span
+          %a(style="font-weight: bold" href="#/boss/payment")
+            Billing Info page.
+
+      %div
+        %br                 
+        .btn.btn-danger.btn-ci.btn-lg.btn-next(ng-click="promptDrop=true;") 
+          Drop Plan  
+        
+        .div(ng-show="promptDrop == true")
+          %div.alert.alert-warning(role="alert")
+            %p
+              Are you sure?
+            %p(ng-hide="origPlan.isPromo")
+              You may be charged an additional fee for cancelling before the end of your Plan.
+            %p(ng-hide="origPlan.isPromo")
+              Please contact info@countit.com for more information.
+            %p
+              %button.btn-ci.btn.btn-danger.btn-sm.btn-ci(ng-click="doDropPlan()") Drop Plan
+              %button.btn-ci.btn.btn-default.btn-sm.btn-ci(ng-click="promptDrop=false") Leave Plan Alone
+  %br
+  %br          
+  %div(ng-show="user.admin")
+    %h4 Count.It Admin Only
+    %button.btn.btn-primary.btn-ci(ng-click="showPlanForm()" ng-show="show_form == false") Create Plan
+    / %h5.warning(ng-show="!isCCValid") Group Admin has no invalid credit card. Please contact Group Admin.
+    .panel.panel-default(ng-show="user.admin && show_form == true" style="padding:30px; width: 80%" )
+      .plan-info
+        .form-group
+          %label Pay by: {{newPlan.type}}
+          %select(ng-model="newPlan.type" style='display:inline;')
+            %option(value="promo-code") Promo Code
+            %option(value="credit-card" ng-show="isCCValid") Credit Card
+        %br
+        %form.form-horizontal(role="form")
+          %form-group
+            %label(for="startdate") Start Date
+            %input.form-control#startdate(type="date" ng-model="newPlan.startdate")
+          %br
+          %form-group
+            %label(for="duration") Duration
+            %input.form-control#duration(type="number" ng-model="newPlan.duration")
+          %br
+          %form-group(ng-show="newPlan.type != 'promo-code'")
+            %label(for="cost") Cost Per User
+            %input.form-control#cost(type="number" ng-model="newPlan.cost")
+          %br
+          %form-group
+            %button.btn.btn-primary.btn-ci(ng-click="createPlan()" ng-show="newPlan.type != 'promo-code'" ng-disabled="newPlan.type == 'credit-card' && !isCCValid") 
+              Create Plan
+            %button.btn.btn-primary.btn-ci(ng-click="createPlan()" ng-show="newPlan.type == 'promo-code'") 
+              Redeem
+          %br
+          %br
+          .alert.alert-danger.animated.fadeIn(ng-show="newPlan.type == 'credit-card' && !isCCValid")
+            Group Admin has no valid credit or his credit card is expired. Please upgrade using Promo Code.  
+
+%div(ng-if="isPro == true")
+    
+  /
+    %div(ng-if="!user.emailValid")
+      %p
+        Please  
+        %button.btn.btn-ci.btn-primary(ng-hide="user.emailValid" ng-click="sendEmailConfirmation()") 
+          Click Here to Verify your email, before upgrading to PRO.
+
+      %p.alert.alert-success(ng-show="confirmResult")
+        {{confirmResult}}
+  
+  .plan
+    .row
+
+      .plansection.col-md-8
+
+        //THIS IS FOR FREE COMPANIES
+        .plan-stats(ng-if="!origPlan.isValid")
+
+          %p(style="display:inline")
+            You do not have a Count.It PRO Plan.
+          %br
+          %br
+          .btn.btn-primary.outline(ng-click="go('/pricing')" style="background-color:#27c302; color:white; padding-top: 5px; padding-bottom: 5px; padding-left: 20px; padding-right: 20px;") Go PRO
+
+          %br
+          %br
+
+
+        //THIS IS FOR PRO COMPANIES
+        .plan-stats(ng-if="origPlan.isValid")
+           
+          %p(style="display:inline")
+            You have an active
+            %strong
+              Count.It PRO 
+            subscription!
+
+          //%p(ng-show="origPlan.isPromo") It has been paid through a promo code. 
+          %br
+          %p(ng-show="user.cc && origPlan.isPromo")
+            You have a credit card attached to your account.
+      
+          //%p(ng-show="!user.cc && origPlan.isPromo") To fulfill rewards, add a credit card. 
+
+        .panel.panel-default(style="background-color:white; padding:20px;" ng-show="origPlan.isValid")
+            
+          //if you're changing your plan page and you have a plan. i.e. PRO.
+          %div()
+
+            //PLAN DURATION CHANGE FOR PLAN WITH CC
+            .plan-stats()
+              %strong(ng-show="user.cc")
+                Plan:
+                %br
+                %select(ng-model='planSettings.duration' ng-disabled="purch.promoRedeemed || origPlan.n == 'user_tiered'" ng-change="calculateCost(planSettings.duration)")
+                  %option(value='1' ng-hide="1 < origPlan.du")
+                    1 Month
+                  %option(value='3' ng-hide="3 < origPlan.du")
+                    3 Months
+                  %option(value='6')
+                    6 Month
+
+            .plan-stats()
+              %strong 
+                Plan Started: 
+              %br
+              %p
+                {{origPlan.bs|date:'MMMM d, yyyy'}}
+
+            .plan-stats()
+              %strong 
+                Plan Ends: 
+              %br
+              %p
+                {{origPlan.be|date:'MMMM d, yyyy'}}
+            
+            .plan-stats(ng-show="user.cc")
+              %strong 
+                Rate:
+
+              //PLAN RATE IF YOU ARE A PRO GROUP WITHOUT PROMO CODE
+              %strong(ng-show="origPlan.n == 'pro'" )
+                //Plan Rate:
+                %br
+                %p ${{planSettings.price / 100 }} per user per month
+
+      
+              //PLAN RATE IF YOU ARE A PRO GROUP WITH GRANDFATHERED PLAN DATE
+              %strong(ng-show="origPlan.n == 'user_tiered'" )
+                //Plan Rate:
+                %br
+                %p ${{origPlan.nc / 100}} per month                 
+
+            .plan-stats           
+              //REGISTERED USERS (INDEPENDENT OF PLAN TYPE)
+              %strong Current Registered Users:
+              %p
+                {{userCount}}
+
+              //MAX USERS (IF GRANDFATHERED GROUP)
+              %strong(ng-show="origPlan.n == 'user_tiered'") 
+                %br
+                Max Number of Users:
+
+                %br
+                %p
+                  {{origPlan.x}}
+
+            .plan-stats
+              //PROMO PROMO PROMO
+              %div(ng-if="origPlan.isPromo")
+
+                %strong(style="display:inline") On Promo Through:
+                %br
+                %p(style="display:inline")
+                  {{origPlan.pe|date:'MMMM d, yyyy'}}
+
+            .plan-stats
+              %br
+              //AUTO RENEW SETTINGS - HIDDEN ON USER TIERED AND PROMO CODE COMPANIES
+              .checkbox.checkbox-inline(ng-hide="origPlan.n == 'user_tiered'" ng-if="user.cc")
+                %strong(style="padding-left:10px;")
+                  Auto Renew
+                %input#auto-renew-checkbox(type="checkbox" ng-model="planSettings.autoRenew" ng-disabled="purch.promoRedeemed" ) 
+                  %label(for="auto-renew-checkbox")
+
+        %div(ng-show="origPlan.isValid")
+
+          .btn.btn-primary.btn-ci.btn-lg.btn-next(ng-disabled="!durationChanged" ng-click="selectPlan()" ng-if="user.cc" ) 
+            Save Changes
+
+   
+          .btn.btn-default.btn-ci.btn-lg.btn-next#dropper(ng-class="{hidden: durationChanged == false}" ng-click="resetDropdown()" ng-if="user.cc" ) Cancel
+
+          %br
+          %br
+
+          .btn.btn-danger.btn-ci.btn-lg.btn-next(ng-click="promptDrop=true;" ng-show="origPlan.isValid"  ) 
+            Drop Plan  
+          
+          .div(ng-show="promptDrop == true")
+            %div.alert.alert-warning(role="alert")
+              %p
+                Are you sure?
+              // %p(ng-hide="origPlan.isPromo")
+              //  You may be charged an additional fee for cancelling before the end of your Plan.
+              // %p(ng-hide="origPlan.isPromo")
+              //  Please contact info@countit.com for more information.
+              %p
+                %button.btn-ci.btn.btn-danger.btn-sm.btn-ci(ng-click="doDropPlan()") Drop Plan
+                %button.btn-ci.btn.btn-default.btn-sm.btn-ci(ng-click="promptDrop=false") Leave Plan Alone
+
+        %div(ng-show="!user.cc && origPlan.isPromo")
+          %br
+          %p Add a credit card to fund rewards, and change Plan.
+          %a(href="#/boss/payment" )
+            .btn.btn-primary.btn-ci.btn-lg.btn-next
+              Add Credit Card
+
+  .row
+    .col-md-12.center
+      %div.alert.alert-warning(role="alert" ng-show="error")
+        %p
+          {{ error }}
+
+      .load.purchase
+        .row.upgrade-form
+          .col-md-6
+            .alert.alert-danger.animated.fadeIn(ng-show="purch.error")
+              {{purch.error}}
+
+      .row.upgrade(ng-show="purch.promoError")
+        .col-md-6
+          .alert.alert-danger.animated.fadeIn(ng-show="purch.promoError")
+            {{purch.promoError}}
+
+
+
+
+
+

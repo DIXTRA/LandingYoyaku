@@ -1,0 +1,48 @@
+%h1 Metro Challenge History
+
+.row
+  .col-md-12
+
+    %h4 Metro Battles
+    %button.pull-right.btn.btn-xs.btn-default.btn-ci(ng-click="refreshBattles()")
+      %i.fa.fa-refresh
+
+    %p(ng-show="battles.length <= 0")
+      None found!
+
+    %div.clearfix
+    .row(style="border-bottom: 1px solid #000;" ng-repeat="battle in battles")
+      .col-md-12
+        .row
+          .col-md-6
+            %span.komputer {{ battle.ci }}
+        .row
+          .col-md-3.col-md-offset-1
+            battle id
+          .col-md-8
+            %span.komputer {{ battle.nt }}
+        .row
+          .col-md-3.col-md-offset-1
+            ended
+          .col-md-8
+            {{ battle.rs.et|date:'medium' }}
+        .row
+          .col-md-3.col-md-offset-1
+            winner
+          .col-md-8
+            {{ battle.rs.w.name }} / {{ battle.rs.w.score }}pts <br />
+            %span.komputer {{ battle.rs.w.id }}
+        .row
+          .col-md-3.col-md-offset-1
+            runners up
+          .col-md-8
+            -# assuming hi-avg-score type
+            %p(ng-repeat="entry in battle.rs.b")
+              {{$index+1}}. {{ entry.name }} / {{ entry.score }}pts
+        .row
+          .col-md-3.col-md-offset-1
+            prize
+          .col-md-8
+            %p(ng-hide="battle.p") -none-
+            %pre(ng-show="battle.p")
+              {{ battle.p }}

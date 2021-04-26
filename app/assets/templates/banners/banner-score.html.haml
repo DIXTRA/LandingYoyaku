@@ -1,0 +1,29 @@
+%h3.banner-callout-title.blue
+  One team, one dream, one Count It Score!
+
+%p
+  Once you have at least two people in your group signed up, we average the individual scores of each participant to come up with your group's Count It score.
+
+.row
+  .col-sm-4
+    .content-box
+      .big-text
+        {{details.pctBike | number:0}}%
+      .small-text
+        Cycling
+  .col-sm-4
+    .content-box
+      .big-text
+        {{details.pctStep | number:0}}%
+      .small-text
+        Stepping
+  .col-sm-4
+    .content-box
+      .big-text.trend(ng-if="details.dayTrend >= 0")
+        {{details.dayTrend}}
+        %img(ng-src="/images/arrow-up.jpg")
+      .big-text.trend(ng-if="details.dayTrend < 0")
+        {{details.dayTrend}}
+        %img(ng-src="/images/arrow-down.jpg")
+      .small-text
+        Daily Trend

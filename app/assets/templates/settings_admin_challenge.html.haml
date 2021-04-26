@@ -1,0 +1,96 @@
+%h1 Challenge Admin
+
+.row
+  .col-md-12
+
+    %h4 Challenges
+    %button.pull-right.btn.btn-xs.btn-default.btn-ci(ng-click="refreshChallenges()")
+      %i.fa.fa-refresh
+
+    %p(ng-show="challenges.length <= 0")
+      None found!
+
+    %div.clearfix
+    .row(style="border-bottom: 1px solid #000;" ng-repeat="challenge in challenges")
+      .col-md-8
+        %span.sys-label title
+        {{challenge.t}} <br />
+        %span.sys-label dates
+        {{challenge.st|date}} - {{challenge.et|date}} <br />
+        %span.sys-label kind
+        {{challenge.ct}} <br />
+        %span.sys-label status
+        {{challenge.s}} <br />
+      .col-md-4
+        %button.btn.btn-xs.btn-default.btn-ci(ng-class="{ disabled: challenge.s != 'pending' }" ng-click="startChallenge(challenge.nt)")
+          %i.fa.fa-play
+        %button.btn.btn-xs.btn-default.btn-ci(ng-class="{ disabled: challenge.s != 'active' }" ng-click="promptStopChallenge = $index")
+          %i.fa.fa-stop
+        %button.btn.btn-xs.btn-default.btn-ci(ng-class="{ disabled: challenge.s != 'active' }" ng-click="viewChallenge(challenge.nt)")
+          %i.fa.fa-group
+        %button.btn.btn-xs.btn-default.btn-ci(ng-click="deleteChallenge(challenge.nt)")
+          %i.fa.fa-times
+      .row(ng-show="promptStopChallenge == $index")
+        .col-md-12.alert.alert-info
+          Enter stop code:
+          %input(type="text" size="32" ng-model="ux.stopCode")
+          %button.btn.btn-md.btn-danger.btn-ci(ng-click="stopChallenge(challenge.nt)") STOP CHALLENGE
+
+.row
+  .col-md-12
+    %button.btn.btn-md.btn-default.btn-ci(ng-click="ux.showAddForm=1") Add
+
+
+.row(ng-show="ux.showAddForm == 1")
+  .col-md-12
+    %form.form-horizontal(role="form")
+      %form-group
+        %label.col-sm-4.control-label(for="cstarts") Start Date
+        .col-sm-8
+          %input.form-control#cstarts(type="text" ng-model="newch.cstart" placeholder="eg: 2014-10-1")
+      %form-group
+        %label.col-sm-4.control-label(for="cends") End Date
+        .col-sm-8
+          %input.form-control#cends(type="text" ng-model="newch.cend" placeholder="eg: 2014-10-1")
+      %form-group
+        %label.col-sm-4.control-label(for="ctitle") Title
+        .col-sm-8
+          %input.form-control#cstitle(type="text" ng-model="newch.ctitle" placeholder="eg: Current Challenge")
+      %form-group
+        %label.col-sm-4.control-label(for="ctype") Challenge Type
+        .col-sm-8
+          %input.form-control#cends(type="text" ng-model="newch.ctype" placeholder="eg: ci_avg")
+      %form-group
+        .col-sm-offset-4.col-sm-8
+          %button.btn.btn-primary.btn-ci(ng-click="createChallenge()") Create
+
+.row
+  .col-md-12
+    .alert.alert-danger(ng-show="ux.error != null") {{ ux.error }}
+
+.row
+  .col-md-12
+    .alert.alert-success(ng-show="ux.message != null") {{ ux.message }}
+
+
+.row(ng-show="battles.length > 0")
+  .col-md-12
+    %h4 Battles
+    %table.table.table-condensed
+      %thead
+        %th s.
+        %th context
+        %th starts
+        %th ends
+      %tbody
+        %tr(ng-repeat="battle in battles")
+          %td {{battle.s}}
+          %td
+            {{battle.c}} <br />
+            %span.komputer(style="font-size: 12px;") {{battle.ci}}
+          %td {{battle.st | date:'medium' }}
+          %td
+            {{battle.et | date:'medium' }} <br />
+            %span.komputer(style="font-size: 12px;") {{battle.z}}
+    %button.pull-right.btn.btn-xs.btn-default.btn-ci(ng-click="unviewChallenge()")
+      %i.fa.fa-times

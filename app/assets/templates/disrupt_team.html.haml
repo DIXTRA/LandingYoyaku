@@ -1,0 +1,324 @@
+
+.hidden-xs.hidden-sm
+
+  .jumbotron-fluid.cover-img(background-img bg-url="{{office.cv}}" ng-if="imagesReady")
+    .black-overlay
+    .container
+
+      .row.firstrow
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs(ng-if="false")
+          .logo-holder(flow-init="{target: 'api/office/-/update_avatar?kind=avt', testChunks: false, singleFile: true }" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()" flow-complete="reloadPage()" flow-file-error="error()")
+            .logo(background-img bg-url="{{office.a}}" default-img="#{asset_path('/images/guidebot.png')}")
+              /
+                .options-holder.collapse#avt-options(style="")
+                  %span.option( flow-btn flow-attrs="{accept: 'image/*'}")
+                    Update
+                  .divider
+                  %span.option(ng-click="removeLogo()")
+                    Remove
+                .avt-update-holder
+                  %span.update(data-toggle="collapse" data-target="#avt-options")
+                    %i.fa.fa-camera.fa-2x
+
+        .col-lg-3.col-md-3.col-sm-3.hidden-xs()
+          .logo-holder
+            .logo
+              .numberCircle
+                .height_fix
+                .score.something
+                  {{officeScoreToHuman(office_score)}}
+                .title(ng-hide="!office_score")
+                  {{boardViewScoreText}}
+
+        .col-lg-9.col-md-9.col-sm-9.col-xs-12
+          .name-holder
+            .name
+              {{office.n}}
+
+            .cover-update-holder(flow-init="{target: 'api/office/-/update_avatar?kind=cv', testChunks: false, singleFile: true }" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()" flow-complete="reloadPage()" flow-file-error="error()" ng-if="userCanUpdateCover")
+              %span.update
+                .options-holder.collapse.in(ng-if="showCoverBtns")
+                  %span.option(flow-btn flow-attrs="{accept: 'image/*'}")
+                    Update
+                  .divider
+                  %span.option(ng-click="removeCover()")
+                    Remove
+                %i.fa.fa-pencil.fa-2x(ng-click="toggleCoverBtns()")
+
+    .secondrow()
+      .container
+        .row
+          .col-lg-3.col-md-3.col-sm-3.hidden-xs()
+
+          .col-lg-9.col-md-9.col-sm-9.col-xs-12(ng-if="!otherGroup || user.admin" ng-include src="'#{asset_path('shared/button-bar-group.html')}'" )
+
+          .col-lg-9.col-md-9.col-sm-9.col-xs-12(ng-if="otherGroup && !user.admin" ng-include src="'#{asset_path('shared/button-bar.html')}'" )
+
+
+
+
+.hidden-lg.hidden-md()
+  .jumbotron-fluid.cover-img(background-img bg-url="{{office.cv}}" ng-if="imagesReady")
+    .container
+      .name-holder
+        .name
+          {{office.n}}
+
+        /
+          .settings_btn.pull-right(data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample")
+            %i.fa.fa-caret-down.fa-2x()
+          %ul.dropdown-menu.collapse#collapseExample(ng-include src="'#{asset_path('shared/drop_nav_menu.html')}'" ))
+
+
+  .secondrow()
+    .container(ng-if="!otherGroup" ng-include src="'#{asset_path('shared/button-bar-group.html')}'" )
+
+    .container(ng-if="otherGroup" ng-include src="'#{asset_path('shared/button-bar.html')}'" )
+
+.container.main-page-container
+
+  .row(style="" )
+
+    .col-xs-12.col-sm-12.col-md-3.col-lg-3( ng-include src="'#{asset_path('shared/side_nav_menu.html')}'"  )
+
+    .col-md-9.col-lg-9.col-xs-12.col-sm-12(style="position: relative;")
+      .top_card.carousel.slide#rewards_carousel_container(ng-show="!otherGroup && office.hr == false && office.onPlan && rewards.length>0" data-interval="false")
+        .carousel-inner.rewards_carousel(role="listbox" ng-swipe-right="prevChallenge()" ng-swipe-left="nextChallenge()")
+          .item(ng-repeat="reward in rewards" ng-class="{active: $first}")
+            .rewards_bar.total_challenge
+              .row(style="margin-left:0px;margin-right:0px;" )
+                .col-xs-12
+                  .total-challenge-bar
+                    .total-challenge-bar-left
+                      %p.total-challenge-bar-left-title
+                        {{getChallengeGoalType(reward)}}
+                        %span.total-challenge-bar-left-title-success(ng-if="isTotalChallenge &&steps_made >= planChallengeTotal")
+                          SUCCESS! 🎉🎉🎉
+                      -# %p.total-challenge-bar-left-dates(ng-show="hasActiveCustom" )
+                      -#   {{challenge_start_text}} - {{challenge_end_text}}
+                      -# %p.total-challenge-bar-left-dates(ng-hide="hasActiveCustom")
+                      -#   {{currentMonth}}
+
+                    .total-challenge-bar-right
+                      %p.total-challenge-bar-right-steps-text(ng-if="getChallengeGoal(reward) != '' ")
+                        {{getChallengeGoal(reward)}}
+
+                      %div.total-challenge-bar-right-custom-reward(ng-if="!isTotalChallenge && getChallengeGoal(reward) == ''" ng-class="{small: collapsed == true, big: collapsed == false}")
+                        %p.total-challenge-bar-right-custom-reward-text(ng-bind-html="getChallengeReward(reward)")
+                        .total-challenge-bar-right-rewards-fadeout(ng-show="collapsed")
+
+                      .total-challenge-bar-right-steps(ng-if="isTotalChallenge")
+                        %img.total-challenge-bar-right-steps-icon(src="/images/pin.png")
+                        %p.total-challenge-bar-right-steps-text
+                          Total Steps:
+                          %span.total-challenge-bar-right-steps-text-made(ng-class="{'total-challenge-bar-right-steps-text-made--success': steps_made >= planChallengeTotal}")
+                            {{ steps_made | number }}
+                          of {{ planChallengeTotal | number }}
+
+                      %div.total-challenge-bar-right-rewards(ng-class="{small: collapsed == true, big: collapsed == false}" ng-if="isTotalChallenge || getChallengeGoal(reward) != '' ")
+                        %img.total-challenge-bar-right-rewards-icon(src="images/ribbon.png")
+                        %span.total-challenge-bar-right-rewards-title
+                          Reward:
+                        %span.total-challenge-bar-right-rewards-text(ng-bind-html="getChallengeReward(reward)")
+                        .total-challenge-bar-right-rewards-fadeout(ng-show="collapsed")
+
+                    %a.total-challenge-bar-more(ng-click="collapse()")
+                      %i.fa.fa-plus-circle(ng-if="collapsed")
+                      {{collapsed ? "More" : "Less"}}
+
+              .challenge_total_conffeti_exp
+
+        .rewards_controls(ng-show="rewards.length > 1")
+          %span.chevronContainer(ng-click="prevChallenge()")
+            %span.chevron
+          %ol.carousel-indicators
+            %li(ng-repeat="reward in rewards" ng-class="{active: $first}" data-target="#rewards_carousel_container" data-slide-to="{{$index}}")
+          %span.chevronContainer(ng-click="nextChallenge()")
+            %span.chevron.chevronRight
+
+      .top_card.rewards_bar.total_challenge(ng-if="!otherGroup && office.hr == false && (rewards.length==0 || !office.onPlan)")
+        .notpro(ng-if="!office.onPlan" style="" )
+          %span
+            %a(style="font-weight: bold" href="#/pricing")
+              Go PRO
+          %span
+            to enable rewards and teams
+
+        .notpro(ng-if="office.onPlan && rewards.length==0" style="" )
+          %span
+            %a(style="font-weight: bold" href="#/boss/challenges")
+              Your group doesn't have any goals and rewards set up yet. Admins click here!
+
+      .leaderboard-metric
+        %span.metric-label
+          Leaderboard Metric:&nbsp;
+        %span.metric-value
+          %a.item(ng-href="https://countit.uservoice.com/knowledgebase/articles/885528-what-is-my-count-it-score-and-how-are-points-calc")
+            {{office.dfu}}
+
+
+      .leaderboard-holder
+
+        %div(ng-if="(board == 'teams') && office.onPlan && noteams")
+          No teams defined
+
+        %div(ng-hide="!office.onPlan && board == 'teams'")
+
+          .board.team(ng-if="board == 'people'")
+
+            %div(ng-if="boardView == 'imp' && battleDuration == 'Daily'" style="padding-left:15px;text-align:center;")
+              %img(ng-src="/images/bot/bot-confused.png")
+              %p
+                The
+                %strong
+                  Daily % Change
+                leaderboard is not yet available.
+
+            %div(ng-repeat="member in entries" ng-hide="boardView == 'imp' && battleDuration == 'Daily'")
+
+
+              %a.item.animated.fadeIn.me(ng-if="is_board_me(member.name, member.id)" ng-click="handleBarClick($index, 'board')"  score="{{convert_score(member.score)}}")
+
+                .av(s)
+                  %img(ng-src="{{member.pic}}"  )
+
+                .bar-line(ng-style="getBarWidth(member.score)" style="min-width:60px;" )
+
+                  .ranking-name(style="")
+
+                    .nameonboard
+                      %span()
+                        {{$index + 1}}.
+                      %span()
+                        {{member.name}}
+                      %span(style="font-size:12px;" ng-if="captains.includes(member.id)")
+                        admin
+
+                  .score(ng-if="boardView != 'imp'" style="margin-right:-65px;")
+                    {{ convert_score(member.score) }}{{boardScoreSuffix}}
+                  .score(ng-if="boardView == 'imp'" style="margin-right:-65px;")
+                    {{ member.score }}{{boardScoreSuffix}}
+
+              %a.item.animated.fadeIn.notme(ng-if="!is_board_me(member.name, member.id)" ng-click="handleBarClick($index, 'board')"  score="{{member.score}}")
+
+                .av(ng-if="office.hp == true")
+                  %img(ng-src="/images/team-avatar-missing.png" ng-if="user.norm" style=""  )
+                  %img(ng-src="{{member.pic}}" ng-if="!user.norm" style=""  )
+
+                .av(ng-if="office.hp == false" )
+                  %img(ng-src="{{member.pic}}" style=""  )
+
+                .bar-line(ng-style="getBarWidth(member.score)" style="min-width:60px;" )
+
+                  .ranking-name(style="")
+
+                    .nameonboard(ng-if="office.hp == true")
+                      %span()
+                        {{$index + 1}}.
+                      %span(ng-if="!user.norm")
+                        {{member.name}}
+                      %span(ng-if="user.norm")
+                        Anonymous
+                      %span(style="font-size:12px;" ng-if="captains.includes(member.id)")
+                        admin
+
+                    .nameonboard(ng-if="office.hp == false")
+                      %span()
+                        {{$index + 1}}.
+                      %span()
+                        {{member.name}}
+                      %span(style="font-size:12px;" ng-if="captains.includes(member.id)")
+                        admin
+
+                  .score(ng-if="boardView != 'imp'" style="margin-right:-65px;")
+                    {{ convert_score(member.score) }}{{boardScoreSuffix}}
+                  .score(ng-if="boardView == 'imp'" style="margin-right:-65px;")
+                    {{ member.score }}{{boardScoreSuffix}}
+                /%span(ng-if="$index == entries.length - 1" ng-init="triggerResize()")
+
+            .row
+
+              .col-md-4.col-md-offset-2.col-sm-6.col-xs-12(ng-if="!otherGroup && user.am.length == 0" style="padding:10px; text-align: center;")
+                %a.btn.btn-primary.outline(ng-href="/#/me/trackers" style="background: #374048; padding-top: 7px; padding-bottom: 7px; padding-left: 20px; padding-right: 20px;") Get yourself Connected
+
+              .col-md-4.col-sm-6.col-xs-12(ng-if="!otherGroup" style="padding:10px; text-align: center;")
+                %a.btn.btn-primary.outline(ng-href="/#/me/invite" style="background-color:#374048; color:white; padding-top: 7px; padding-bottom: 7px; padding-left: 23px; padding-right: 23px;") Invite More People
+
+
+            .bench(ng-if="bench.length > 0" )
+              .item(score="0" style="margin-bottom:15px;")
+                .desc(ng-if="board == 'people' && bench.length >= 2" )
+                  {{bench.length}} People with no recent data.
+                .desc(ng-if="board == 'factions' && bench.length >= 2" )
+                  {{bench.length}} Teams with no recent data.
+                .desc(ng-if="board == 'people' && bench.length < 2" )
+                  {{bench.length}} Person with no recent data.
+                .desc(ng-if="board == 'factions' && bench.length < 2" )
+                  {{bench.length}} Team with no recent data.
+
+              %div(style="padding-left:10px;" ng-if="!office.hp || !user.norm" )
+                %div(style="display:inline-block; width:75px;" ng-repeat="member in bench"  ng-click="handleBarClick(member.id, 'bench')")
+                  %img.member(ng-if="member.pic == null" ng-src="images/team-avatar-missing.png")
+                  %img.member(ng-if="member.pic != null" ng-src="{{member.pic}}")
+                  %div.minitext {{member.name}}
+
+
+          .board.team(ng-if="board == 'teams'")
+
+            %div(ng-if="battleDuration == 'Daily' " style="padding-left:15px;text-align:center;")
+              %img(ng-src="/images/bot/bot-confused.png")
+              %p
+                %strong
+                  Daily Teams
+                leaderboards are not yet available.
+
+            %div(ng-repeat="member in entries" ng-if="battleDuration != 'Daily' ")
+              %a.item.animated.fadeIn(ng-class="{me: is_board_me(member.name, member.id), notme: !is_board_me(member.name, member.id)}" ng-click="handleBarClick($index, 'board')"  score="{{member.score}}")
+
+                .av()
+                  .teamCircle
+                    .rank {{$index + 1}}
+
+                .bar-line(ng-style="getBarWidth(member.score)" style="min-width:60px;" )
+                  .ranking-name(style="")
+
+                    .nameonboard()
+                      %span(ng-if="member.pic != null")
+                        {{$index + 1}}.
+                      {{member.name}}
+                      %span(style="font-size:12px;" ng-if="captains.includes(member.id)")
+                        admin
+
+                  .score( style="margin-right:-65px;")
+                    {{ convert_score(member.score) }}{{boardScoreSuffix}}
+                /%span(ng-if="$index == entries.length - 1" ng-init="triggerResize()")
+
+              %div(ng-show="revealRow == $index" ng-if="board =='teams' && !office.hp" )
+                .row
+                  .col-md-11.col-md-offset-1.col-sm-11.col-sm-offset-1.col-xs-11.col-xs-offset-1.center(ng-repeat="facMember in factionMembers")
+                    %a.item.faction-member.animated.fadeIn(check-bar-width
+                                      ng-class="{me: is_board_me(facMember.shortName, facMember.id), notme: !is_board_me(facMember.shortName, facMember.id)}"
+                                      ng-click="handleBarClick(facMember.id, 'facDetails')"
+                                      score="{{facMember.score}}")
+                      .av(ng-if="facMember.img != null")
+                        %img(ng-src="{{facMember.img}}" ng-if="facMember.img")
+                      .av(ng-if="facMember.img == null")
+                        .teamCircle
+                          .rank {{$index + 1}}
+
+                      .bar-line(ng-style="getBarWidth(facMember.score)")
+                        .ranking-name
+                          .nameonboard
+                            %span(ng-if="facMember.img != null")
+                              {{$index + 1}}.
+                            {{facMember.shortName}}
+                            %span(style="font-size:12px;" ng-if="captains.includes(facMember.id)")
+                              admin
+
+                        .score(ng-if="boardView != 'imp'" style="margin-right:-65px;")
+                          {{convert_score(facMember.score)}}{{boardScoreSuffix}}
+                        .score(ng-if="boardView == 'imp'" style="margin-right:-65px;")
+                          {{facMember.score}}{{boardScoreSuffix}}
+
+                      /%span(ng-if="$index == board.members.length - 1" ng-init="triggerResize()")
+      .plan-challenge-container

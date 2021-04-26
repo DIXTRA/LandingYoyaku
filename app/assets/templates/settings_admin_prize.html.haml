@@ -1,0 +1,24 @@
+%h1 Prize Admin
+
+.row
+  .col-md-12
+    %table.table.table-condensed
+      %thead
+        %th R?
+        %th I
+        %th (I)Pts
+        %th Card
+        %th Amt
+        %th G
+        %th (G)Pts
+      %tbody
+        %tr(ng-repeat="prize in prizes")
+          %td {{ prize.indiRecurs ? 'I' : '.' }} | {{ prize.groupRecurs ? 'G' : '.' }}
+          %td {{ prize.indiEnable ? 'I' : '' }}
+          %td {{ prize.is }}
+          %td {{ prize.io }}
+          %td {{ prize.indiAmt|currency }}
+          %td {{ prize.groupEnable ? 'G' : '' }}
+          %td {{ prize.gs }}
+          %td
+            %a(href ng-href="#/office/{{prize.oid}}") {{ prize.oid }}
