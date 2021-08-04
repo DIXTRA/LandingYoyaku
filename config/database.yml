@@ -26,11 +26,3 @@ test:
 production:
   <<: *default
   database: yoyakuprod
-
-db_heroku:
-  <<: *default
-  host: ec2-54-147-93-73.compute-1.amazonaws.com
-  username: bdrzorwwhwtnfd
-  password: 2c20902a181af046899c37f139fd8c6159924998e130306364e93b41152fc03b
-  dabase: d7uvc7jaupqcru
-  port: 5432

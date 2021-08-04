@@ -310,6 +310,8 @@ label {
     color: #161925;
 }
 
+.field_with_errors { display: none; }
+
 button {
   border-radius: 0;
 }
@@ -2176,6 +2178,10 @@ progress {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.input-error {
+    border-color:red
+}
 @media (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;
@@ -2596,6 +2602,13 @@ textarea.form-control-lg {
   height: calc(3.5rem + 2px);
   padding: 1rem 0.75rem;
 }
+
+.form-floating > .form-control-error,
+.form-floating > .form-select {
+    height: calc(3.5rem + 2px);
+    padding: 1rem 0.75rem;
+}
+
 .form-floating > label {
   position: absolute;
   top: 0;
@@ -10969,8 +10982,7 @@ section {
 section.cta {
   position: relative;
   padding: 15rem 0;
-  background-image: url("https://source.unsplash.com/5g41N3uRPf8/1500x800");
-  background-position: center;
+  background-image: url("https://a.slack-edge.com/72d9c/img/invites/slack-features.jpg");
   background-size: cover;
 }
 section.cta .cta-content {
