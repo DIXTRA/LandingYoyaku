@@ -12,7 +12,6 @@
     <div class="form-floating mb-4">
       <%= form.text_field :email, class: @order.errors[:email].any? ? 'form-control input-error' : 'form-control', placeholder:"name@example.com", id:"inputEmail"%>
       <label for="inputEmail", class="<%=@order.errors[:email].any? ? 'error_explanation' : 'labelinput' %>"><%= form.label :email %></label>
-
     </div>
     <div class="form-floating mb-4">
       <%= form.text_field :phone, class: "form-control", placeholder:"(123) 456-7890", id:"inputPhone"%>

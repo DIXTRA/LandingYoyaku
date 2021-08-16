@@ -310,7 +310,9 @@ label {
     color: #161925;
 }
 
-.field_with_errors { display: none; }
+.field_with_errors { 
+    display: none;
+ }
 
 button {
   border-radius: 0;
@@ -2182,6 +2184,7 @@ progress {
 .input-error {
     border-color:red
 }
+
 @media (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;
