@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
     def new
       @order = Order.new
+      respond_to do |format|
+        format.js { render "home/javascript" }
+      end
     end
 
     def create
@@ -9,10 +12,13 @@ class OrdersController < ApplicationController
       if @order.save
         flash[:success] = t('flash.order.success')
         OrderMailer.with(order: @order).new_order_email.deliver_later
+        redirect_to root_path and return
       else
         flash[:error] =  t('flash.order.error_html')
       end
-      redirect_to root_path
+      respond_to do |format|
+        format.js { render "home/javascript.js.erb" }
+      end
     end
 
     private

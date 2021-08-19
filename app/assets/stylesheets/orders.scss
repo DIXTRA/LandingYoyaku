@@ -1,3 +1,24 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.error_explanation {
+  color:red;
+}
+
+.error_input {
+  border-color:red;
+}
+
+.label-hide {
+  display:none;
+}
+
+#submit-form {
+  margin-top: 10px
+}
+
+.field_with_errors {
+  display: inline
+}

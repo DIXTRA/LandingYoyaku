@@ -1,48 +1,38 @@
-<div id="page-top">
-<!-- Navigation-->
+<div id="top">
 <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
   <div class="container px-5">
-    <img src="/Ico6.png"
-    <%= image_tag("Yoyaku-02 1.png", :alt => "rss feed", :class => "ico-yoyaku") %>
-    <a class="navbar-brand fw-bold" href="#page-top">Yoyaku</a>
+    <a class="navbar-brand fw-bold" href="#top">
+      <img src="/Ico6.png" class="ico-yoyaku">
+      Yoyaku
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="bi-list"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-      <!--<li class="nav-item"><a class="nav-link me-lg-3" href="#features">Features</a></li>-->
-        <li class="nav-item"> <%= flash[:success] if flash[:success].present? %> </li>
-        <li class="nav-item"> <%= flash[:error] if flash[:error].present? %> </li>
         <li class="nav-item"><a class="nav-link me-lg-3" href="#download">Add to Slack<img src="/slack-logo.png" style="width:25px"></a></li>
         <li class="nav-item"><a class="nav-link me-lg-3" href="#download">GitHub <i class="fa fa-github"></i></a></li>
-
       </ul>
       <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
-                        <span class="d-flex align-items-center">
-                            <span class="small">Contact Us! <i class="fa fa-envelope"></i></span>
-                        </span>
+          <span class="d-flex align-items-center">
+              <span class="small">Contact Us! <i class="fa fa-envelope"></i></span>
+          </span>
       </button>
     </div>
   </div>
 </nav>
-<!-- Mashead header-->
 <header class="masthead">
   <div class="container px-5">
     <div class="row gx-5 align-items-center">
       <div class="col-lg-6">
-        <!-- Mashead text and app badges-->
         <div class="mb-5 mb-lg-0 text-center text-lg-start">
           <h1 class="display-1 lh-1 mb-3">Schedule yourself to go to the office with yoyaku</h1>
           <p class="lead fw-normal text-muted mb-5"> The organization to schedule you to the office has never been so easy</p>
-          <div class="d-flex flex-column flex-lg-row align-items-center">
-<!--            <a class="me-lg-3 mb-4 mb-lg-0" href="#!"><img class="app-badge" src="Yoyaku-02.png" alt="..." /></a>-->
-<!--            <a href="#!"><img class="app-badge" src="assets/img/app-store-badge.svg" alt="..." /></a>-->
-          </div>
+
         </div>
       </div>
       <div class="col-lg-6">
-        <!-- Masthead device mockup feature-->
         <div class="masthead-device-mockup">
           <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -51,19 +41,13 @@
                 <stop class="gradient-end-color" offset="100%"></stop>
               </linearGradient>
             </defs>
-            <circle cx="50" cy="50" r="50"></circle></svg
-          >
+            <circle cx="50" cy="50" r="50"></circle></svg>
           <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
           <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect></svg
         ><circle cx="50" cy="50" r="50"></circle></svg>
           <div class="device-wrapper">
             <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
               <div class="screen bg-black">
-                <!-- PUT CONTENTS HERE:-->
-                <!-- * * This can be a video, image, or just about anything else.-->
-                <!-- * * Set the max width of your media to 100% and the height to-->
-                <!-- * * 100% like the demo example below.-->
-<!--                <video muted="muted" autoplay="" loop="" style="max-width: 100%; height: 100%"><source src="assets/img/demo-screen.mp4" type="video/mp4" /></video>-->
                 <%= video_tag("demo-screen.mp4", :alt => "rss feed", :style =>"max-width: 100%; height: 100%",:autoplay => "") %>
               </div>
             </div>
@@ -73,7 +57,6 @@
     </div>
   </div>
 </header>
-<!-- Quote/testimonial aside-->
 <aside class="text-center bg-gradient-primary-to-secondary">
   <div class="container px-5">
     <div class="row gx-5 justify-content-center">
@@ -83,7 +66,6 @@
     </div>
   </div>
 </aside>
-<!-- App features section-->
 <section id="features" class="feature">
   <div class="container px-5">
     <div class="row gx-5 align-items-center">
@@ -91,7 +73,6 @@
         <div class="container-fluid px-5">
           <div class="row gx-5">
             <div class="col-md-6 mb-5">
-              <!-- Feature item-->
               <div class="text-center">
                 <i class="bi-phone icon-feature text-gradient d-block mb-3"></i>
                 <h3 class="font-alt">Office assistant</h3>
@@ -99,7 +80,6 @@
               </div>
             </div>
             <div class="col-md-6 mb-5">
-              <!-- Feature item-->
               <div class="text-center">
                 <i class="bi-camera icon-feature text-gradient d-block mb-3"></i>
                 <h3 class="font-alt">User friendly</h3>
@@ -110,7 +90,6 @@
           </div>
           <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
-              <!-- Feature item-->
               <div class="text-center">
                 <i class="bi-gift icon-feature text-gradient d-block mb-3"></i>
                 <h3 class="font-alt">Free to Use</h3>
@@ -118,7 +97,6 @@
               </div>
             </div>
             <div class="col-md-6">
-              <!-- Feature item-->
               <div class="text-center">
                 <i class="bi-patch-check icon-feature text-gradient d-block mb-3"></i>
                 <h3 class="font-alt">Open Source</h3>
@@ -129,7 +107,6 @@
         </div>
       </div>
       <div class="col-lg-4 order-lg-0">
-        <!-- Features section device mockup-->
         <div class="features-device-mockup">
           <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -146,10 +123,6 @@
           <div class="device-wrapper">
             <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
               <div class="screen bg-black">
-                <!-- PUT CONTENTS HERE:-->
-                <!-- * * This can be a video, image, or just about anything else.-->
-                <!-- * * Set the max width of your media to 100% and the height to-->
-                <!-- * * 100% like the demo example below.-->
                 <video muted="muted" autoplay="" loop="" style="max-width: 100%; height: 100%"><source src="assets/img/demo-screen.mp4" type="video/mp4" /></video>
               </div>
             </div>
@@ -159,7 +132,6 @@
     </div>
   </div>
 </section>
-<!-- Basic features section-->
 <section class="bg-light">
   <div class="container px-5">
     <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
@@ -173,7 +145,6 @@
     </div>
   </div>
 </section>
-<!-- Call to action section-->
 <section class="cta">
   <div class="cta-content">
     <div class="container px-5">
@@ -181,24 +152,17 @@
         We are a team of enthusiasts devoted to what we do.
         <br />
       </h3>
-<!--      <h3 class="text-white display-1 lh-1 mb-4">-->
-<!--        We are Dixtra!-->
-<!--      </h3>-->
       <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="https://www.dixtra.com" target="_blank">About us</a>
     </div>
   </div>
 </section>
-<!-- App badge section-->
 <section class="bg-gradient-primary-to-secondary" id="download">
   <div class="container px-5">
     <h2 class="text-center text-white font-alt mb-4">Get the app now!</h2>
     <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
-<!--      <a class="me-lg-3 mb-4 mb-lg-0" href="#!"><img class="app-badge" src="assets/img/google-play-badge.svg" alt="..." /></a>-->
-<!--      <a href="#!"><img class="app-badge" src="assets/img/app-store-badge.svg" alt="..." /></a>-->
     </div>
   </div>
 </section>
-<!-- Footer-->
 <footer class="bg-black text-center py-5">
   <div class="container px-5">
     <div class="text-white-50 small">
@@ -206,92 +170,12 @@
     </div>
   </div>
 </footer>
-  <%= render "form"%>
-<!-- Feedback modal-->
-  <%#= form_with model: @order do |form| %>
-<!--    <div>-->
-<!--      <%#= form.label :name %><br>-->
-      <%#= form.text_field :name %>
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <%#= form.label :email %><br>-->
-<!--      <%#= form.text_field :email %><br>-->
-<!--    </div>-->
-
-<!--    <div>-->
-      <%#= form.submit %>
-<!--    </div>-->
-  <%# end %>
-
-
-
-
-<!--<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">-->
-<!--  <div class="modal-dialog modal-dialog-centered">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header bg-gradient-primary-to-secondary p-4">-->
-<!--        <h5 class="modal-title font-alt text-white" id="feedbackModalLabel">Contact Us</h5>-->
-<!--        <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--      </div>-->
-<!--      <div class="modal-body border-0 p-4">-->
-          <%#= form_with model: @order, local: true do |form| %>
-<!--          <div class="form-floating mb-4">-->
-<!--            <input class="form-control" id="inputName" type="text" placeholder="Enter your name..." />-->
-            <%#= form.text_field :name, class: "form-control", placeholder:"Enter your name...", id:"inputName"%>
-<!--            <label for="inputName", class="labelinput"><%#= form.label :name%></label>-->
-<!--          </div>-->
-<!--          <div class="form-floating mb-4">-->
-<!--            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />-->
-            <%#= form.text_field :email, class: "form-control", placeholder:"name@example.com", id:"inputEmail"%>
-<!--            <label for="inputEmail", class="labelinput"><%#= form.label :email %></label>-->
-<!--          </div>-->
-<!--          <div class="form-floating mb-4">-->
-<!--            <input class="form-control" id="inputPhone" type="tel" placeholder="(123) 456-7890" />-->
-            <%#= form.text_field :phone, class: "form-control", placeholder:"(123) 456-7890", id:"inputPhone"%>
-<!--            <label for="inputPhone", class="labelinput"><%#= form.label :phone %></label>-->
-<!--          </div>-->
-<!--          <div class="form-floating mb-4">-->
-<!--            <textarea class="form-control" id="inputMessage" placeholder="Enter your message here..." style="height: 10rem"></textarea>-->
-            <%#= form.text_field :comments, class: "form-control", placeholder:"Enter your message here...", id:"inputMessage"%>
-<!--            <label for="inputMessage", class="labelinput"><%#= form.label :comments %></label>-->
-<!--          </div>-->
-<!--          <div class="d-grid"><%#= form.submit class:"btn btn-primary rounded-pill py-3" %></div>-->
-          <%# end %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!-- Bootstrap core JS-->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" id="modal-form">
+          <%= render "form"%>
+      </div>
+    </div>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<!--<script src="packs/loscripts.js"></script>-->
 </div>
-
-<!--<script>-->
-<!--    window.addEventListener('DOMContentLoaded', event => {-->
-
-<!--        // Activate Bootstrap scrollspy on the main nav element-->
-<!--        const mainNav = document.body.querySelector('#mainNav');-->
-<!--        if (mainNav) {-->
-<!--            new bootstrap.ScrollSpy(document.body, {-->
-<!--                target: '#mainNav',-->
-<!--                offset: 74,-->
-<!--            });-->
-<!--        };-->
-
-<!--        // Collapse responsive navbar when toggler is visible-->
-<!--        const navbarToggler = document.body.querySelector('.navbar-toggler');-->
-<!--        const responsiveNavItems = [].slice.call(-->
-<!--            document.querySelectorAll('#navbarResponsive .nav-link')-->
-<!--        );-->
-<!--        responsiveNavItems.map(function (responsiveNavItem) {-->
-<!--            responsiveNavItem.addEventListener('click', () => {-->
-<!--                if (window.getComputedStyle(navbarToggler).display !== 'none') {-->
-<!--                    navbarToggler.click();-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-
-<!--    });-->
-<!--</script>-->

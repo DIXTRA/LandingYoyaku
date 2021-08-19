@@ -95,6 +95,9 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+    html_tag.html_safe
+  end
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
